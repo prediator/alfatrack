@@ -1,3 +1,4 @@
+
 html, body, form, fieldset, h1, h2, h3, h4, h5, h6, p, pre, blockquote, ul, ol, dl, address {
 	margin:0;
 	padding:0;
@@ -44,11 +45,30 @@ thead th {
 	color:#66a3d3
 }
 
-tbody th {
-    width: 250px;
+tbody th{
     background:#f9fcfe;
 }
 
-th.mini {
-	width: 50px;
+tbody th.t1 {
+    width: 200px;
+}
+
+thead th.time {
+    width: 50px;
+}
+
+#calendar {
+    float: left;
+    width: 300px;
+    height: 400px;
+}
+
+h1{
+    text-align: center;
+}
+
+#status{
+    float: left;
+    width: 300px;
+    height: 400px;
 }
