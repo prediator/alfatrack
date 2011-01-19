@@ -44,6 +44,16 @@
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
         <!--
                 <dependency>
                     <groupId>org.springframework</groupId>
@@ -75,17 +85,6 @@
                 <dependency>
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-orm</artifactId>
-                    <version>${spring.version}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-web</artifactId>
-                    <version>${spring.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-webmvc</artifactId>
                     <version>${spring.version}</version>
                 </dependency>
         -->
@@ -139,7 +138,8 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.3.0.ga</version>  <!-- yes, small letters :-( http://mvnrepository.com/artifact/org.hibernate/hibernate-commons-annotations -->
+            <version>3.3.0.ga</version>
+            <!-- yes, small letters :-( http://mvnrepository.com/artifact/org.hibernate/hibernate-commons-annotations -->
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
