@@ -2,9 +2,9 @@
 
 .DynarchCalendar {
   border: 1px solid #aaa;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
+  /*-moz-user-select: none;*/
+  /*-webkit-user-select: none;*/
+  /*user-select: none;*/
   background: #e8e8e8;
   font: 11px "lucida grande",tahoma,verdana,sans-serif;
   line-height: 14px;
