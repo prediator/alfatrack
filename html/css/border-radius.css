@@ -1,20 +1,20 @@
 /* This is for Gecko-based browsers */
 
 .DynarchCalendar {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
+  /*-moz-border-radius: 5px;*/
+  /*-webkit-border-radius: 5px;*/
+  border-radius: 1em;
 }
 
 .DynarchCalendar-title, .DynarchCalendar-title div {
-  -moz-border-radius: 0 0 4px 4px;
-  -webkit-border-radius: 0 0 4px 4px;
-  border-radius: 0 0 4px 4px;
+  /*-moz-border-radius: 0 0 4px 4px;*/
+  /*-webkit-border-radius: 0 0 4px 4px;*/
+  border-radius: 0;
 }
 
 .DynarchCalendar-topBar {
-  -moz-border-radius: 4px 4px 0 0;
-  -webkit-border-radius: 4px;
+  /*-moz-border-radius: 4px 4px 0 0;*/
+  /*-webkit-border-radius: 4px;*/
   border-radius: 4px 4px 0 0;
 }
 
