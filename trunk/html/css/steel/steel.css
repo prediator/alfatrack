@@ -3,11 +3,11 @@
 }
 
 .DynarchCalendar-topBar {
-  background: url("brushed-steel.jpg") no-repeat 50% 0;
+  background: url("brushed-steel.jpg") no-repeat 40% 0;
 }
 
 .DynarchCalendar-bottomBar {
-  background: url("brushed-steel.jpg") no-repeat 50% 50%;
+  background: url("brushed-steel.jpg") no-repeat 40% 40%;
 }
 
 .DynarchCalendar-hover-title,
