@@ -19,22 +19,6 @@
     <!--p:poolPreparedStatements="true" -->
     <!--p:maxOpenPreparedStatements="10" -->
 
-    <!-- Liquibase -->
-    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="changeLog" value="classpath:liquibase/changelog_main.xml"/>
-
-        <!--
-        contexts specifies the runtime contexts to use.
-        -->
-        <property name="contexts" value="production"/>
-
-        <!--
-        empty map added because otherwise NPE is thrown (looks like liquibase bug)
-        -->
-        <property name="changeLogParameters"><map/></property>
-    </bean>
-
     <!-- Hibernate -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
