@@ -40,7 +40,8 @@
             <version>1.2.0</version>
         </dependency>
 
-        <!-- Spring dependencies -->
+        <!-- Spring -->
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -104,6 +105,8 @@
                 </dependency>
         -->
 
+        <!-- Spring Security -->
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
@@ -132,6 +135,8 @@
                 </dependency>
         -->
 
+        <!-- Hibernate -->
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -148,6 +153,9 @@
             <version>3.3.0.ga</version>
             <!-- yes, small letters "ga" :-( http://mvnrepository.com/artifact/org.hibernate/hibernate-commons-annotations -->
         </dependency>
+
+        <!-- Others -->
+
         <dependency>
             <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
@@ -173,6 +181,12 @@
                     <version>2.0.0</version>
                 </dependency>
         -->
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>2.0.0</version>
+        </dependency>
 
         <dependency>
             <groupId>commons-dbcp</groupId>
