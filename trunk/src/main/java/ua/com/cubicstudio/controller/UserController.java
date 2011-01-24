@@ -2,27 +2,27 @@ package ua.com.cubicstudio.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.cubicstudio.dao.UserDaoHibernate;
 import ua.com.cubicstudio.domain.User;
 
-import java.util.List;
-
 /**
- * User List Controller
+ * User Details Controller
+ *
  * @author Sergii Pogodin
- *         23.01.2011
+ *         24.01.2011
  */
 @Controller
-public class UsersController {
-
+public class UserController {
     @Autowired
     private UserDaoHibernate userDao;
 
-    @RequestMapping("users")
-    public ModelAndView usersModelAndView() {
-        List<User> userList = userDao.findAll();
-        return new ModelAndView("users", "userList", userList);
+    @RequestMapping(value = "/user/{userId}")
+    public ModelAndView findOwner(@PathVariable("userId") String userId, Model model) {
+        User user = userDao.findById(Long.parseLong(userId));
+        return new ModelAndView("user", "user", user);
     }
 }
