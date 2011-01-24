@@ -20,6 +20,15 @@ public class User {
     private String login;
     private String password;
 
+    public User() {
+    }
+
+    public User(String fullName, String login, String password) {
+        this.fullName = fullName;
+        this.login = login;
+        this.password = password;
+    }
+
     public Long getId() {
         return id;
     }
