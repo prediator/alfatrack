@@ -56,3 +56,16 @@ background: #5c68ba;
 color: #FFFFFF;
 text-decoration: none!important;
 }
+
+.month{
+font-size: 12px;
+font-weight: bold;
+text-align: center;
+}
+
+.week {
+border: none;
+font-weight: bold;
+margin-left: 1px;
+margin-right: 2px;
+}
