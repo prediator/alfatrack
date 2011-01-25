@@ -1,0 +1,84 @@
+dl{
+width: 214px;
+height: 182px;
+background: #99ff99;
+margin: 0 auto;
+position:relative;
+}
+dt{
+height: 34px;
+}
+
+dd ul{
+margin: 0;
+}
+
+dd ul li{
+list-style: none;
+margin: 3px 1px 1px 1px;
+width: 26px;
+height: 12px;
+line-height: 12px;
+float: left;
+text-align: right;
+cursor: pointer;
+font-size: 12px;
+}
+dd ul li a{
+display:block;
+width: 26px;
+height: 12px;
+text-decoration: none;
+color: #0000FF;
+}
+
+dd ul li a span{
+display:none;
+}
+
+ul.days li a:hover{
+color: #FBC500;
+text-indent: 0; /*DO NOT REMOVE THIS OTHERWISE HOVER WILL NOT WORK IN IE6!*/
+}
+
+ul.days li a:hover span{
+display: block;
+position: absolute;
+left: 5px;
+top: 150px;
+width: 200px;
+height: 23px;
+overflow: hidden;
+text-align: center;
+background: #5c68ba;
+color: #FFFFFF;
+text-decoration: none!important;
+}
+.month{
+font-size: 12px;
+font-weight: bold;
+text-align: center;
+}
+
+.week li{
+border: none;
+font-weight: bold;
+margin-left: 1px;
+margin-right: 2px;
+}
+
+.days{
+margin-left: 5px;
+height: 98px;
+*height: 85px;
+width: 205px;
+}
+
+#descr{
+clear: both;
+color: #FFFFFF;
+font-size: 12px;
+text-align: center;
+padding-top: 3px;
+height: 23px;
+}
