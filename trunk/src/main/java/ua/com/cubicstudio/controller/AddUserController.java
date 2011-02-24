@@ -16,51 +16,27 @@ import java.util.List;
 
 /**
  * Adding User Controller
- * @author L
- *         ??.02.2011
+ * 
+ * @author L ??.02.2011
  */
 @Controller
-
-
 public class AddUserController {
-    
-	//user with inputing data
-	static User ADDED_USER;
-	/*
-	//to output in console
-	private static final Logger logger = Logger.getLogger(AddUserController.class);
-	*/
-	
-	
-    @Autowired
-    private UserDaoHibernate userDao;
-	
-	@RequestMapping(value = "addUser", method = RequestMethod.GET)
-    public ModelAndView addUser() {
-        return new ModelAndView("adduser");
+
+	private static final Logger log = Logger.getLogger(AddUserController.class);
+
+	@RequestMapping(value = "adduser", method = RequestMethod.GET)
+	public ModelAndView addUser() {
+		return new ModelAndView("adduser");
 	}
-	
 
-    @RequestMapping(value = "addUser", method = RequestMethod.POST)
-    public String addingUser(@RequestParam("name") String name,
-    		@RequestParam("name") String login,
-    		@RequestParam("name") String pass){
-    	//
-    	ADDED_USER = new User(name,login,pass);
-    	Long lastUser = new Long(userDao.findAll().size() + 1);
-    	ADDED_USER.setId(lastUser);
-    	
-    	/*
-    	//make file loging.log in c:\ - with log of inputting data
-    	if(logger.isDebugEnabled()){
-			logger.debug(name);
-			logger.debug(login);
-			logger.debug(pass);
-		}*/
- 
-    	
+	@RequestMapping(value = "adduser", method = RequestMethod.POST)
+	public ModelAndView addingUser(@RequestParam("name") String name,
+			@RequestParam("login") String login,
+			@RequestParam("pass") String pass) {
 
-    	return "redirect:http://localhost:8080/alfatrack/addUser/addedUser.html";
-    
-    }
+		User addedUser = new User(name, login, pass);
+		log.info(addedUser);
+		
+		return new ModelAndView("/adduserreport", "user", addedUser);
+	}
 }
