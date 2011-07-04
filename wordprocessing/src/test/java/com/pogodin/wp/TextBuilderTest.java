@@ -3,6 +3,7 @@ package com.pogodin.wp;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TextBuilderTest {
@@ -30,6 +31,7 @@ public class TextBuilderTest {
 		assertEquals(initialText, result);
 	}
 	
+	@Ignore
 	@Test
 	public void shouldReturnSortedWordsOnSunnyDayScenario() {
 		String initialText = "This is Sparta.\r\n\t When the party is over you have no way to go.";
