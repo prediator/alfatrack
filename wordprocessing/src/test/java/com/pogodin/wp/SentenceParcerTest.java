@@ -1,15 +1,14 @@
 package com.pogodin.wp;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.pogodin.wp.items.Sentence;
-import com.pogodin.wp.items.Word;
 
 public class SentenceParcerTest {
 

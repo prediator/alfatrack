@@ -1,13 +1,11 @@
 package com.pogodin.wp;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.pogodin.wp.items.Letter;
 import com.pogodin.wp.items.Mark;
 import com.pogodin.wp.items.Sentence;
-import com.pogodin.wp.items.SentencePart;
 import com.pogodin.wp.items.Space;
 import com.pogodin.wp.items.Word;
 
@@ -32,7 +30,6 @@ public class SentenceParser {
 		WORD, SPACE
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Sentence> parseSentences(String text) {
 		List<Sentence> sentences = new ArrayList<Sentence>();
 		Sentence sentence = new Sentence();
