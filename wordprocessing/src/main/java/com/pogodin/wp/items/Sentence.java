@@ -3,49 +3,27 @@ package com.pogodin.wp.items;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sentence {
+public class Sentence implements Cloneable {
 
-	private List<SentencePart> parts = new ArrayList<SentencePart>();
-	private List<Integer> wordIndices = new ArrayList<Integer>(); 
+	private List<SentencePart> parts;
+	private List<Integer> wordIndices; 
 
 	public Sentence() {
+		clear();
 	}
-
-	public void setSentence(String input) {
-		input = replaceWhitespaceCharactersBySpace(input);
-
-		List<Letter> curWord = new ArrayList<Letter>();
-		
-		for (int i = 0; i < input.length(); i++) {
-			char cur = input.charAt(i);
-			if (Character.isLetter(cur)) {
-				curWord.add(new Letter(cur));
-			} else {
-				createNewWord(curWord);
-
-				if (Character.isSpaceChar(cur)) {
-					parts.add(new Space());
-				} else {
-					parts.add(new Mark(cur));
-				}
-			}
+	
+	public Sentence(Sentence sentence){
+		parts = new ArrayList<SentencePart>(sentence.parts);
+		wordIndices = new ArrayList<Integer>(sentence.wordIndices);
+	}
+	
+	public void addSentencePart(SentencePart part) {
+		if (part.isWord()) {
+			wordIndices.add(parts.size());
 		}
-		
-		if (!curWord.isEmpty()) {
-			parts.add(new Word(curWord));
-		}
+		parts.add(part);
 	}
-
-	private void createNewWord(List<Letter> curWord) {
-		wordIndices.add(parts.size());
-		parts.add(new Word(curWord));
-		curWord = new ArrayList<Letter>();
-	}
-
-	String replaceWhitespaceCharactersBySpace(String input) {
-		return input.replaceAll("\\s+", " ");
-	}
-
+	
 	public SentencePart get(int index) {
 		return parts.get(index);
 	}
@@ -58,5 +36,14 @@ public class Sentence {
 			result += part.toString();
 		}
 		return result;
+	}
+
+	public int partsCount() {
+		return parts.size();
+	}
+
+	public void clear() {
+		parts = new ArrayList<SentencePart>();
+		wordIndices = new ArrayList<Integer>(); 
 	}
 }

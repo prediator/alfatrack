@@ -91,4 +91,9 @@ public class Word implements SentencePart {
 
 		return res;
 	}
+
+	@Override
+	public boolean isWord() {
+		return true;
+	}
 }
