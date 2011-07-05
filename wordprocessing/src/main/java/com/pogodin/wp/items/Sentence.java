@@ -22,7 +22,7 @@ public class Sentence {
 			}
 			else{
 				parts.add(new Word(curWord));
-				curWord.clear();
+				curWord = new ArrayList<Letter>();
 				
 				if(Character.isSpaceChar(cur)){
 					parts.add(new Space());
@@ -35,5 +35,17 @@ public class Sentence {
 		if(!curWord.isEmpty()){
 			parts.add(new Word(curWord));
 		}
+	}
+	public SentencePart get(int index){
+		return parts.get(index);
+	}
+	@Override
+	public String toString(){
+		String result = "";
+		
+		for(SentencePart part: parts){
+			result += part.toSting();
+		}
+		return result;
 	}
 }

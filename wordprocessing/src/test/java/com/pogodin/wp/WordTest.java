@@ -9,11 +9,13 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.pogodin.wp.items.Letter;
+import com.pogodin.wp.items.SentencePart;
 import com.pogodin.wp.items.Word;
 
 public class WordTest {
 
 	private Word word;
+	private SentencePart part;
 	
 	@Before
 	public void setUp(){

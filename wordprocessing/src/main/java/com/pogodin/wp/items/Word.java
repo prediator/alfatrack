@@ -16,8 +16,14 @@ public class Word implements SentencePart {
 	public Word(String text, int begin, int end) {
 		setLetters(text,begin,end);
 	}
+	public Word(String text) {
+		setLetters(text,0,text.length());
+	}
 	
 	public void setLetters(String text, int begin, int end){
+		if(end > text.length())
+			end = text.length();
+			
 		char[] chars = text.substring(begin, end).toCharArray(); //TODO move substring to invoker
 		
 		for (char c : chars) {
@@ -65,6 +71,7 @@ public class Word implements SentencePart {
 		return letters.get(i);
 	}
 
+	@Override
 	public String toSting() {
 		String res = "";
 
