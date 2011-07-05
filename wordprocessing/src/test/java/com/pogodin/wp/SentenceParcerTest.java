@@ -2,6 +2,7 @@ package com.pogodin.wp;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -29,6 +30,8 @@ public class SentenceParcerTest {
 		assertEquals(1, sentences.size());
 		assertEquals(1, sentences.get(0).partsCount());
 		assertEquals("theword", sentences.get(0).get(0).toString());
+		
+		//TODO add getWords check
 	}
 	
 	@Test
@@ -47,6 +50,8 @@ public class SentenceParcerTest {
 		assertEquals(" ", sentences.get(0).get(3).toString());
 		assertEquals("sparta", sentences.get(0).get(4).toString());
 		assertEquals("!", sentences.get(0).get(5).toString());
+		
+		//TODO add getWords check
 	}
 
 	@Test
@@ -70,5 +75,7 @@ public class SentenceParcerTest {
 		assertEquals(" ", sentences.get(1).get(4).toString());
 		assertEquals("sparta", sentences.get(1).get(5).toString());
 		assertEquals("!", sentences.get(1).get(6).toString());
+		
+		//TODO add getWords check
 	}
 }

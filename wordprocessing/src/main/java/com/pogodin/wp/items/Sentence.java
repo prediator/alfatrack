@@ -6,7 +6,7 @@ import java.util.List;
 public class Sentence implements Cloneable {
 
 	private List<SentencePart> parts;
-	private List<Integer> wordIndices; 
+	private List<Integer> wordIndices;
 
 	public Sentence() {
 		clear();
@@ -45,5 +45,10 @@ public class Sentence implements Cloneable {
 	public void clear() {
 		parts = new ArrayList<SentencePart>();
 		wordIndices = new ArrayList<Integer>(); 
+	}
+	
+	public List<Word> getWords() {
+		//TODO implement
+		return null;
 	}
 }
