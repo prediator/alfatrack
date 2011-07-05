@@ -7,10 +7,10 @@ public class Sentence {
 
 	List<SentencePart> parts;
 	
-	public Sentence(String input){
+	public Sentence(){
 		parts = new ArrayList<SentencePart>();
-		
 	}
+	
 	public void setSentence(String input){
 		input = input.replaceAll("[\\r,\\n,\\t, ]+", " ");
 		
