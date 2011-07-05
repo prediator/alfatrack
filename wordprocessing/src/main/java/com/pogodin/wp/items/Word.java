@@ -9,23 +9,26 @@ public class Word implements SentencePart {
 	public Word(List<Letter> input) {
 		letters = input;
 	}
-	public Word(){
-		
+
+	public Word() {
 	}
 
 	public Word(String text, int begin, int end) {
-		setLetters(text,begin,end);
+		setLetters(text, begin, end);
 	}
+
 	public Word(String text) {
-		setLetters(text,0,text.length());
+		setLetters(text, 0, text.length());
 	}
-	
-	public void setLetters(String text, int begin, int end){
-		if(end > text.length())
+
+	public void setLetters(String text, int begin, int end) {
+		if (end > text.length()) {
 			end = text.length();
-			
-		char[] chars = text.substring(begin, end).toCharArray(); //TODO move substring to invoker
-		
+		}
+
+		// TODO move substring to invoker
+		char[] chars = text.substring(begin, end).toCharArray();
+
 		for (char c : chars) {
 			letters.add(new Letter(c));
 		}
@@ -43,20 +46,7 @@ public class Word implements SentencePart {
 		return letters.size();
 	}
 
-	public boolean equals(Word input) {
-		if (input.length() != letters.size()) {
-			return false;
-		}
-		
-		for (int i = 0; i < letters.size(); i++) {
-			if (input.getLetters().get(i).equals(letters.get(i))) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	public int countLetterInputTimes(Letter letter) {
+	public int countLettersInWord(Letter letter) {
 		int value = 0;
 
 		for (Letter l : letters) {
@@ -72,7 +62,26 @@ public class Word implements SentencePart {
 	}
 
 	@Override
-	public String toSting() {
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		
+		if (!(obj instanceof Word)) {
+			return false;
+		}
+		
+		Word other = (Word) obj;
+		return letters == null ? other.letters == null : letters.equals(other.letters);
+	}
+	
+	@Override
+	public int hashCode() {
+		return letters == null ? 0 : letters.hashCode();
+	}
+	
+	@Override
+	public String toString() {
 		String res = "";
 
 		for (Letter s : letters) {

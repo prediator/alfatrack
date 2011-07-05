@@ -1,14 +1,13 @@
-package com.pogodin.wp;
+package com.pogodin.wp.items;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 import com.pogodin.wp.items.Letter;
 import com.pogodin.wp.items.Mark;
 import com.pogodin.wp.items.Space;
 import com.pogodin.wp.items.Symbol;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
 
 public class SymbolTest {
 

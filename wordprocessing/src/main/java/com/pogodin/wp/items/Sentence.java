@@ -12,7 +12,7 @@ public class Sentence {
 	}
 	
 	public void setSentence(String input){
-		input = input.replaceAll("[\\r,\\n,\\t, ]+", " ");
+		input = replaceWhitespaceCharactersBySpace(input);
 		
 		List<Letter> curWord = new ArrayList<Letter>(); 
 		
@@ -36,15 +36,21 @@ public class Sentence {
 			parts.add(new Word(curWord));
 		}
 	}
+
+	String replaceWhitespaceCharactersBySpace(String input) {
+		return input.replaceAll("\\s+", " ");
+	}
+	
 	public SentencePart get(int index){
 		return parts.get(index);
 	}
+	
 	@Override
 	public String toString(){
 		String result = "";
 		
 		for(SentencePart part: parts){
-			result += part.toSting();
+			result += part.toString();
 		}
 		return result;
 	}
