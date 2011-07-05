@@ -17,6 +17,7 @@ public class Word implements SentencePart {
 			letters.add(new Letter(c));
 		}
 	}
+	
 
 	public List<Letter> getLetters() {
 		return letters;
