@@ -9,15 +9,21 @@ public class Word implements SentencePart {
 	public Word(List<Letter> input) {
 		letters = input;
 	}
+	public Word(){
+		
+	}
 
 	public Word(String text, int begin, int end) {
+		setLetters(text,begin,end);
+	}
+	
+	public void setLetters(String text, int begin, int end){
 		char[] chars = text.substring(begin, end).toCharArray(); //TODO move substring to invoker
 		
 		for (char c : chars) {
 			letters.add(new Letter(c));
 		}
 	}
-	
 
 	public List<Letter> getLetters() {
 		return letters;
