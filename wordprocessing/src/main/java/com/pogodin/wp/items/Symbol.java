@@ -1,5 +1,9 @@
 package com.pogodin.wp.items;
 
+/**
+ * Contains a symbol, which is not necessary a part of word. 
+ * @author elias
+ */
 public abstract class Symbol implements Comparable<Symbol> {
 	private char symbol;
 

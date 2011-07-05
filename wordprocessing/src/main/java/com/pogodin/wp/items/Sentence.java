@@ -5,51 +5,56 @@ import java.util.List;
 
 public class Sentence {
 
-	List<SentencePart> parts;
-	
-	public Sentence(){
-		parts = new ArrayList<SentencePart>();
+	private List<SentencePart> parts = new ArrayList<SentencePart>();
+	private List<Integer> wordIndices = new ArrayList<Integer>(); 
+
+	public Sentence() {
 	}
-	
-	public void setSentence(String input){
+
+	public void setSentence(String input) {
 		input = replaceWhitespaceCharactersBySpace(input);
+
+		List<Letter> curWord = new ArrayList<Letter>();
 		
-		List<Letter> curWord = new ArrayList<Letter>(); 
-		
-		for(char cur : input.toCharArray()){
-			if(Character.isLetter(cur)){
+		for (int i = 0; i < input.length(); i++) {
+			char cur = input.charAt(i);
+			if (Character.isLetter(cur)) {
 				curWord.add(new Letter(cur));
-			}
-			else{
-				parts.add(new Word(curWord));
-				curWord = new ArrayList<Letter>();
-				
-				if(Character.isSpaceChar(cur)){
+			} else {
+				createNewWord(curWord);
+
+				if (Character.isSpaceChar(cur)) {
 					parts.add(new Space());
-				}
-				else{
+				} else {
 					parts.add(new Mark(cur));
 				}
 			}
 		}
-		if(!curWord.isEmpty()){
+		
+		if (!curWord.isEmpty()) {
 			parts.add(new Word(curWord));
 		}
+	}
+
+	private void createNewWord(List<Letter> curWord) {
+		wordIndices.add(parts.size());
+		parts.add(new Word(curWord));
+		curWord = new ArrayList<Letter>();
 	}
 
 	String replaceWhitespaceCharactersBySpace(String input) {
 		return input.replaceAll("\\s+", " ");
 	}
-	
-	public SentencePart get(int index){
+
+	public SentencePart get(int index) {
 		return parts.get(index);
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		String result = "";
-		
-		for(SentencePart part: parts){
+
+		for (SentencePart part : parts) {
 			result += part.toString();
 		}
 		return result;

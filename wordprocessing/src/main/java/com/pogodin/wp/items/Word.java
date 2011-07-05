@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Word implements SentencePart {
-	private List<Letter> letters = new ArrayList<Letter>();;
-
-	public Word(List<Letter> input) {
-		letters = input;
-	}
+	private List<Letter> letters;
 
 	public Word() {
+		this((List<Letter>) null);
+	}
+
+	public Word(List<Letter> input) {
+		letters = (input != null) ? input : new ArrayList<Letter>();
 	}
 
 	public Word(String text, int begin, int end) {
@@ -66,20 +67,20 @@ public class Word implements SentencePart {
 		if (this == obj) {
 			return true;
 		}
-		
+
 		if (!(obj instanceof Word)) {
 			return false;
 		}
-		
+
 		Word other = (Word) obj;
 		return letters == null ? other.letters == null : letters.equals(other.letters);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return letters == null ? 0 : letters.hashCode();
 	}
-	
+
 	@Override
 	public String toString() {
 		String res = "";
