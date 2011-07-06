@@ -7,31 +7,39 @@ import com.pogodin.wp.items.Letter;
 import com.pogodin.wp.items.Word;
 
 public class WordComparator implements Comparator<Word> {
+	private Letter usingLetter;
+	
+	public WordComparator(Letter a) {
+		usingLetter = a;
+	}
+	
 	@Override
-	public int compare(Word first, Word second) {
-		if (first.equals(second))
+	public int compare(Word first, Word other) {
+		if (first.equals(other))
 			return 0;
+		if(first.countLettersInWord(usingLetter) > other.countLettersInWord(usingLetter))
+			return 1;
+		if(first.countLettersInWord(usingLetter) < other.countLettersInWord(usingLetter))
+			return -1;
 		else {
-			int minLen = first.length();
-			boolean isSecondLonger = true;
-			if (second.length() < minLen) {
-				minLen = second.length();
-				isSecondLonger = false;
-			}
-			List<Letter> firstMain = first.getLetters();
-			List<Letter> secondMain = second.getLetters();
-			int current;
+			
+			int minLen = first.length() < other.length()? first.length() : other.length();
+			
+			
+			List<Letter> firstLetters = first.getLetters();
+			List<Letter> otherLetters = other.getLetters();
+			
 
 			for (int i = 0; i < minLen; i++) {
-				current = firstMain.get(i).compareTo(secondMain.get(i));
+				int current = firstLetters.get(i).compareTo(otherLetters.get(i));
 				if (current != 0) {
 					return current;
 				}
 			}
-			if (isSecondLonger) {
-				return 1;
+			if (minLen < first.length()) {
+				return -1;
 			}
-			return -1;
+			return 1;
 		}
 	}
 }

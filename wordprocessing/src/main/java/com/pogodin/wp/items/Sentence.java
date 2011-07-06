@@ -48,7 +48,10 @@ public class Sentence implements Cloneable {
 	}
 	
 	public List<Word> getWords() {
-		//TODO implement
-		return null;
+		List<Word> result = new ArrayList<Word>();
+		for (Integer i : wordIndices) {
+			result.add((Word) parts.get(i));
+		}
+		return result;
 	}
 }

@@ -1,5 +1,11 @@
 package com.pogodin.wp;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.pogodin.wp.items.Sentence;
+import com.pogodin.wp.items.Word;
+
 public class TextBuilder {
 	private String text;
 	private Character symbol;
@@ -15,7 +21,15 @@ public class TextBuilder {
 	public String convertToSortedWords() {
 		if (symbol == null || "".equals(text)) {
 			return text;
+			
 		}
+		SentenceParser parser = SentenceParser.getInstance();
+		List<Word> wordPack = new ArrayList<Word>();
+
+		for(Sentence cur : parser.parseSentences(text)){
+			wordPack.addAll(cur.getWords());
+		}
+		
 		
 		return null;
 	}

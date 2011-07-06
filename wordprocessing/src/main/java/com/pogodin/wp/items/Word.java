@@ -23,11 +23,11 @@ public class Word implements SentencePart {
 	}
 
 	public void setLetters(String text, int begin, int end) {
+		letters = new ArrayList<Letter>();
 		if (end > text.length()) {
 			end = text.length();
 		}
 
-		// TODO move substring to invoker
 		char[] chars = text.substring(begin, end).toCharArray();
 
 		for (char c : chars) {
