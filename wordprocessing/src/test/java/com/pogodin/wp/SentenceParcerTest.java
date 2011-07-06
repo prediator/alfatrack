@@ -30,7 +30,7 @@ public class SentenceParcerTest {
 		assertEquals(1, sentences.get(0).partsCount());
 		assertEquals("theword", sentences.get(0).get(0).toString());
 		
-		//TODO add getWords check
+		assertEquals("theword", sentences.get(0).getWords().get(0).toString());
 	}
 	
 	@Test
@@ -50,7 +50,9 @@ public class SentenceParcerTest {
 		assertEquals("sparta", sentences.get(0).get(4).toString());
 		assertEquals("!", sentences.get(0).get(5).toString());
 		
-		//TODO add getWords check
+		assertEquals("This", sentences.get(0).getWords().get(0).toString());
+		assertEquals("is", sentences.get(0).getWords().get(1).toString());
+		assertEquals("sparta", sentences.get(0).getWords().get(2).toString());
 	}
 
 	@Test
@@ -75,6 +77,10 @@ public class SentenceParcerTest {
 		assertEquals("sparta", sentences.get(1).get(5).toString());
 		assertEquals("!", sentences.get(1).get(6).toString());
 		
-		//TODO add getWords check
+		assertEquals("Madness", sentences.get(0).getWords().get(0).toString());
+		assertEquals("This", sentences.get(1).getWords().get(0).toString());
+		assertEquals("is", sentences.get(1).getWords().get(1).toString());
+		assertEquals("sparta", sentences.get(1).getWords().get(2).toString());
+		
 	}
 }

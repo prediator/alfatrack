@@ -12,15 +12,17 @@ public class WordComparator implements Comparator<Word> {
 	public WordComparator(Letter a) {
 		usingLetter = a;
 	}
+	public WordComparator() {
+		
+	}
 	
 	@Override
 	public int compare(Word first, Word other) {
 		if (first.equals(other))
 			return 0;
-		if(first.countLettersInWord(usingLetter) > other.countLettersInWord(usingLetter))
-			return 1;
-		if(first.countLettersInWord(usingLetter) < other.countLettersInWord(usingLetter))
-			return -1;
+		if(first.countLettersInWord(usingLetter) != other.countLettersInWord(usingLetter))
+			return -(first.countLettersInWord(usingLetter) - other.countLettersInWord(usingLetter));
+		
 		else {
 			
 			int minLen = first.length() < other.length()? first.length() : other.length();
@@ -33,13 +35,13 @@ public class WordComparator implements Comparator<Word> {
 			for (int i = 0; i < minLen; i++) {
 				int current = firstLetters.get(i).compareTo(otherLetters.get(i));
 				if (current != 0) {
-					return current;
+					return -current;
 				}
 			}
 			if (minLen < first.length()) {
-				return -1;
+				return 1;
 			}
-			return 1;
+			return -1;
 		}
 	}
 }

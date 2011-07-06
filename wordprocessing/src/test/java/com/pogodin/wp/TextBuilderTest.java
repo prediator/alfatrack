@@ -31,7 +31,6 @@ public class TextBuilderTest {
 		assertEquals(initialText, result);
 	}
 	
-	@Ignore
 	@Test
 	public void shouldReturnSortedWordsOnSunnyDayScenario() {
 		String initialText = "This is Sparta.\r\n\t When the party is over you have no way to go.";
@@ -39,6 +38,6 @@ public class TextBuilderTest {
 		builder.setSymbol('a');
 		String result = builder.convertToSortedWords();
 		
-		assertEquals("Sparta have party way go is is is no over the This to you When", result);
+		assertEquals("Sparta have party way go is is no over the This to When you ", result);
 	}
 }

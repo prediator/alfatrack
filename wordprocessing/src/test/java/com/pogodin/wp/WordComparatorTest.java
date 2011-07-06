@@ -18,22 +18,28 @@ public class WordComparatorTest {
 	@Test
 	public void wordsShouldSortedByLetter(){
 		
+		String s1 = "this";
+		String s2 = "to";
+		String s3 = "when";
+		String s4 = "you";
+		
+		
 		List<Word> testingWords = new ArrayList<Word>();
-		testingWords.add(new Word("apple"));
-		testingWords.add(new Word("aaas"));
-		testingWords.add(new Word("apla"));
-		testingWords.add(new Word("apply"));
+		testingWords.add(new Word(s1));
+		testingWords.add(new Word(s3));
+		testingWords.add(new Word(s4));
+		testingWords.add(new Word(s2));
 		
 		WordComparator compar = new WordComparator(new Letter('a'));
 		Collections.sort(testingWords, compar);
 
 		List<Word> expected = new ArrayList<Word>();
-		expected.add(new Word("apply"));
-		expected.add(new Word("apple"));
-		expected.add(new Word("apla"));
-		expected.add(new Word("aaas"));
+		expected.add(new Word(s1));
+		expected.add(new Word(s2));
+		expected.add(new Word(s3));
+		expected.add(new Word(s4));
 		
-		assertEquals(testingWords, expected);
+		assertEquals(testingWords.toString(), expected.toString());
 		
 	}
 	
