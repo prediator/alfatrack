@@ -6,31 +6,34 @@ import java.util.List;
 import com.pogodin.wp.items.Letter;
 import com.pogodin.wp.items.Word;
 
-public class WordComparator implements Comparator<Word> {
+public class WordConverter implements Comparator<Word> {
 	private Letter usingLetter;
-	
-	public WordComparator(Letter a) {
+
+	public WordConverter(Letter a) {
 		usingLetter = a;
 	}
-	public WordComparator() {
-		
+
+	public WordConverter() {
+
 	}
-	
+
 	@Override
 	public int compare(Word first, Word other) {
-		if (first.equals(other))
+		if (first.equals(other)) {
 			return 0;
-		if(first.countLettersInWord(usingLetter) != other.countLettersInWord(usingLetter))
-			return -(first.countLettersInWord(usingLetter) - other.countLettersInWord(usingLetter));
-		
+		}
+		if (first.countLettersInWord(usingLetter) != other.countLettersInWord(usingLetter))
+			// todo remove round braces+
+			return other.countLettersInWord(usingLetter) - first.countLettersInWord(usingLetter);
+
 		else {
-			
-			int minLen = first.length() < other.length()? first.length() : other.length();
-			
-			
+			// TODO use Math.min
+			int minLen = first.length() < other.length() ? first.length() : other.length();
+
+			// TODO remove all the following and replace by
+			// first.toString().compareTo(second.toString())
 			List<Letter> firstLetters = first.getLetters();
 			List<Letter> otherLetters = other.getLetters();
-			
 
 			for (int i = 0; i < minLen; i++) {
 				int current = firstLetters.get(i).compareTo(otherLetters.get(i));

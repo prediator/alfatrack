@@ -30,7 +30,7 @@ public class WordComparatorTest {
 		testingWords.add(new Word(s4));
 		testingWords.add(new Word(s2));
 		
-		WordComparator compar = new WordComparator(new Letter('a'));
+		WordConverter compar = new WordConverter(new Letter('a'));
 		Collections.sort(testingWords, compar);
 
 		List<Word> expected = new ArrayList<Word>();
@@ -39,7 +39,8 @@ public class WordComparatorTest {
 		expected.add(new Word(s3));
 		expected.add(new Word(s4));
 		
-		assertEquals(testingWords.toString(), expected.toString());
+		//TODO replace to assertArraysEqual
+		assertEquals(expected.toString(), testingWords.toString());
 		
 	}
 	

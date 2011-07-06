@@ -6,12 +6,12 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class TextBuilderTest {
-	private TextBuilder builder;
+public class TextConverterTest {
+	private TextConverter builder;
 	
 	@Before
 	public void setUp() {
-		builder = new TextBuilder();
+		builder = new TextConverter();
 	}
 
 	@Test
@@ -39,5 +39,20 @@ public class TextBuilderTest {
 		String result = builder.convertToSortedWords();
 		
 		assertEquals("Sparta have party way go is is no over the This to When you ", result);
+	}
+	@Test
+	public void shouldGetTextFromFileAndConvertItToAnotherOne(){
+		
+		String input = "inp.txt";
+		String output = "out.txt";
+		String fileContent = "some text will be here. Ok? byebye";
+		String expected = "byebye be here Ok some text will ";
+		
+		FileReaderWriter.writeFile(fileContent, input);
+		
+		TextConverter tc = new TextConverter();
+		tc.readWriteConvert(input, output, 'b');
+		
+		assertEquals(expected, FileReaderWriter.readFile(output));
 	}
 }

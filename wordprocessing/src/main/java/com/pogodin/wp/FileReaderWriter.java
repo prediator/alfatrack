@@ -10,17 +10,7 @@ import org.apache.commons.io.IOUtils;
 
 public class FileReaderWriter {
 
-	private static FileReaderWriter inner = new FileReaderWriter();
-
-	private FileReaderWriter() {
-
-	}
-
-	public static FileReaderWriter getInstance() {
-		return inner;
-	}
-
-	public String readFile(String filePath) {
+	public static  String readFile(String filePath) {
 
 		try {
 			FileReader reader = new FileReader(filePath);
@@ -30,22 +20,20 @@ public class FileReaderWriter {
 				IOUtils.closeQuietly(reader);
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("file " + filePath + " Not find");
+			System.err.println("file " + filePath + " Not find");
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 		return "";
-
 	}
 
-	public void writeFile(String fileContent, String filePath){
+	public static void writeFile(String fileContent, String filePath){
 
 		try {
 			File file = new File(filePath);
 
 			if (file.exists()){
 				file.delete();
-				file = new File(filePath);
 			}
 				file.createNewFile();
 
