@@ -11,9 +11,8 @@ import com.pogodin.wp.items.Word;
 //TODO laets make this class the main one. Place here main() and invoke FileReader,SentenceParser and others
 //TODO create the method (not main) which loads from file, converts and saves, write a test to this method
 //TODO create a simple main() which just creates TextConverter object and invokes the just writed method
-//have you just written "enough" ?  yeah
-//OK
 //TODO please figure out, why in the window "Tasks" we can't see my TODOs
+//can
 
 public class TextConverter {
 	private String text;
@@ -61,10 +60,10 @@ public class TextConverter {
 		
 	}
 	public void main (String [] args){
-		//String inputted = FileReaderWriter.readFile("some.txt");
+		
+		TextConverter converter = new TextConverter();
+		converter.readWriteConvert("inputted.txt", "output.txt", 'a');
 		
 		
-		
-		System.out.println();
 	}
 }
