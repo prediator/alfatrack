@@ -1,0 +1,7 @@
+<html t:type="layout" title="Transfer money"
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+  <t:beaneditform object="incoming"/>
+  <t:beaneditform object="outgoing"/>
+
+</html>
