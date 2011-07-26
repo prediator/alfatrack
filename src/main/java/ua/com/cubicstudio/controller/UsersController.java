@@ -11,8 +11,7 @@ import java.util.List;
 
 /**
  * User List Controller
- * @author Sergii Pogodin
- *         23.01.2011
+ * 
  */
 @Controller
 public class UsersController {

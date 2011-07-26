@@ -63,7 +63,7 @@
 
     <servlet-mapping>
         <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.htm</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
