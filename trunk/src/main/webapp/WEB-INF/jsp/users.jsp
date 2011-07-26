@@ -5,7 +5,7 @@
 </head>
 <body>
     <c:forEach items="${userList}" var="user">
-        <a href="user/${user.id}.html">${user.fullName}</a><br/>
+        <a href="user/${user.id}">${user.fullName}</a><br/>
     </c:forEach>
 </body>
 </html>

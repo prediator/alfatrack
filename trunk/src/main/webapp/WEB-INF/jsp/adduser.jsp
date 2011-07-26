@@ -33,6 +33,14 @@
         </tr>
         <tr>
             <td valign="top">
+                do you Dispacher?
+            </td>
+            <td valign="top">
+               <input type="checkbox" NAME="isDispatcher">
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">
                 <input type="submit" value="INPUT">
             </td>
         </tr>

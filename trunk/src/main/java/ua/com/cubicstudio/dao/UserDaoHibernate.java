@@ -1,5 +1,6 @@
 package ua.com.cubicstudio.dao;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,18 +11,17 @@ import ua.com.cubicstudio.domain.User;
 
 import java.util.List;
 
-/**
- * @author Sergii Pogodin
- *         21.01.2011
- */
 @Transactional
 public class UserDaoHibernate extends HibernateDaoSupport {
+	private static final Logger LOG = Logger.getLogger(UserDaoHibernate.class);
+	
     @Autowired
     public UserDaoHibernate(@Qualifier("sessionFactory") SessionFactory factory) {
         setSessionFactory(factory);
     }
 
     public User findById(Long id) {
+    	LOG.debug("Looking for user by id" + id);
         return (User) getSession().get(User.class, id);
     }
 

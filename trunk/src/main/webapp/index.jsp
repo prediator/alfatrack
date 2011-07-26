@@ -3,8 +3,8 @@
     <title>Bonjour</title>
 </head>
 <body>
-    <a href="users.html">Users</a>
+    <a href="users.htm">Users</a>
     <br/>
-    <a href="adduser.html">ADD USER</a>
+    <a href="adduser.htm">Add user</a>
 </body>
 </html>

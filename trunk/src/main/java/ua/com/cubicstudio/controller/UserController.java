@@ -12,8 +12,7 @@ import ua.com.cubicstudio.domain.User;
 /**
  * User Details Controller
  *
- * @author Sergii Pogodin
- *         24.01.2011
+ * 
  */
 @Controller
 public class UserController {

@@ -1,18 +1,16 @@
 package ua.com.cubicstudio.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.cubicstudio.dao.UserDaoHibernate;
-import ua.com.cubicstudio.domain.User;
-import org.apache.commons.logging.Log;
-import org.apache.log4j.Logger;
+import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
+import ua.com.cubicstudio.domain.Dispatcher;
+import ua.com.cubicstudio.domain.Driver;
+import ua.com.cubicstudio.domain.User;
 
 /**
  * Adding User Controller
@@ -22,7 +20,7 @@ import java.util.List;
 @Controller
 public class AddUserController {
 
-	private static final Logger log = Logger.getLogger(AddUserController.class);
+	private static final Logger LOG = Logger.getLogger(AddUserController.class);
 
 	@RequestMapping(value = "adduser", method = RequestMethod.GET)
 	public ModelAndView addUser() {
@@ -30,13 +28,25 @@ public class AddUserController {
 	}
 
 	@RequestMapping(value = "adduser", method = RequestMethod.POST)
-	public ModelAndView addingUser(@RequestParam("name") String name,
+	public String addingUser(@RequestParam("name") String name,
 			@RequestParam("login") String login,
-			@RequestParam("pass") String pass) {
-
-		User addedUser = new User(name, login, pass);
-		log.info(addedUser);
+			@RequestParam("pass") String pass,
+			@RequestParam("isDispatcher") boolean isDispatcher) {
 		
-		return new ModelAndView("/adduserreport", "user", addedUser);
+		User addedUser;
+		if (isDispatcher) {
+			addedUser = new Dispatcher(name, login, pass);
+		} else {
+			addedUser = new Driver(name, login, pass);
+		}
+
+		/*
+		 * //TODO: can't get isDispacher value from Dispacher + it dnt want to
+		 * work from 1:40 am
+		 */
+
+		LOG.info("User added:" + addedUser);
+
+		return "redirect:users.htm";
 	}
 }
