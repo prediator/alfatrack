@@ -7,7 +7,7 @@ import java.io.IOException;
  * Usage: <code>Properties.get().getProperty("database.username")</code>
  */
 public class Properties extends java.util.Properties {
-    public static final String PROJECT_PROPERTY_FILE_PATH = "/project.properties";
+    private static final String PROJECT_PROPERTY_FILE_PATH = "/project.properties";
 
     private static Properties properties = new Properties();
 
