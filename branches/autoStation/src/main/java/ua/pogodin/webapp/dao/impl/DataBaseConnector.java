@@ -68,7 +68,7 @@ public class DataBaseConnector implements JdbcConnection {
 
 			System.out.println(createTableSQL);
 
-			// execute create SQL stetement
+			// execute create SQL statement
 			preparedStatement.executeUpdate();
 
 			System.out.println("Table \"dbuser\" is created!");
@@ -90,57 +90,77 @@ public class DataBaseConnector implements JdbcConnection {
 		}
 
 	}
-
-	public void closeConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		try {
-
-			if (rs != null) {
-				rs.close();
-			}
-			if (st != null) {
-				st.close();
-			}
-			if (conn != null) {
-				conn.close();
-			}
-		} catch (SQLException ex) {
-		}
-	}
-
-	public boolean isDispatcher(String login) throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException {
-
+	
+	public ResultSet getResultSet(String request){
+		
 		Connection conn = null;
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		String sqlRequest = "SELECT * FROM users WHERE login='" + login + "'";
 
 		try {
 
 			conn = getDBConnection();
 			ps = conn.prepareStatement(sqlRequest);
-			ps.executeUpdate();
+			rs = ps.executeQuery();
 
-			rs = st.executeQuery(sqlRequest);
-			rs.next();
-			mark = rs.getInt("isdispatcher");
-			if (mark == 1) {
-				return true;
-			}
+
 		} catch (SQLException e) {
 
 			System.out.println(e.getMessage());
 
 		} finally {
 
-			if (ps != null) {
-				ps.close();
-			}
+				if (ps != null) {
+					ps.close();
+				}
 
-			if (conn != null) {
-				conn.close();
+				if (conn != null) {
+
+					conn.close();
+				}
+
+		}
+	} 
+
+	public boolean isDispatcher(String login) {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sqlRequest = "SELECT * FROM users WHERE login='" + login + "'";
+
+		try {
+
+			conn = getDBConnection();
+			ps = conn.prepareStatement(sqlRequest);
+			rs = ps.executeQuery();
+
+			rs.next();
+			return (rs.getInt("isdispatcher") == 1);
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			try {
+
+				if (ps != null) {
+					ps.close();
+				}
+
+				if (conn != null) {
+
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("sad(");
 			}
 
 		}
+		return false;
 	}
 
 	public String getParam(String param, String login) throws ClassNotFoundException, InstantiationException,
