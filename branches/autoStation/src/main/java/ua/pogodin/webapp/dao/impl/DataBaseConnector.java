@@ -6,6 +6,7 @@ package ua.pogodin.webapp.dao.impl;
 
 import ua.pogodin.webapp.dao.JdbcConnection;
 import ua.pogodin.webapp.domain.Bus;
+import ua.pogodin.webapp.domain.BusApplication;
 import ua.pogodin.webapp.domain.User;
 import ua.pogodin.webapp.util.AppException;
 import ua.pogodin.webapp.util.Properties;
@@ -139,7 +140,7 @@ public class DataBaseConnector implements JdbcConnection {
             }
             return executor.rs().getInt(1);
         } catch (SQLException e) {
-            throw new AppException("Can't extract user count from DB", e);
+            throw new AppException("Can't extract users count from DB", e);
         } finally {
             DbExecutor.close(executor);
         }
@@ -176,7 +177,44 @@ public class DataBaseConnector implements JdbcConnection {
             }
             return getBusFromRs(executor.rs());
         } catch (SQLException e) {
-            throw new AppException("Can't extract user count from DB", e);
+            throw new AppException("Can't extract busses count from DB", e);
+        } finally {
+            DbExecutor.close(executor);
+        }
+    }
+
+    @Override
+    public BusApplication createBusApp(BusApplication busApp) {
+        DbExecutor.execUpdate("insert into bus_application (minspeed,minbusload,isdone,userid) values (?,?,?,?)",
+                Integer.toString(busApp.getMinSpeed()), Integer.toString(busApp.getMinBusLoad()),
+                busApp.isdone() ? "1" : "0", Long.toString(busApp.getUserId()));
+        DbExecutor executor = DbExecutor.execSelect("select * from bus_application where id in(select max(id) from bus_application)");
+
+        try {
+            if (!executor.rs().next()) {
+                throw new AppException("Can't find bus application just saved");
+            }
+            return getBusAppFromRs(executor.rs());
+        } catch (SQLException e) {
+            throw new AppException("Can't extract bus applications count from DB", e);
+        } finally {
+            DbExecutor.close(executor);
+        }
+    }
+
+    @Override
+    public List<BusApplication> findAllBusApplications() {
+        DbExecutor executor = DbExecutor.execSelect("select * from bus_application");
+        ResultSet rs = executor.rs();
+        try {
+            List<BusApplication> busApps = new ArrayList<BusApplication>();
+
+            while (rs.next()) {
+                busApps.add(getBusAppFromRs(rs));
+            }
+            return busApps;
+        } catch (SQLException e) {
+            throw new AppException("Can't extract users from DB", e);
         } finally {
             DbExecutor.close(executor);
         }
@@ -199,5 +237,12 @@ public class DataBaseConnector implements JdbcConnection {
         Bus bus = new Bus(rs.getInt("busload"), rs.getInt("maxspeed"), rs.getBoolean("workingorder"));
         bus.setId(rs.getLong("id"));
         return bus;
+    }
+
+    private BusApplication getBusAppFromRs(ResultSet rs) throws SQLException {
+        BusApplication busApp = new BusApplication(rs.getInt("minspeed"), rs.getInt("minbusload"), rs.getBoolean("isdone"),
+                rs.getLong("userid"));
+        busApp.setId(rs.getLong("id"));
+        return busApp;
     }
 }

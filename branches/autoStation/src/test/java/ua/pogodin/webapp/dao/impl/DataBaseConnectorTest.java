@@ -3,6 +3,7 @@ package ua.pogodin.webapp.dao.impl;
 import org.junit.*;
 import ua.pogodin.webapp.dao.JdbcConnection;
 import ua.pogodin.webapp.domain.Bus;
+import ua.pogodin.webapp.domain.BusApplication;
 import ua.pogodin.webapp.domain.User;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class DataBaseConnectorTest {
     private static JdbcConnection conn;
     private User user;
     private Bus bus;
+    private BusApplication busApp;
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -34,6 +36,7 @@ public class DataBaseConnectorTest {
     public void setUp() {
         user = conn.createUser(new User("testuser", "testpass", "the name", true, new Bus()));
         bus = conn.createBus(new Bus(40, 140, true));
+        busApp = conn.createBusApp(new BusApplication(30, 40, false, user.getId()));
     }
 
     @After
@@ -88,6 +91,13 @@ public class DataBaseConnectorTest {
         List<User> users = conn.findAllUsers();
         assertNotNull(users);
         assertEquals(1, users.size());
+    }
+
+    @Test
+    public void allBusAppsShouldBeFoundable() {
+        List<BusApplication> busApps = conn.findAllBusApplications();
+        assertNotNull(busApps);
+        assertEquals(1, busApps.size());
     }
 
     private void assertUsersEqual(User expectedUser, User user) {

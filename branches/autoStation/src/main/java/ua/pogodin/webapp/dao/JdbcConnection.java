@@ -1,29 +1,34 @@
 package ua.pogodin.webapp.dao;
 
 import ua.pogodin.webapp.domain.Bus;
+import ua.pogodin.webapp.domain.BusApplication;
 import ua.pogodin.webapp.domain.User;
 import ua.pogodin.webapp.util.AppException;
 
 import java.util.List;
 
 public interface JdbcConnection {
-    public boolean isDispatcher(String login);
+    boolean isDispatcher(String login);
 
-    public User getUserById(Long id);
+    User getUserById(Long id);
 
-    public void deleteUserByLogin(String login);
+    void deleteUserByLogin(String login);
 
-    public User getUserByLogin(String login);
+    User getUserByLogin(String login);
 
-    public Bus getBusById(Long id);
+    Bus getBusById(Long id);
 
-    public User createUser(User user);
+    User createUser(User user);
 
-    public boolean isLoginFree(String login);
+    boolean isLoginFree(String login);
 
-    public int getUsersCount();
+    int getUsersCount();
 
-    public List<User> findAllUsers() throws AppException;
+    List<User> findAllUsers() throws AppException;
 
     Bus createBus(Bus bus);
+
+    BusApplication createBusApp(BusApplication busApplication);
+
+    List<BusApplication> findAllBusApplications();
 }

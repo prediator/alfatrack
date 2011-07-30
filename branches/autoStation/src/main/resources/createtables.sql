@@ -23,7 +23,7 @@ CREATE TABLE `bus_application` (
   `minspeed` varchar(45) DEFAULT '0',
   `minbusload` varchar(45) DEFAULT '0',
   `isdone` tinyint(1) DEFAULT '0',
-  `userid` varchar(45) NOT NULL,
+  `userid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 );
