@@ -2,8 +2,9 @@ package ua.pogodin.webapp.dao.impl;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ua.pogodin.webapp.dao.JdbcConnection;
@@ -92,9 +93,12 @@ public class DataBaseConnectorTest {
 		
 	}
 
-	@Ignore
 	@Test
-	public void testUsersCount() {
+	public void getAllUsers() {
+		List<User> users = conn.getAllUsers();
+		System.out.println(users);
+		int count = users.size();
+		assertEquals(conn.usersCount(), count);
 		
 	}
 
