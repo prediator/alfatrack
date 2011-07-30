@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /**
  * Project Properties. Loads properties from project.properties file.<br/>
- * Usage: <code>Properties.get().getProperty("database.username")</code>
+ * Usage: <code>Properties.get("database.username")</code>
  */
 public class Properties extends java.util.Properties {
     private static final String PROJECT_PROPERTY_FILE_PATH = "/project.properties";
@@ -19,7 +19,7 @@ public class Properties extends java.util.Properties {
         }
     }
 
-    public static Properties get() {
-        return properties;
+    public static String get(String propertyName) {
+        return properties.getProperty(propertyName);
     }
 }
