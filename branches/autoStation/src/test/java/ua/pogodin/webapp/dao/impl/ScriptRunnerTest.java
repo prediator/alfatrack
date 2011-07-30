@@ -30,7 +30,7 @@ public class ScriptRunnerTest {
 
     @Test
     public void scriptShouldBeRunned() throws Exception {
-        scriptRunner.runScript(new InputStreamReader(getClass().getResourceAsStream("/createdb.sql")));
+        scriptRunner.runScript(new InputStreamReader(getClass().getResourceAsStream("/createtables.sql")));
 
         assertTableCreated("users");
         assertTableCreated("busses");
