@@ -38,7 +38,7 @@
 	
 	<servlet>
         <servlet-name>Driver</servlet-name>
-        <jsp-file>/WEB-INF/jsp/driver.jsp</jsp-file>
+        <servlet-class>ua.pogodin.webapp.servlet.Driver</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Driver</servlet-name>

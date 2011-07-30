@@ -46,7 +46,7 @@ public class BusApplication {
         this.minBusLoad = minBusLoad;
     }
 
-    public boolean isdone() {
+    public boolean getIsdone() {
         return isdone;
     }
 

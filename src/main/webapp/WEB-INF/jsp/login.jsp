@@ -7,7 +7,7 @@ pageEncoding="windows-1251"%>
 
 <html>
     <head>
-        <title>Hello ${user.name}</title>
+        <title>LOGIN</title>
     </head>
     <body 
       <DIV ALIGN=CENTER>
@@ -18,6 +18,7 @@ pageEncoding="windows-1251"%>
 	     <form action="/autoStation/authentication" method="post">
 	            <table border="1">
 	                <tr>
+	                 
 		                <td>name</td>
 	                    <td>
 	                        <input type = "text" name = "login" size = 20 >
@@ -27,7 +28,7 @@ pageEncoding="windows-1251"%>
 	                <tr>
                         <td>password</td>
                         <td>
-                            <input type = "text" name = "pass" size = 20>
+                            <input type = "password" name = "pass" size = 20>
                         </td>
                            
                     </tr>
@@ -37,9 +38,7 @@ pageEncoding="windows-1251"%>
 	                    </td>
 	                </tr>
 	             </table>   
-	             <c:if test = "${message}">
-	               <strong>Wrong login or pasword</strong>
-	             </c:if>
+    
 	        </form>
          </DIV>
         
