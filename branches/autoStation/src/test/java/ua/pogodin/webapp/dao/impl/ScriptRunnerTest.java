@@ -1,12 +1,7 @@
 package ua.pogodin.webapp.dao.impl;
 
-import org.junit.Before;
 import org.junit.Test;
 import ua.pogodin.webapp.util.Properties;
-
-import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -16,27 +11,17 @@ import static org.junit.Assert.assertTrue;
  */
 public class ScriptRunnerTest {
     public static final String URL = Properties.get(DataBaseConnector.PROPNAME_URL);
-    public static final String USERNAME = Properties.get(DataBaseConnector.PROPNAME_USERNAME);
-    public static final String PASSWORD = Properties.get(DataBaseConnector.PROPNAME_PASSWORD);
     public static final String SCHEMA = URL.substring(URL.lastIndexOf("/") + 1);
-
-    private ScriptRunner scriptRunner;
-
-    @Before
-    public void setUp() throws Exception {
-        Connection connection = DriverManager.getConnection(URL,USERNAME, PASSWORD);
-        scriptRunner = new ScriptRunner(connection, false, true);
-    }
 
     @Test
     public void scriptShouldBeRunned() throws Exception {
-        scriptRunner.runScript(new InputStreamReader(getClass().getResourceAsStream("/createtables.sql")));
+        DbExecutor.execSqlFile("/createtables.sql");
 
         assertTableCreated("users");
         assertTableCreated("busses");
         assertTableCreated("bus_application");
 
-        scriptRunner.runScript(new InputStreamReader(getClass().getResourceAsStream("/droptables.sql")));
+        DbExecutor.execSqlFile("/droptables.sql");
 
         assertTableDropped("users");
         assertTableDropped("busses");

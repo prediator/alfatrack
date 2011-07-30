@@ -1,87 +1,109 @@
 package ua.pogodin.webapp.dao.impl;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import ua.pogodin.webapp.dao.JdbcConnection;
 import ua.pogodin.webapp.domain.Bus;
 import ua.pogodin.webapp.domain.User;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * @author elias
  */
 public class DataBaseConnectorTest {
-    private JdbcConnection conn;
+    private static JdbcConnection conn;
+    private User user;
+    private Bus bus;
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+        conn = new DataBaseConnector();
+
+        DbExecutor.execSqlFile("/droptables.sql");
+        DbExecutor.execSqlFile("/createtables.sql");
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+        DbExecutor.execSqlFile("/droptables.sql");
+    }
 
     @Before
-    public void setUp() throws Exception {
-        conn = new DataBaseConnector();
+    public void setUp() {
+        user = conn.createUser(new User("testuser", "testpass", "the name", true, new Bus()));
+        bus = conn.createBus(new Bus(40, 140, true));
+    }
+
+    @After
+    public void tearDown() {
+        DbExecutor.execSqlFile("/deletetablesdata.sql");
     }
 
     @Test
-    public void testIsDispatcher() {
-        boolean actual = conn.isDispatcher("admin");
+    public void userShouldBeGettableById() {
+        User user = conn.getUserById(this.user.getId());
+        assertUsersEqual(this.user, user);
+    }
+
+    @Test
+    public void userShouldBeGettableByLogin() {
+        User user = conn.getUserByLogin(this.user.getLogin());
+        assertUsersEqual(this.user, user);
+    }
+
+    @Test
+    public void loginShouldBeFreeAfterUserDelete() {
+        conn.deleteUserByLogin(user.getLogin());
+
+        boolean actual = conn.isLoginFree(user.getLogin());
         assertEquals(true, actual);
     }
 
     @Test
-    public void testGetUserById() {
-        User actual = conn.getUserById(1);
-        User expected = new User(1, "admin", "admin", "kolya", true, new Bus());
-        assertEquals(expected, actual);
+    public void dispatcherShouldBeDispather() {
+        boolean isDispatcher = conn.isDispatcher("testuser");
+        assertTrue(isDispatcher);
     }
 
     @Test
-    public void testCreateThanDeleteUser() {
-        String login = "login_test";
-        conn.createUser(new User(3, login, login, login, true, new Bus()));
-        conn.deleteUserByLogin(login);
-        boolean actual = conn.isLoginFree(login);
-        assertEquals(true, actual);
+    public void busShouldBeFoundableById() {
+        Bus bus = conn.getBusById(this.bus.getId());
+        assertBussesEqual(this.bus, bus);
     }
 
     @Test
-    public void testGetUserByLogin() {
-        String login = "admin";
-        User actual = conn.getUserByLogin(login);
-        User expected = new User(1, login, login, "kolya", true, new Bus());
-        assertEquals(expected, actual);
+    public void loginShouldNotBeFreeForExistingUser() {
+        assertFalse(conn.isLoginFree("testuser"));
     }
 
     @Test
-    public void testGetBusById() {
-        Bus actual = conn.getBusById(1);
-        Bus expected = new Bus(1, 45, 100, true);
-        assertEquals(expected, actual);
+    public void loginShouldBeFreeForNonExistingUser() {
+        assertTrue(conn.isLoginFree("some_non-existing_user"));
     }
 
     @Test
-    public void CreateUserInputIntoBaseThanGetBack() {
-        String login = "tested_login";
-        User user = new User(4, login, login, login, true, new Bus());
-        conn.createUser(user);
-        User actual = conn.getUserByLogin(login);
-        assertEquals(user, actual);
-    }
-
-    @Test
-    public void testIsLoginFree() {
-        String freeLogin = "adminen";
-        String takenLogin = "admin";
-        assertEquals(true, conn.isLoginFree(freeLogin));
-        assertEquals(false, conn.isLoginFree(takenLogin));
-
-    }
-
-    @Test
-    public void getAllUsers() {
+    public void allUsersShouldBeFoundable() {
         List<User> users = conn.findAllUsers();
-        System.out.println(users);
-        int count = users.size();
-        assertEquals(conn.getUsersCount(), count);
+        assertNotNull(users);
+        assertEquals(1, users.size());
+    }
 
+    private void assertUsersEqual(User expectedUser, User user) {
+        assertNotNull(user);
+        assertEquals(expectedUser.getId(), user.getId());
+        assertEquals(expectedUser.getLogin(), user.getLogin());
+        assertEquals(expectedUser.getPassword(), user.getPassword());
+        assertEquals(expectedUser.getName(), user.getName());
+        assertEquals(expectedUser.getBus(), user.getBus());
+    }
+
+    private void assertBussesEqual(Bus expectedBus, Bus bus) {
+        assertNotNull(bus);
+        assertEquals(expectedBus.getId(), bus.getId());
+        assertEquals(expectedBus.getBusload(), bus.getBusload());
+        assertEquals(expectedBus.getMaxSpeed(), bus.getMaxSpeed());
+        assertEquals(expectedBus.isWorkingOrder(), bus.isWorkingOrder());
     }
 }

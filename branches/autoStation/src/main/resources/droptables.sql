@@ -1,3 +1,3 @@
-drop table bus_application;
-drop table busses;
-drop table users;
+drop table if exists bus_application;
+drop table if exists busses;
+drop table if exists users;

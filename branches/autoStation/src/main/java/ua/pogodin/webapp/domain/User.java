@@ -5,40 +5,38 @@
 package ua.pogodin.webapp.domain;
 
 /**
- *
  * @author elias
  */
 public class User {
-    
-    private int id;
+
+    private Long id;
     private String login;
     private String password;
     private String name;
     private boolean isDispatcher;
     private Bus bus;
-    
-    public User(int id,String login, String password, String name,
-            boolean isDispatcher, Bus bus) {
-        this.id = id;
+
+    public User(String login, String password, String name, boolean isDispatcher, Bus bus) {
         this.login = login;
         this.password = password;
         this.name = name;
         this.isDispatcher = isDispatcher;
         this.bus = bus;
-        
     }
-    public int getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
+
     public boolean isDispatcher() {
         return isDispatcher;
     }
-    
-     public Bus getBus() {
+
+    public Bus getBus() {
         return bus;
     }
 
@@ -73,7 +71,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-      @Override
+
+    @Override
     public String toString() {
         return "User{" + "login=" + login + ", password=" + password + ", name=" + name + ", isDispatcher=" + isDispatcher + ", bus=" + bus + '}';
     }

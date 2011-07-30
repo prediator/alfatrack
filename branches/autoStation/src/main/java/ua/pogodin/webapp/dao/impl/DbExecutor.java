@@ -3,9 +3,14 @@ package ua.pogodin.webapp.dao.impl;
 import ua.pogodin.webapp.util.AppException;
 import ua.pogodin.webapp.util.Properties;
 
+import java.io.InputStreamReader;
 import java.sql.*;
 
 class DbExecutor {
+    public static final String URL = Properties.get(DataBaseConnector.PROPNAME_URL);
+    public static final String USERNAME = Properties.get(DataBaseConnector.PROPNAME_USERNAME);
+    public static final String PASSWORD = Properties.get(DataBaseConnector.PROPNAME_PASSWORD);
+
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet rs;
@@ -14,8 +19,7 @@ class DbExecutor {
         DbExecutor executor = new DbExecutor();
 
         try {
-            executor.connection = DriverManager.getConnection(Properties.get(DataBaseConnector.PROPNAME_URL),
-                    Properties.get(DataBaseConnector.PROPNAME_USERNAME), Properties.get(DataBaseConnector.PROPNAME_PASSWORD));
+            executor.connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
             close(executor);
             throw new AppException("Can't obtain connection to DB", e);
@@ -90,5 +94,23 @@ class DbExecutor {
 
     public ResultSet rs() {
         return rs;
+    }
+
+    public static void execSqlFile(String sqlFilePath) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            ScriptRunner scriptRunner = new ScriptRunner(connection, false, true);
+            scriptRunner.runScript(new InputStreamReader(DbExecutor.class.getResourceAsStream(sqlFilePath)));
+        } catch (Exception e) {
+            throw new AppException("Can't execute sql file " + sqlFilePath, e);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ignored) {
+                }
+            }
+        }
     }
 }
