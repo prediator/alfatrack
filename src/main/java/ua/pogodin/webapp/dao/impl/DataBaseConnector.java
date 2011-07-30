@@ -4,29 +4,24 @@
  */
 package ua.pogodin.webapp.dao.impl;
 
-import java.rmi.ConnectIOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import ua.pogodin.webapp.dao.JdbcConnection;
 import ua.pogodin.webapp.domain.User;
 import ua.pogodin.webapp.domain.bus.Bus;
+import ua.pogodin.webapp.util.Properties;
+
+import java.sql.*;
 
 /**
  * 
  * @author elias
  */
 public class DataBaseConnector implements JdbcConnection {
+    public static final String PROPNAME_DRIVER_CLASS_NAME = "database.driverClassName";
+    public static final String PROPNAME_URL = "database.url";
+    public static final String PROPNAME_USERNAME = "database.username";
+    public static final String PROPNAME_PASSWORD = "database.password";
 
-	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/autostation";
-	private static final String DB_USER = "root";
-	private static final String DB_PASSWORD = "letmeinit";
-	
-	private Connection mainConn = null;
+    private Connection mainConn = null;
 	private PreparedStatement mainPs = null;
 
 	public DataBaseConnector() {
@@ -39,9 +34,9 @@ public class DataBaseConnector implements JdbcConnection {
 
 		try {
 
-			Class.forName(DB_DRIVER);
+            Class.forName(Properties.get(PROPNAME_DRIVER_CLASS_NAME));
 
-		} catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
 
 			System.out.println(e.getMessage());
 
@@ -49,7 +44,8 @@ public class DataBaseConnector implements JdbcConnection {
 
 		try {
 
-			dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+			dbConnection = DriverManager.getConnection(Properties.get(PROPNAME_URL),
+                    Properties.get(PROPNAME_USERNAME), Properties.get(PROPNAME_PASSWORD));
 			return dbConnection;
 
 		} catch (SQLException e) {
