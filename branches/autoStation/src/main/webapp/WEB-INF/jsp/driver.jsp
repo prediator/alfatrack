@@ -17,10 +17,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       
      <form action="/autoStation/doapp" method="post">
             <table border="1">
-                <c:forEach var="app" items="${sessionScope.sessionManager.apps}">
+                <c:forEach var="app" items="${apps}">
                     <tr>
                         <td>${app.minSpeed}</td>
-                        <td>${app.busLoad}</td>
+                        <td>${app.minBusLoad}</td>
+                       
                         <td>
                             <input type="checkbox" name=${app.id} value=${app.id} />
                         </td>
