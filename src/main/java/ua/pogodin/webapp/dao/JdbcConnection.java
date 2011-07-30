@@ -1,7 +1,7 @@
 package ua.pogodin.webapp.dao;
 
+import ua.pogodin.webapp.domain.Bus;
 import ua.pogodin.webapp.domain.User;
-import ua.pogodin.webapp.domain.bus.Bus;
 import ua.pogodin.webapp.util.AppException;
 
 import java.util.List;
