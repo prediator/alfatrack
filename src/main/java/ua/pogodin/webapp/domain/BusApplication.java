@@ -9,28 +9,24 @@ package ua.pogodin.webapp.domain;
  * @author elias
  */
 public class BusApplication {
-    private int id;
+    private Long id;
     private int minSpeed;
-    private int busLoad;
+    private int minBusLoad;
+    private boolean isdone;
+    private Long userId;
 
-    public BusApplication(int id, int minSpeed, int busLoad) {
+    public BusApplication(int minSpeed, int minBusLoad, boolean isdone, Long userId) {
         this.minSpeed = minSpeed;
-        this.busLoad = busLoad;
+        this.minBusLoad = minBusLoad;
+        this.isdone = isdone;
+        this.userId = userId;
     }
 
-    public int getBusLoad() {
-        return busLoad;
-    }
-
-    public void setBusLoad(int busLoad) {
-        this.busLoad = busLoad;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,38 +38,56 @@ public class BusApplication {
         this.minSpeed = minSpeed;
     }
 
-    @Override
-    public String toString() {
-        return "BusApplication{" + "id=" + id + ", minSpeed=" + minSpeed + ", busLoad=" + busLoad + '}';
+    public int getMinBusLoad() {
+        return minBusLoad;
+    }
+
+    public void setMinBusLoad(int minBusLoad) {
+        this.minBusLoad = minBusLoad;
+    }
+
+    public boolean isdone() {
+        return isdone;
+    }
+
+    public void setIsdone(boolean isdone) {
+        this.isdone = isdone;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final BusApplication other = (BusApplication) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (this.minSpeed != other.minSpeed) {
-            return false;
-        }
-        if (this.busLoad != other.busLoad) {
-            return false;
-        }
+    public String toString() {
+        return "BusApplication{" + "id=" + id + ", minSpeed=" + minSpeed + ", minBusLoad=" + minBusLoad + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BusApplication that = (BusApplication) o;
+
+        if (isdone != that.isdone) return false;
+        if (minBusLoad != that.minBusLoad) return false;
+        if (minSpeed != that.minSpeed) return false;
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
+
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + this.id;
-        hash = 97 * hash + this.minSpeed;
-        return hash;
+        int result = minSpeed;
+        result = 31 * result + minBusLoad;
+        result = 31 * result + (isdone ? 1 : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        return result;
     }
-   
 }
