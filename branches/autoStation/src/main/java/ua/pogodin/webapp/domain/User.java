@@ -4,8 +4,6 @@
  */
 package ua.pogodin.webapp.domain;
 
-import ua.pogodin.webapp.domain.bus.Bus;
-
 /**
  *
  * @author elias
