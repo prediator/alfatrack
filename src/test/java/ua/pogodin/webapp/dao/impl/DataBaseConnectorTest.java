@@ -3,10 +3,8 @@ package ua.pogodin.webapp.dao.impl;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import ua.pogodin.webapp.dao.JdbcConnection;
 import ua.pogodin.webapp.domain.User;
 import ua.pogodin.webapp.domain.bus.Bus;

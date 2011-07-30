@@ -31,33 +31,19 @@ public class DataBaseConnector implements JdbcConnection {
 	}
 
 	private static Connection getDBConnection() {
-
-		Connection dbConnection = null;
-
+		String driverClassName = Properties.get(PROPNAME_DRIVER_CLASS_NAME);
 		try {
-
-			Class.forName(Properties.get(PROPNAME_DRIVER_CLASS_NAME));
-
+			Class.forName(driverClassName);
 		} catch (ClassNotFoundException e) {
-
-			System.out.println(e.getMessage());
-
+			throw new Error("jdbc driver" + driverClassName + " not found", e);
 		}
 
 		try {
-
-			dbConnection = DriverManager.getConnection(Properties.get(PROPNAME_URL), Properties.get(PROPNAME_USERNAME),
-					Properties.get(PROPNAME_PASSWORD));
-			return dbConnection;
-
+			return DriverManager.getConnection(Properties.get(PROPNAME_URL),
+					Properties.get(PROPNAME_USERNAME), Properties.get(PROPNAME_PASSWORD));
 		} catch (SQLException e) {
-
-			System.out.println(e.getMessage());
-
+			throw new Error("can't get connection", e);
 		}
-
-		return dbConnection;
-
 	}
 
 	private void printErrMessage(SQLException e) {
@@ -77,12 +63,9 @@ public class DataBaseConnector implements JdbcConnection {
 		if (ps != null) {
 			ps.close();
 		}
-
 		if (conn != null) {
-
 			conn.close();
 		}
-
 	}
 
 	private ResultSet getResultSet(String sqlRequest) throws SQLException {
