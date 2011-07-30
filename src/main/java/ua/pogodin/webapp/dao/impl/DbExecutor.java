@@ -6,7 +6,7 @@ import ua.pogodin.webapp.util.Properties;
 import java.io.InputStreamReader;
 import java.sql.*;
 
-class DbExecutor {
+public class DbExecutor {
     public static final String URL = Properties.get(DataBaseConnector.PROPNAME_URL);
     public static final String USERNAME = Properties.get(DataBaseConnector.PROPNAME_USERNAME);
     public static final String PASSWORD = Properties.get(DataBaseConnector.PROPNAME_PASSWORD);
