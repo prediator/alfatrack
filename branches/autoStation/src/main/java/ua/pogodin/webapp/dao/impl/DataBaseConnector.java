@@ -4,10 +4,11 @@
  */
 package ua.pogodin.webapp.dao.impl;
 
-import java.sql.*;
-import java.sql.DriverManager.*;
-import java.util.*;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import ua.pogodin.webapp.dao.JdbcConnection;
 import ua.pogodin.webapp.domain.User;
@@ -53,57 +54,40 @@ public class DataBaseConnector implements JdbcConnection {
 
 	}
 
-	private static void createTable() throws SQLException {
+	private void printErrMessage(SQLException e) {
 
-		Connection dbConnection = null;
-		PreparedStatement preparedStatement = null;
+	}
 
-		String createTableSQL = "CREATE TABLE DBUSER1(" + "USER_ID NUMBER(5) NOT NULL, "
-				+ "USERNAME VARCHAR(20) NOT NULL, " + "CREATED_BY VARCHAR(20) NOT NULL, "
-				+ "CREATED_DATE DATE NOT NULL, " + "PRIMARY KEY (USER_ID) " + ")";
+	private void setDBUpdate(String sqlRequest) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
 
-		try {
-			dbConnection = getDBConnection();
-			preparedStatement = dbConnection.prepareStatement(createTableSQL);
+		conn = getDBConnection();
+		ps = conn.prepareStatement(sqlRequest);
+		ps.executeUpdate();
 
-			System.out.println(createTableSQL);
+		if (ps != null) {
+			ps.close();
+		}
 
-			// execute create SQL statement
-			preparedStatement.executeUpdate();
+		if (conn != null) {
 
-			System.out.println("Table \"dbuser\" is created!");
-
-		} catch (SQLException e) {
-
-			System.out.println(e.getMessage());
-
-		} finally {
-
-			if (preparedStatement != null) {
-				preparedStatement.close();
-			}
-
-			if (dbConnection != null) {
-				dbConnection.close();
-			}
-
+			conn.close();
 		}
 
 	}
-	
-	public ResultSet getResultSet(String request){
-		
+
+	private ResultSet getResultSet(String sqlRequest) throws SQLException {
+
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sqlRequest = "SELECT * FROM users WHERE login='" + login + "'";
 
 		try {
 
 			conn = getDBConnection();
 			ps = conn.prepareStatement(sqlRequest);
 			rs = ps.executeQuery();
-
 
 		} catch (SQLException e) {
 
@@ -111,165 +95,177 @@ public class DataBaseConnector implements JdbcConnection {
 
 		} finally {
 
-				if (ps != null) {
-					ps.close();
-				}
+			if (ps != null) {
+				ps.close();
+			}
 
-				if (conn != null) {
+			if (conn != null) {
 
-					conn.close();
-				}
+				conn.close();
+			}
 
 		}
-	} 
+		return rs;
+	}
 
 	public boolean isDispatcher(String login) {
 
-		Connection conn = null;
-		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sqlRequest = "SELECT * FROM users WHERE login='" + login + "'";
 
 		try {
 
-			conn = getDBConnection();
-			ps = conn.prepareStatement(sqlRequest);
-			rs = ps.executeQuery();
-
+			rs = getResultSet(sqlRequest);
 			rs.next();
 			return (rs.getInt("isdispatcher") == 1);
 
 		} catch (SQLException e) {
 
-			System.out.println(e.getMessage());
-
-		} finally {
-
-			try {
-
-				if (ps != null) {
-					ps.close();
-				}
-
-				if (conn != null) {
-
-					conn.close();
-				}
-			} catch (SQLException e) {
-				System.out.println("sad(");
-			}
-
+			printErrMessage(e);
 		}
+
 		return false;
 	}
 
-	public String getParam(String param, String login) throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException {
-		String parametr = null;
+	public String getParam(String param, String login){
+		String sqlRequest = "Select *" + "from users where login='" + login + "'";
+		ResultSet rs = null;
+		String parametr = "";
+
 		try {
-			rs = st.executeQuery("Select *" + "from users where login='" + login + "'");
+			rs = getResultSet(sqlRequest);
 			rs.next();
 			parametr = rs.getString(param);
-		} catch (SQLException ex) {
+		} catch (SQLException e) {
+			printErrMessage(e);
 		}
 		return parametr;
 	}
 
-	public boolean isAccess(String login, String pass) throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException {
+	public boolean isAccess(String login, String pass){
+
+		String sqlRequest = "Select * from Users where login='" + login + "'";
+		ResultSet rs = null;
+		String log = "";
 		try {
-			rs = st.executeQuery("Select * from Users where password='" + pass + "'");
-			rs.getMetaData().getColumnCount();
+			rs = getResultSet(sqlRequest);
 			rs.next();
-			String log = rs.getString("login");
-			if (log.equals(login)) {
-				return true;
-			}
-		} catch (SQLException ex) {
+			log = rs.getString("login");
+			return log.equals(login);
+
+		} catch (SQLException e) {
+			printErrMessage(e);
 		}
 		return false;
 	}
 
-	public User getUserById(int id) throws SQLException {
+	public User getUserById(int id) {
 
 		User user;
-		rs = st.executeQuery("Select * From users Where id='" + id + "'");
-		rs.next();
-		boolean isDispatcher = rs.getBoolean("isdispatcher");
-		user = new User(id, rs.getString("login"), rs.getString("password"), rs.getString("name"), isDispatcher,
-				isDispatcher ? new Bus() : getBusById(rs.getInt("busid")));
+		ResultSet rs = null;
+		try {
+			String sqlRequest = "Select * From users Where id='" + id + "'";
+			rs = getResultSet(sqlRequest);
+			rs.next();
 
-		return user;
+			boolean isDispatcher = rs.getBoolean("isdispatcher");
+			user = new User(id, rs.getString("login"), rs.getString("password"), rs.getString("name"), isDispatcher,
+					isDispatcher ? new Bus() : getBusById(rs.getInt("busid")));
+
+			return user;
+		} catch (SQLException e) {
+			printErrMessage(e);
+		}
+		return null;
 	}
 
-	public void deleteUserByLogin(String login) throws SQLException {
+	public void deleteUserByLogin(String login) {
 
-		st.executeUpdate("Delete From users Where login='" + login + "'");
+		try {
+			setDBUpdate("Delete From users Where login='" + login + "'");
+		} catch (SQLException e) {
+			printErrMessage(e);
+		}
 	}
 
-	public User getUserByLogin(String login) throws SQLException {
+	public User getUserByLogin(String login) {
 
 		User user;
-		rs = st.executeQuery("Select * From users Where login='" + login + "'");
-		rs.next();
-		boolean isDispatcher = rs.getBoolean("isdispatcher");
-		user = new User(rs.getInt("id"), login, rs.getString("password"), rs.getString("name"), isDispatcher,
-				isDispatcher ? new Bus() : getBusById(rs.getInt("busid")));
+		ResultSet rs = null;
+		try {
+			String sqlRequest = "Select * From users Where login='" + login + "'";
+			rs = getResultSet(sqlRequest);
+			rs.next();
 
-		return user;
+			boolean isDispatcher = rs.getBoolean("isdispatcher");
+			user = new User(rs.getInt("id"), login, rs.getString("password"), rs.getString("name"), isDispatcher,
+					isDispatcher ? new Bus() : getBusById(rs.getInt("busid")));
+
+			return user;
+		} catch (SQLException e) {
+			printErrMessage(e);
+		}
+		return null;
 	}
 
-	public Bus getBusById(int id) throws SQLException {
+	public Bus getBusById(int id) {
 
 		Bus bus;
-		ResultSet rsLocal = conn.createStatement().executeQuery("Select * From busses Where id='" + id + "'");
-		rsLocal.next();
-		bus = new Bus(id, rsLocal.getInt("busload"), rsLocal.getInt("maxspeed"), rsLocal.getBoolean("workingorder"));
-
-		return bus;
+		ResultSet rs = null;
+		try {
+			String sqlRequest = "Select * From busses Where id='" + id + "'";
+			rs = getResultSet(sqlRequest);
+			rs.next();
+			bus = new Bus(id, rs.getInt("busload"), rs.getInt("maxspeed"), rs.getBoolean("workingorder"));
+			return bus;
+		} catch (SQLException e) {
+			printErrMessage(e);
+		}
+		return null;
 	}
 
-	public void createUser(User user) throws SQLException {
-
+	public void createUser(User user) {
+		// if isDispatcher - than 1 - else 0
 		int intIsDispatcher = user.isDispatcher() ? 1 : 0;
-		st.executeUpdate("Insert into users " + "(login,password,isdispatcher,busid,name) " + "values" + " ('"
-				+ user.getLogin() + "', '" + user.getPassword() + "', " + intIsDispatcher + "," + user.getBus().getId()
-				+ ",'" + user.getName() + "')");
-
+		try {
+			setDBUpdate("Insert into users " + "(login,password,isdispatcher,busid,name) " + "values" + " ('"
+					+ user.getLogin() + "', '" + user.getPassword() + "', " + intIsDispatcher + ","
+					+ user.getBus().getId() + ",'" + user.getName() + "')");
+		} catch (SQLException e) {
+			printErrMessage(e);
+		}
 	}
 
-	public boolean isLoginFree(String login) throws SQLException {
+	public boolean isLoginFree(String login) {
 
-		rs = st.executeQuery("Select count(id) from users where login='" + login + "'");
-		rs.next();
-		int res = rs.getInt(1);
+		ResultSet rs = null;
+		String sqlRequest = "Select count(id) from users where login='" + login + "'";
+		try {
+			rs = getResultSet(sqlRequest);
+			rs.next();
+			// getting first element from request
+			return (rs.getInt(1) == 0);
 
-		return (res > 0) ? false : true;
+		} catch (SQLException e) {
+			printErrMessage(e);
+		}
+		return false;
 	}
 
-	public int usersCount() throws SQLException {
+	public int usersCount() {
 
-		rs = st.executeQuery("Select count(id) from users");
-		rs.next();
-		return rs.getInt(1);
+		ResultSet rs = null;
+		String sqlRequest = "Select count(id) from users";
+		try {
+			rs = getResultSet(sqlRequest);
+			rs.next();
+			// getting first element from request
+			return rs.getInt(1);
+
+		} catch (SQLException e) {
+			printErrMessage(e);
+		}
+		return 0;
 	}
 
-	/*
-	 * public void createUser(int id, String login) throws SQLException{
-	 * st.executeUpdate("Insert into Users values("+id+",'"+login+
-	 * "','pass','name','surname','address', 1233,0)"); }
-	 */
-	/*
-	 * public static void main(String...args) throws ClassNotFoundException,
-	 * InstantiationException, IllegalAccessException { try {
-	 * Class.forName("com.mysql.jdbc.Driver").newInstance(); cn =
-	 * DriverManager.getConnection(url, username, pass); if(cn!=null)
-	 * System.out.println("Connection Successful !\n"); else{
-	 * System.out.println("Can't connect to DB"); System.exit(1); } Statement
-	 * st=cn.createStatement(); ResultSet
-	 * rs=st.executeQuery("Select * from Users"); int
-	 * x=rs.getMetaData().getColumnCount(); while(rs.next()){ for(int i=1;
-	 * i<=x;i++){ System.out.print(rs.getString(i) + "\t"); } } st.close();
-	 * rs.close(); cn.close(); } catch (SQLException ex) { } }
-	 */
 }
