@@ -33,6 +33,7 @@ public class DataBaseConnector implements JdbcConnection {
         }
     }
 
+    @Override
     public boolean isDispatcher(String login) {
         DbExecutor executor = DbExecutor.execSelect("select isdispatcher from users where login=?", login);
 
@@ -51,18 +52,14 @@ public class DataBaseConnector implements JdbcConnection {
         }
     }
 
-    public User getUserById(int id) {
-        DbExecutor executor = DbExecutor.execSelect("select * from users where id=?", Integer.toString(id));
+    @Override
+    public User getUserById(Long id) {
+        DbExecutor executor = DbExecutor.execSelect("select * from users where id=?", Long.toString(id));
         try {
-            ResultSet rs = executor.rs();
-
-            if (!rs.next()) {
+            if (!executor.rs().next()) {
                 throw new AppException("No user with id " + id);
             }
-
-            boolean isDispatcher = rs.getBoolean("isdispatcher");
-            return new User(id, rs.getString("login"), rs.getString("password"), rs.getString("name"), isDispatcher,
-                    isDispatcher ? new Bus() : getBusById(rs.getInt("busid")));
+            return getUserFromRs(executor.rs());
         } catch (SQLException e) {
             throw new AppException("Can't find user with id " + id);
         } finally {
@@ -70,22 +67,19 @@ public class DataBaseConnector implements JdbcConnection {
         }
     }
 
+    @Override
     public void deleteUserByLogin(String login) {
         DbExecutor.execUpdate("delete from users where login=?", login);
     }
 
+    @Override
     public User getUserByLogin(String login) {
-        DbExecutor executor = DbExecutor.execSelect("Select * From users Where login=?", login);
+        DbExecutor executor = DbExecutor.execSelect("select * from users Where login=?", login);
         try {
-            ResultSet rs = executor.rs();
-
-            if (!rs.next()) {
+            if (!executor.rs().next()) {
                 throw new AppException("No user with login " + login);
             }
-
-            boolean isDispatcher = rs.getBoolean("isdispatcher");
-            return new User(rs.getInt("id"), login, rs.getString("password"), rs.getString("name"), isDispatcher,
-                    isDispatcher ? new Bus() : getBusById(rs.getInt("busid")));
+            return getUserFromRs(executor.rs());
         } catch (SQLException e) {
             throw new AppException("Can't find user with login " + login);
         } finally {
@@ -93,8 +87,9 @@ public class DataBaseConnector implements JdbcConnection {
         }
     }
 
-    public Bus getBusById(int id) {
-        DbExecutor executor = DbExecutor.execSelect("select * from busses where id=?", Integer.toString(id));
+    @Override
+    public Bus getBusById(Long id) {
+        DbExecutor executor = DbExecutor.execSelect("select * from busses where id=?", Long.toString(id));
         try {
             ResultSet rs = executor.rs();
 
@@ -102,7 +97,7 @@ public class DataBaseConnector implements JdbcConnection {
                 throw new AppException("No bus with id " + id);
             }
 
-            return new Bus(id, rs.getInt("busload"), rs.getInt("maxspeed"), rs.getBoolean("workingorder"));
+            return getBusFromRs(rs);
         } catch (SQLException e) {
             throw new AppException("Can't find bus by id " + id, e);
         } finally {
@@ -110,15 +105,19 @@ public class DataBaseConnector implements JdbcConnection {
         }
     }
 
-    public void createUser(User user) {
+    @Override
+    public User createUser(User user) {
         int intIsDispatcher = user.isDispatcher() ? 1 : 0;
-        DbExecutor.execUpdate("Insert into users (login,password,isdispatcher,busid,name) values (?,?,?,?,?)",
+        String busid = user.getBus() != null ? user.getBus().getId() != null ? Long.toString(user.getBus().getId()) : null : null;
+        DbExecutor.execUpdate("insert into users (login,password,isdispatcher,busid,name) values (?,?,?,?,?)",
                 user.getLogin(), user.getPassword(), Integer.toString(intIsDispatcher),
-                Integer.toString(user.getBus().getId()), user.getName());
+                busid, user.getName());
+        return getUserByLogin(user.getLogin());
     }
 
+    @Override
     public boolean isLoginFree(String login) {
-        DbExecutor executor = DbExecutor.execSelect("Select count(id) from users where login=?", login);
+        DbExecutor executor = DbExecutor.execSelect("select count(id) from users where login=?", login);
         try {
             if (!executor.rs().next()) {
                 throw new AppException("Can't count users by login");
@@ -131,8 +130,9 @@ public class DataBaseConnector implements JdbcConnection {
         }
     }
 
+    @Override
     public int getUsersCount() {
-        DbExecutor executor = DbExecutor.execSelect("Select count(id) from users");
+        DbExecutor executor = DbExecutor.execSelect("select count(id) from users");
         try {
             if (!executor.rs().next()) {
                 throw new AppException("Can't extract user count from DB");
@@ -145,20 +145,15 @@ public class DataBaseConnector implements JdbcConnection {
         }
     }
 
+    @Override
     public List<User> findAllUsers() {
-        DbExecutor executor = DbExecutor.execSelect("Select * from users");
+        DbExecutor executor = DbExecutor.execSelect("select * from users");
+        ResultSet rs = executor.rs();
         try {
             List<User> users = new ArrayList<User>();
-            
-            while (executor.rs().next()) {
-                boolean isDispatcher = executor.rs().getBoolean("isdispatcher");
-                int id = executor.rs().getInt("id");
-                String login = executor.rs().getString("login");
-                String password = executor.rs().getString("password");
-                String name = executor.rs().getString("name");
-                Bus bus = isDispatcher ? new Bus() : getBusById(executor.rs().getInt("busid"));
 
-                users.add(new User(id, login, password, name, isDispatcher, bus));
+            while (rs.next()) {
+                users.add(getUserFromRs(rs));
             }
             return users;
         } catch (SQLException e) {
@@ -166,5 +161,43 @@ public class DataBaseConnector implements JdbcConnection {
         } finally {
             DbExecutor.close(executor);
         }
+    }
+
+    @Override
+    public Bus createBus(Bus bus) {
+        DbExecutor.execUpdate("insert into busses (busload,maxspeed,workingorder) values (?,?,?)",
+                Integer.toString(bus.getBusload()), Integer.toString(bus.getMaxSpeed()),
+                bus.isWorkingOrder() ? "1" : "0");
+        DbExecutor executor = DbExecutor.execSelect("select * from busses where id in(select max(id) from busses)");
+
+        try {
+            if (!executor.rs().next()) {
+                throw new AppException("Can't find bus just saved");
+            }
+            return getBusFromRs(executor.rs());
+        } catch (SQLException e) {
+            throw new AppException("Can't extract user count from DB", e);
+        } finally {
+            DbExecutor.close(executor);
+        }
+    }
+
+    private User getUserFromRs(ResultSet rs) throws SQLException {
+        boolean isDispatcher = rs.getBoolean("isdispatcher");
+        Long id = rs.getLong("id");
+        String login = rs.getString("login");
+        String password = rs.getString("password");
+        String name = rs.getString("name");
+        Bus bus = isDispatcher ? new Bus() : getBusById(rs.getLong("busid"));
+
+        User user = new User(login, password, name, isDispatcher, bus);
+        user.setId(id);
+        return user;
+    }
+
+    private Bus getBusFromRs(ResultSet rs) throws SQLException {
+        Bus bus = new Bus(rs.getInt("busload"), rs.getInt("maxspeed"), rs.getBoolean("workingorder"));
+        bus.setId(rs.getLong("id"));
+        return bus;
     }
 }

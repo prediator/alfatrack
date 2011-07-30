@@ -9,34 +9,29 @@ package ua.pogodin.webapp.domain;
  * @author elias
  */
 public class Bus {
-    private int id;
+    private Long id;
     private int busload;
     private int maxSpeed;
     private boolean workingOrder;
 
-    //only for dispatcher's bus
-    public Bus(){
-        this.busload = 0;
-        this.maxSpeed = 0;
-        this.workingOrder = false;
+    public Bus() {
     }
-    
-    public Bus(int id, int busload,
-            int maxSpeed, boolean workingOrder) {
-        this.id = id;
+
+    //only for dispatcher's bus
+    public Bus(int busload, int maxSpeed, boolean workingOrder) {
         this.busload = busload;
         this.maxSpeed = maxSpeed;
         this.workingOrder = workingOrder;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
-    
+
     public int getBusload() {
         return busload;
     }

@@ -9,15 +9,15 @@ import java.util.List;
 public interface JdbcConnection {
     public boolean isDispatcher(String login);
 
-    public User getUserById(int id);
+    public User getUserById(Long id);
 
     public void deleteUserByLogin(String login);
 
     public User getUserByLogin(String login);
 
-    public Bus getBusById(int id);
+    public Bus getBusById(Long id);
 
-    public void createUser(User user);
+    public User createUser(User user);
 
     public boolean isLoginFree(String login);
 
@@ -25,4 +25,5 @@ public interface JdbcConnection {
 
     public List<User> findAllUsers() throws AppException;
 
+    Bus createBus(Bus bus);
 }
