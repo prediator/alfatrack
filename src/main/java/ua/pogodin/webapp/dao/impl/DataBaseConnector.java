@@ -10,18 +10,20 @@ import ua.pogodin.webapp.domain.bus.Bus;
 import ua.pogodin.webapp.util.Properties;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
  * @author elias
  */
 public class DataBaseConnector implements JdbcConnection {
-    public static final String PROPNAME_DRIVER_CLASS_NAME = "database.driverClassName";
-    public static final String PROPNAME_URL = "database.url";
-    public static final String PROPNAME_USERNAME = "database.username";
-    public static final String PROPNAME_PASSWORD = "database.password";
+	public static final String PROPNAME_DRIVER_CLASS_NAME = "database.driverClassName";
+	public static final String PROPNAME_URL = "database.url";
+	public static final String PROPNAME_USERNAME = "database.username";
+	public static final String PROPNAME_PASSWORD = "database.password";
 
-    private Connection mainConn = null;
+	private Connection mainConn = null;
 	private PreparedStatement mainPs = null;
 
 	public DataBaseConnector() {
@@ -34,9 +36,9 @@ public class DataBaseConnector implements JdbcConnection {
 
 		try {
 
-            Class.forName(Properties.get(PROPNAME_DRIVER_CLASS_NAME));
+			Class.forName(Properties.get(PROPNAME_DRIVER_CLASS_NAME));
 
-        } catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {
 
 			System.out.println(e.getMessage());
 
@@ -44,8 +46,8 @@ public class DataBaseConnector implements JdbcConnection {
 
 		try {
 
-			dbConnection = DriverManager.getConnection(Properties.get(PROPNAME_URL),
-                    Properties.get(PROPNAME_USERNAME), Properties.get(PROPNAME_PASSWORD));
+			dbConnection = DriverManager.getConnection(Properties.get(PROPNAME_URL), Properties.get(PROPNAME_USERNAME),
+					Properties.get(PROPNAME_PASSWORD));
 			return dbConnection;
 
 		} catch (SQLException e) {
@@ -146,7 +148,7 @@ public class DataBaseConnector implements JdbcConnection {
 			parametr = rs.getString(param);
 		} catch (SQLException e) {
 			printErrMessage(e);
-		}finally {
+		} finally {
 			try {
 				closeConnections();
 			} catch (SQLException e) {
@@ -169,7 +171,7 @@ public class DataBaseConnector implements JdbcConnection {
 
 		} catch (SQLException e) {
 			printErrMessage(e);
-		}finally {
+		} finally {
 			try {
 				closeConnections();
 			} catch (SQLException e) {
@@ -195,7 +197,7 @@ public class DataBaseConnector implements JdbcConnection {
 			return user;
 		} catch (SQLException e) {
 			printErrMessage(e);
-		}finally {
+		} finally {
 			try {
 				closeConnections();
 			} catch (SQLException e) {
@@ -211,7 +213,7 @@ public class DataBaseConnector implements JdbcConnection {
 			setDBUpdate("Delete From users Where login='" + login + "'");
 		} catch (SQLException e) {
 			printErrMessage(e);
-		}finally {
+		} finally {
 			try {
 				closeConnections();
 			} catch (SQLException e) {
@@ -236,7 +238,7 @@ public class DataBaseConnector implements JdbcConnection {
 			return user;
 		} catch (SQLException e) {
 			printErrMessage(e);
-		}finally {
+		} finally {
 			try {
 				closeConnections();
 			} catch (SQLException e) {
@@ -258,7 +260,7 @@ public class DataBaseConnector implements JdbcConnection {
 			return bus;
 		} catch (SQLException e) {
 			printErrMessage(e);
-		}finally {
+		} finally {
 			try {
 				closeConnections();
 			} catch (SQLException e) {
@@ -277,7 +279,7 @@ public class DataBaseConnector implements JdbcConnection {
 					+ user.getBus().getId() + ",'" + user.getName() + "')");
 		} catch (SQLException e) {
 			printErrMessage(e);
-		}finally {
+		} finally {
 			try {
 				closeConnections();
 			} catch (SQLException e) {
@@ -298,7 +300,7 @@ public class DataBaseConnector implements JdbcConnection {
 
 		} catch (SQLException e) {
 			printErrMessage(e);
-		}finally {
+		} finally {
 			try {
 				closeConnections();
 			} catch (SQLException e) {
@@ -320,7 +322,7 @@ public class DataBaseConnector implements JdbcConnection {
 
 		} catch (SQLException e) {
 			printErrMessage(e);
-		}finally {
+		} finally {
 			try {
 				closeConnections();
 			} catch (SQLException e) {
@@ -328,6 +330,35 @@ public class DataBaseConnector implements JdbcConnection {
 			}
 		}
 		return 0;
+	}
+
+	public List<User> getAllUsers() {
+
+		List<User> res = new ArrayList<User>();
+
+		ResultSet rs = null;
+		String sqlRequest = "Select * from users";
+		try {
+			rs = getResultSet(sqlRequest);
+			while (rs.next()) {
+				boolean isDispatcher = rs.getBoolean("isdispatcher");
+				res.add(new User(rs.getInt("id"), rs.getString("login"), rs.getString("password"),
+						rs.getString("name"), isDispatcher, isDispatcher ? new Bus() : getBusById(rs.getInt("busid"))));
+			}
+			return res;
+
+		} catch (SQLException e) {
+			printErrMessage(e);
+		} finally {
+			try {
+				closeConnections();
+			} catch (SQLException e) {
+				printErrMessage(e);
+			}
+		}
+
+		return res;
+
 	}
 
 }

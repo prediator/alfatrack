@@ -1,5 +1,7 @@
 package ua.pogodin.webapp.dao;
 
+import java.util.List;
+
 import ua.pogodin.webapp.domain.User;
 import ua.pogodin.webapp.domain.bus.Bus;
 
@@ -14,5 +16,6 @@ public interface JdbcConnection {
 	public void createUser(User user) ;
 	public boolean isLoginFree(String login);
 	public int usersCount() ;
+	public List<User>getAllUsers();
 
 }
