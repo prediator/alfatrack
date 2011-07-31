@@ -11,12 +11,21 @@ public class DbUtils {
         DELETE_TABLES_DATA("dt", "deletetablesdata.sql"),
         DROP_TABLES("drop", "droptables.sql");
 
-        private String param;
+        private String command;
         private String sqlFilePath;
 
-        private Param(String param, String sqlFilePath) {
-            this.param = param;
+        private Param(String command, String sqlFilePath) {
+            this.command = command;
             this.sqlFilePath = sqlFilePath;
+        }
+
+        static Param byCommand(String command) {
+            for (Param paramEnum : Param.values()) {
+                if (paramEnum.command.equals(command)) {
+                    return paramEnum;
+                }
+            }
+            return null;
         }
     }
 
@@ -25,22 +34,24 @@ public class DbUtils {
             pleaseSetParam();
         }
 
-        String param = args[0].toLowerCase();
+        String command = args[0].toLowerCase();
+        Param param = Param.byCommand(command);
 
-        for (Param paramEnum : Param.values()) {
-            if (paramEnum.param.equals(param)) {
-                DbExecutor.execSqlFile(paramEnum.sqlFilePath);
-                return;
-            }
+        if (param != null ) {
+            exec(param);
+        } else {
+            pleaseSetParam();
         }
-        
-        pleaseSetParam();
+    }
+
+    public static void exec(Param param) {
+        DbExecutor.execSqlFile(param.sqlFilePath);
     }
 
     private static void pleaseSetParam() {
         System.out.print("Please set parameter one of the following:");
         for (Param param : Param.values()) {
-            System.out.println(" " + param.param);
+            System.out.println(" " + param.command);
         }
     }
 }
