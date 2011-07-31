@@ -8,12 +8,11 @@
     <title>Driver</title>
 </head>
 <body>
-<title>
-    <div align=center>
-        <h1>Hello ${user.name}</h1>
-    </div>
-</title>
-<table>
+<div align=center style="margin-top: 70px">
+    Logged user: ${user.name} (login:${user.login})&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">logout</a>
+</div>
+<div align=center style="margin-top: 10px">
+<table border="1">
     <tr>
         <td>
             <c:choose>
@@ -30,12 +29,6 @@
         </td>
     </tr>
 </table>
-<table border=1>
-    <tr>
-        <td>
-
-        </td>
-    </tr>
-</table>
+</div>
 </body>
 </html>

@@ -33,6 +33,15 @@
         <url-pattern>/n</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>ua.pogodin.webapp.servlet.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>logout</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>UserCheckingFilter</filter-name>
         <filter-class>ua.pogodin.webapp.servlet.UserCheckingFilter</filter-class>
