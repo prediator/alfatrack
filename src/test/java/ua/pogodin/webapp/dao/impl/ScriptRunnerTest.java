@@ -15,13 +15,13 @@ public class ScriptRunnerTest {
 
     @Test
     public void scriptShouldBeRunned() throws Exception {
-        DbExecutor.execSqlFile("/createtables.sql");
+        DbExecutor.execSqlFile("createtables.sql");
 
         assertTableCreated("users");
         assertTableCreated("busses");
         assertTableCreated("bus_application");
 
-        DbExecutor.execSqlFile("/droptables.sql");
+        DbExecutor.execSqlFile("droptables.sql");
 
         assertTableDropped("users");
         assertTableDropped("busses");

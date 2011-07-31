@@ -23,13 +23,13 @@ public class DataBaseConnectorTest {
     public static void setUpClass() throws Exception {
         conn = new DataBaseConnector();
 
-        DbExecutor.execSqlFile("/droptables.sql");
-        DbExecutor.execSqlFile("/createtables.sql");
+        DbExecutor.execSqlFile("droptables.sql");
+        DbExecutor.execSqlFile("createtables.sql");
     }
 
     @AfterClass
     public static void tearDownClass() throws Exception {
-        DbExecutor.execSqlFile("/droptables.sql");
+        DbExecutor.execSqlFile("droptables.sql");
     }
 
     @Before
@@ -41,7 +41,7 @@ public class DataBaseConnectorTest {
 
     @After
     public void tearDown() {
-        DbExecutor.execSqlFile("/deletetablesdata.sql");
+        DbExecutor.execSqlFile("deletetablesdata.sql");
     }
 
     @Test
