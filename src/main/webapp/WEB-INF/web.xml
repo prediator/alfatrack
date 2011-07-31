@@ -5,9 +5,6 @@
          version="2.5">
 
     <display-name>Autostation</display-name>
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
 
     <servlet>
         <servlet-name>Driver</servlet-name>
@@ -35,8 +32,4 @@
         <filter-name>UserCheckingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
-    <welcome-file-list>
-        <welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
-    </welcome-file-list>
 </web-app>
