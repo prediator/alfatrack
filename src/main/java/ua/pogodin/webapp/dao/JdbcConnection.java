@@ -39,4 +39,6 @@ public interface JdbcConnection {
     List<BusApplication> findBusAppsByUserId(Long userId);
 
     void setBusAppsDone(Long[] appIds);
+
+    void updateBusAppsUsers(List<BusApplication> apps);
 }
