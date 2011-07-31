@@ -19,20 +19,18 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	      <c:choose>
 	            <c:when test="${user.bus.workingOrder}">
 		            bus is in working order
-		            <a href="/changeWorkingOrder">CRASH</a>
+		            <a href="driver?workingOrder=0">CRASH</a>
 	            </c:when>
 	
 	           <c:otherwise>
 		           bus NOT in working order
-		          <a href="/changeWorkingOrder">REPAIR</a>
+		          <a href="driver?workingOrder=1">REPAIR</a>
 	         </c:otherwise>
 	     </c:choose>
      </DIV>
       
       <DIV ALIGN=CENTER>
-     <form action="/autoStation/doapp" method="post">
-     
-     
+     <form action="driver" method="post">
             <table border="1">
                 <c:forEach var="app" items="${apps}">
                     <tr>
