@@ -10,44 +10,39 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	<head>
 		<title>Driver</title>
 	</head>
-	<body 
-	  <DIV ALIGN=CENTER>
-        <strong>Hello nigga</strong>
-      </DIV>
-      
-      <DIV ALIGN=LEFT>
+	<body>
+      <div align=left>
 	      <c:choose>
 	            <c:when test="${user.bus.workingOrder}">
-		            bus is in working order
+		            bus is in working order &nbsp;&nbsp;&nbsp;
 		            <a href="driver?workingOrder=0">CRASH</a>
 	            </c:when>
-	
+
 	           <c:otherwise>
-		           bus NOT in working order
+		          bus NOT in working order &nbsp;&nbsp;&nbsp;
 		          <a href="driver?workingOrder=1">REPAIR</a>
 	         </c:otherwise>
 	     </c:choose>
-     </DIV>
-      
-      <DIV ALIGN=CENTER>
+     </div>
+
+     <div align=center>
      <form action="driver" method="post">
             <table border="1">
                 <c:forEach var="app" items="${apps}">
                     <tr>
                         <td>${app.minSpeed}</td>
                         <td>${app.minBusLoad}</td>
-                       
+
                         <td>
-                        
                             <c:choose>
                                 <c:when test="${app.isdone}">
                                     done
                                 </c:when>
-                                
+
                                 <c:otherwise>
                                     <input type="checkbox" name="doapp" value=${app.id} />
                                 </c:otherwise>
-                            </c:choose>    
+                            </c:choose>
                         </td>
                     </tr>
                 </c:forEach>
@@ -57,6 +52,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     </td>
                 </tr>
         </form>
-		</DIV>
+		</div>
 	</body>
 </html>

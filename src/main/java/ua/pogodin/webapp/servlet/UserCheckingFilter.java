@@ -19,6 +19,8 @@ public class UserCheckingFilter implements Filter {
             if (session == null || session.getAttribute("user") == null) {
                 ((HttpServletResponse) resp).sendRedirect("login");
                 return;
+            } else {
+                req.setAttribute("user", session.getAttribute("user"));
             }
         }
 
