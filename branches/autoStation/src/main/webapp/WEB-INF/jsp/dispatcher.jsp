@@ -4,7 +4,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
-<head>Driver</head>
+<head>
+    <title>Driver</title>
+</head>
 <body>
 <title>
     <div align=center>
