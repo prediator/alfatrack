@@ -6,10 +6,11 @@ package ua.pogodin.webapp.util;
 import ua.pogodin.webapp.dao.impl.DbExecutor;
 
 public class DbUtils {
-    private enum Param {
+    public enum Param {
         CREATE_TABLES("ct", "createtables.sql"),
         DELETE_TABLES_DATA("dt", "deletetablesdata.sql"),
-        DROP_TABLES("drop", "droptables.sql");
+        DROP_TABLES("drop", "droptables.sql"),
+        FILL_TABLES_DATA("data", "fill_tables_data.sql");
 
         private String command;
         private String sqlFilePath;

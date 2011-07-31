@@ -15,7 +15,7 @@
 <div align=center style="padding-top: 100px;">
     <table border="1">
         <tr>
-            <td colspan="3">
+            <td colspan="3" align="center">
                 <c:choose>
                     <c:when test="${user.bus.workingOrder}">
                         bus is in working order &nbsp;&nbsp;&nbsp;
@@ -23,7 +23,7 @@
                     </c:when>
 
                     <c:otherwise>
-                        bus is NOT in working order &nbsp;&nbsp;&nbsp;
+                        bus is <span style="color: red;">NOT</span> in working order &nbsp;&nbsp;
                         <a href="driver?workingOrder=1">REPAIR</a>
                     </c:otherwise>
                 </c:choose>
@@ -33,7 +33,7 @@
         <form action="driver" method="post">
             <c:forEach var="app" items="${apps}">
                 <tr>
-                    <td width="15">
+                    <td width="40" align="center">
                         <c:choose>
                             <c:when test="${app.isdone}">
                                 done
