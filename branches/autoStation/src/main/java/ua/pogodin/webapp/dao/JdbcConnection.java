@@ -18,8 +18,6 @@ public interface JdbcConnection {
 
     User getUserByLoginAndPass(String login, String password);
 
-    Bus getBusById(Long id);
-
     User createUser(User user);
 
     boolean isLoginFree(String login);
@@ -28,9 +26,15 @@ public interface JdbcConnection {
 
     List<User> findAllUsers() throws AppException;
 
+    Bus getBusById(Long id);
+
     Bus createBus(Bus bus);
+
+    Bus updateBusWorkingOrder(Long busId, boolean isWorking);
 
     BusApplication createBusApp(BusApplication busApplication);
 
     List<BusApplication> findAllBusApplications();
+
+    List<BusApplication> findBusAppsByUserId(Long userId);
 }
