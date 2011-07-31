@@ -259,6 +259,21 @@ public class DataBaseConnector implements JdbcConnection {
         }
     }
 
+    @Override
+    public void setBusAppsDone(Long[] appIds) {
+        String[] ids = new String[appIds.length];
+        String placeHolders = "";
+
+        for (int i = 0; i < appIds.length; i++) {
+            ids[i] = appIds[i].toString();
+            placeHolders += ",?";
+        }
+        
+        placeHolders = placeHolders.substring(1);
+
+        DbExecutor.execUpdate("update bus_application set isdone=1 where id in (" + placeHolders + ")", ids);
+    }
+
     private User getUserFromRs(ResultSet rs) throws SQLException {
         boolean isDispatcher = rs.getBoolean("isdispatcher");
         Long id = rs.getLong("id");

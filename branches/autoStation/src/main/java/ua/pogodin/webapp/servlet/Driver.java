@@ -29,8 +29,18 @@ public class Driver extends BaseServlet {
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getParameter("doapp");
-//        List<BusApplication> apps = conn.findAllBusApplications();
-//		resultRequest(user,apps,req,resp);
+        String[] appIdArray = req.getParameterValues("doapp");
+        if (appIdArray != null) {
+            dbConnector.setBusAppsDone(convertToLongArr(appIdArray));
+        }
+        resp.sendRedirect("driver");
 	}
+
+    private Long[] convertToLongArr(String[] stringArr) {
+        Long[] longArr = new Long[stringArr.length];
+        for (int i = 0; i < stringArr.length; i++) {
+            longArr[i] = Long.valueOf(stringArr[i]);
+        }
+        return longArr;
+    }
 }

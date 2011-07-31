@@ -17,7 +17,7 @@ public class DataBaseConnectorTest {
     private static JdbcConnection conn;
     private User user;
     private Bus bus;
-    private BusApplication busApp;
+    private BusApplication app;
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -36,7 +36,7 @@ public class DataBaseConnectorTest {
     public void setUp() {
         user = conn.createUser(new User("testuser", "testpass", "the name", true, new Bus()));
         bus = conn.createBus(new Bus(40, 140, true));
-        busApp = conn.createBusApp(new BusApplication(30, 40, false, user.getId()));
+        app = conn.createBusApp(new BusApplication(30, 40, false, user.getId()));
     }
 
     @After
@@ -45,19 +45,19 @@ public class DataBaseConnectorTest {
     }
 
     @Test
-    public void userShouldBeGettableById() {
+    public void userCouldBeGotById() {
         User user = conn.getUserById(this.user.getId());
         assertUsersEqual(this.user, user);
     }
 
     @Test
-    public void userShouldBeGettableByLogin() {
+    public void userCouldBeGotByLogin() {
         User user = conn.getUserByLogin(this.user.getLogin());
         assertUsersEqual(this.user, user);
     }
 
     @Test
-    public void userShouldBeGettableByLoginAndPassword() {
+    public void userCouldBeGotByLoginAndPassword() {
         User user = conn.getUserByLoginAndPass(this.user.getLogin(), this.user.getPassword());
         assertUsersEqual(this.user, user);
     }
@@ -77,13 +77,13 @@ public class DataBaseConnectorTest {
     }
 
     @Test
-    public void busShouldBeFindableById() {
+    public void busCouldBeFoundById() {
         Bus bus = conn.getBusById(this.bus.getId());
         assertBussesEqual(this.bus, bus);
     }
 
     @Test
-    public void busWorkingOrderShouldBeUpdateable() throws Exception {
+    public void busWorkingOrderCouldBeUpdated() throws Exception {
         assertTrue(bus.isWorkingOrder());
         Bus updatedBus = conn.updateBusWorkingOrder(bus.getId(), false);
         assertFalse(updatedBus.isWorkingOrder());
@@ -102,25 +102,36 @@ public class DataBaseConnectorTest {
     }
 
     @Test
-    public void allUsersShouldBeFindable() {
+    public void allUsersCouldBeFound() {
         List<User> users = conn.findAllUsers();
         assertNotNull(users);
         assertEquals(1, users.size());
     }
 
     @Test
-    public void allBusAppsShouldBeFindable() {
+    public void allBusAppsCouldBeFound() {
         List<BusApplication> busApps = conn.findAllBusApplications();
         assertNotNull(busApps);
         assertEquals(1, busApps.size());
     }
 
     @Test
-    public void busAppShouldBeFindableByUserId() throws Exception {
+    public void busAppCouldBeFoundByUserId() throws Exception {
         List<BusApplication> apps = conn.findBusAppsByUserId(user.getId());
         assertNotNull(apps);
         assertEquals(1, apps.size());
-        assertBusAppsEqual(busApp, apps.get(0));
+        assertBusAppsEqual(app, apps.get(0));
+    }
+
+    @Test
+    public void severalBusAppsCouldBeDone() throws Exception {
+        BusApplication app2 = conn.createBusApp(new BusApplication(50, 51, false, user.getId()));
+        conn.setBusAppsDone(new Long[]{app.getId(), app2.getId()});
+
+        List<BusApplication> apps = conn.findAllBusApplications();
+        for (BusApplication application : apps) {
+            assertTrue(application.isIsdone());
+        }
     }
 
     private void assertBusAppsEqual(BusApplication expectedApp, BusApplication app) {
