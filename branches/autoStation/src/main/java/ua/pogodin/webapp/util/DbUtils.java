@@ -7,9 +7,9 @@ import ua.pogodin.webapp.dao.impl.DbExecutor;
 
 public class DbUtils {
     private enum Param {
-        CREATE_TABLES("ct", "/createtables.sql"),
-        DELETE_TABLES_DATA("dt", "/deletetablesdata.sql"),
-        DROP_TABLES("drop", "/droptables.sql");
+        CREATE_TABLES("ct", "createtables.sql"),
+        DELETE_TABLES_DATA("dt", "deletetablesdata.sql"),
+        DROP_TABLES("drop", "droptables.sql");
 
         private String param;
         private String sqlFilePath;

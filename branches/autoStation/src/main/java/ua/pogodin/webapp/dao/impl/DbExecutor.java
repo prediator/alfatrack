@@ -101,9 +101,9 @@ public class DbExecutor {
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             ScriptRunner scriptRunner = new ScriptRunner(connection, false, true);
-            scriptRunner.runScript(new InputStreamReader(DbExecutor.class.getResourceAsStream(sqlFilePath)));
+            scriptRunner.runScript(new InputStreamReader(DbExecutor.class.getResourceAsStream("/sql/" + sqlFilePath)));
         } catch (Exception e) {
-            throw new AppException("Can't execute sql file " + sqlFilePath, e);
+            throw new AppException("Can't execute sql file /sql/" + sqlFilePath, e);
         } finally {
             if (connection != null) {
                 try {

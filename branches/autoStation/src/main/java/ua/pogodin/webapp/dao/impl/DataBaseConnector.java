@@ -187,7 +187,7 @@ public class DataBaseConnector implements JdbcConnection {
     public BusApplication createBusApp(BusApplication busApp) {
         DbExecutor.execUpdate("insert into bus_application (minspeed,minbusload,isdone,userid) values (?,?,?,?)",
                 Integer.toString(busApp.getMinSpeed()), Integer.toString(busApp.getMinBusLoad()),
-                busApp.isdone() ? "1" : "0", Long.toString(busApp.getUserId()));
+                busApp.getIsdone() ? "1" : "0", Long.toString(busApp.getUserId()));
         DbExecutor executor = DbExecutor.execSelect("select * from bus_application where id in(select max(id) from bus_application)");
 
         try {
