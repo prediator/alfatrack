@@ -268,10 +268,18 @@ public class DataBaseConnector implements JdbcConnection {
             ids[i] = appIds[i].toString();
             placeHolders += ",?";
         }
-        
+
         placeHolders = placeHolders.substring(1);
 
         DbExecutor.execUpdate("update bus_application set isdone=1 where id in (" + placeHolders + ")", ids);
+    }
+
+    @Override
+    public void updateBusAppsUsers(List<BusApplication> apps) {
+        for (BusApplication app : apps) {
+            DbExecutor.execUpdate("update bus_application set userid=? where id=?", app.getUserId().toString(),
+                    app.getId().toString());
+        }
     }
 
     private User getUserFromRs(ResultSet rs) throws SQLException {

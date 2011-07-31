@@ -16,6 +16,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>Dispatcher</servlet-name>
+        <servlet-class>ua.pogodin.webapp.servlet.Dispatcher</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Dispatcher</servlet-name>
+        <url-pattern>/dispatcher</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>ua.pogodin.webapp.servlet.Login</servlet-class>
     </servlet>

@@ -13,6 +13,14 @@ import java.util.List;
 public class Driver extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        changeWorkingOrderIfNeeded(req);
+
+        List<BusApplication> apps = dbConnector.findBusAppsByUserId(getUser(req).getId());
+        req.setAttribute("apps", apps);
+        forward("/WEB-INF/jsp/driver.jsp", req, resp);
+	}
+
+    private void changeWorkingOrderIfNeeded(HttpServletRequest req) {
         String workingOrder = req.getParameter("workingOrder");
         if (workingOrder != null) {
             boolean isBusWorking = Integer.valueOf(workingOrder) == 1;
@@ -21,11 +29,7 @@ public class Driver extends BaseServlet {
             Bus bus = dbConnector.updateBusWorkingOrder(user.getBus().getId(), isBusWorking);
             user.setBus(bus);
         }
-
-        List<BusApplication> apps = dbConnector.findBusAppsByUserId(getUser(req).getId());
-        req.setAttribute("apps", apps);
-        forward("/WEB-INF/jsp/driver.jsp", req, resp);
-	}
+    }
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

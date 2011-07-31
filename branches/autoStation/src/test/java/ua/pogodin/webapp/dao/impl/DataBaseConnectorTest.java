@@ -6,6 +6,7 @@ import ua.pogodin.webapp.domain.Bus;
 import ua.pogodin.webapp.domain.BusApplication;
 import ua.pogodin.webapp.domain.User;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -132,6 +133,20 @@ public class DataBaseConnectorTest {
         for (BusApplication application : apps) {
             assertTrue(application.isIsdone());
         }
+    }
+
+    @Test
+    public void busAppsUsersCouldBeUpdated() throws Exception {
+        BusApplication app2 = conn.createBusApp(new BusApplication(50, 51, false, user.getId()));
+        User user2 = conn.createUser(new User("another", "pp", "the another name", true, new Bus()));
+
+        app.setUserId(user2.getId());
+        app2.setUserId(user2.getId());
+        conn.updateBusAppsUsers(Arrays.asList(app, app2));
+
+        List<BusApplication> apps = conn.findAllBusApplications();
+        assertEquals(user2.getId(), apps.get(0).getUserId());
+        assertEquals(user2.getId(), apps.get(1).getUserId());
     }
 
     private void assertBusAppsEqual(BusApplication expectedApp, BusApplication app) {

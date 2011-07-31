@@ -12,23 +12,37 @@
     Logged user: ${user.name} (login:${user.login})&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">logout</a>
 </div>
 <div align=center style="margin-top: 10px">
-<table border="1">
-    <tr>
-        <td>
-            <c:choose>
-                <c:when test="${user.bus.isWorkingOrder}">
-                    bus is in working order
-                    <a href="/changeWorkingOrder">CRASH</a>
-                </c:when>
+    <form action="dispatcher" method="post">
+        <table border="1">
+            <c:forEach var="app" items="${apps}">
+                <tr>
+                    <td width="100" align="center">${app.minSpeed}</td>
+                    <td width="100" align="center">${app.minBusLoad}</td>
 
-                <c:otherwise>
-                    bus NOT in working order
-                    <a href="/changeWorkingOrder">REPAIR</a>
-                </c:otherwise>
-            </c:choose>
-        </td>
-    </tr>
-</table>
+                    <td width="150" align="center">
+                        <c:choose>
+                            <c:when test="${app.isdone}">
+                                done
+                            </c:when>
+
+                            <c:otherwise>
+                                <select name="${app.id}" width="20">
+                                    <c:forEach var="user" items="${users}">
+                                        <option value="${user.id}" <c:if test="${app.userId == user.id}">selected</c:if>>
+                                            <c:out value="${user.name}"/>
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+        <div align="center" style="padding-top: 10px">
+            <input type=submit value="Assign drivers to Applications"/>
+        </div>
+    </form>
 </div>
 </body>
 </html>
