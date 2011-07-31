@@ -12,7 +12,11 @@
 </head>
 <body>
 
-<div align=center style="padding-top: 100px;">
+<div align=center style="margin-top: 70px">
+    Logged user: ${user.name} (login:${user.login})&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">logout</a>
+</div>
+
+<div align=center style="margin-top: 10px">
     <table border="1">
         <tr>
             <td colspan="3" align="center">
