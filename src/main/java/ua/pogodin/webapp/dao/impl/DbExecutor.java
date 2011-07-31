@@ -18,22 +18,8 @@ public class DbExecutor {
     public static DbExecutor execSelect(String sql, String... params) throws AppException {
         DbExecutor executor = new DbExecutor();
 
-        try {
-            executor.connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        } catch (SQLException e) {
-            close(executor);
-            throw new AppException("Can't obtain connection to DB", e);
-        }
-
-        try {
-            executor.preparedStatement = executor.connection.prepareStatement(sql);
-            for (int i = 0; i < params.length; i++) {
-                executor.preparedStatement.setString(i+1, params[i]);
-            }
-        } catch (SQLException e) {
-            close(executor);
-            throw new AppException("Can't create prepared statement for query: " + sql, e);
-        }
+        getConnection(executor);
+        prepareStatementAndSetStringParams(executor, sql, params);
 
         try {
             executor.rs = executor.preparedStatement.executeQuery();
@@ -48,23 +34,8 @@ public class DbExecutor {
     public static void execUpdate(String sql, String... values) {
         DbExecutor executor = new DbExecutor();
 
-        try {
-            executor.connection = DriverManager.getConnection(Properties.get(DataBaseConnector.PROPNAME_URL),
-                    Properties.get(DataBaseConnector.PROPNAME_USERNAME), Properties.get(DataBaseConnector.PROPNAME_PASSWORD));
-        } catch (SQLException e) {
-            close(executor);
-            throw new AppException("Can't obtain connection to DB", e);
-        }
-
-        try {
-            executor.preparedStatement = executor.connection.prepareStatement(sql);
-            for (int i = 0; i < values.length; i++) {
-                executor.preparedStatement.setString(i+1, values[i]);
-            }
-        } catch (SQLException e) {
-            close(executor);
-            throw new AppException("Can't create prepared statement for query: " + sql, e);
-        }
+        getConnection(executor);
+        prepareStatementAndSetStringParams(executor, sql, values);
 
         try {
             executor.preparedStatement.executeUpdate();
@@ -72,6 +43,27 @@ public class DbExecutor {
             throw new AppException("Can't execute update: " + sql, e);
         } finally {
             close(executor);
+        }
+    }
+
+    private static void getConnection(DbExecutor executor) {
+        try {
+            executor.connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            close(executor);
+            throw new AppException("Can't obtain connection to DB", e);
+        }
+    }
+
+    private static void prepareStatementAndSetStringParams(DbExecutor executor, String sql, String[] params) {
+        try {
+            executor.preparedStatement = executor.connection.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                executor.preparedStatement.setString(i+1, params[i]);
+            }
+        } catch (SQLException e) {
+            close(executor);
+            throw new AppException("Can't create prepared statement for query: " + sql, e);
         }
     }
 
