@@ -77,9 +77,18 @@ public class DataBaseConnectorTest {
     }
 
     @Test
-    public void busShouldBeFoundableById() {
+    public void busShouldBeFindableById() {
         Bus bus = conn.getBusById(this.bus.getId());
         assertBussesEqual(this.bus, bus);
+    }
+
+    @Test
+    public void busWorkingOrderShouldBeUpdateable() throws Exception {
+        assertTrue(bus.isWorkingOrder());
+        Bus updatedBus = conn.updateBusWorkingOrder(bus.getId(), false);
+        assertFalse(updatedBus.isWorkingOrder());
+        updatedBus = conn.updateBusWorkingOrder(bus.getId(), true);
+        assertTrue(updatedBus.isWorkingOrder());
     }
 
     @Test
@@ -93,17 +102,33 @@ public class DataBaseConnectorTest {
     }
 
     @Test
-    public void allUsersShouldBeFoundable() {
+    public void allUsersShouldBeFindable() {
         List<User> users = conn.findAllUsers();
         assertNotNull(users);
         assertEquals(1, users.size());
     }
 
     @Test
-    public void allBusAppsShouldBeFoundable() {
+    public void allBusAppsShouldBeFindable() {
         List<BusApplication> busApps = conn.findAllBusApplications();
         assertNotNull(busApps);
         assertEquals(1, busApps.size());
+    }
+
+    @Test
+    public void busAppShouldBeFindableByUserId() throws Exception {
+        List<BusApplication> apps = conn.findBusAppsByUserId(user.getId());
+        assertNotNull(apps);
+        assertEquals(1, apps.size());
+        assertBusAppsEqual(busApp, apps.get(0));
+    }
+
+    private void assertBusAppsEqual(BusApplication expectedApp, BusApplication app) {
+        assertNotNull(app);
+        assertEquals(expectedApp.getId(), app.getId());
+        assertEquals(expectedApp.getMinBusLoad(), app.getMinBusLoad());
+        assertEquals(expectedApp.getMinSpeed(), app.getMinSpeed());
+        assertEquals(expectedApp.getUserId(), app.getUserId());
     }
 
     private void assertUsersEqual(User expectedUser, User user) {

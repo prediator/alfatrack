@@ -104,24 +104,6 @@ public class DataBaseConnector implements JdbcConnection {
     }
 
     @Override
-    public Bus getBusById(Long id) {
-        DbExecutor executor = DbExecutor.execSelect("select * from busses where id=?", Long.toString(id));
-        try {
-            ResultSet rs = executor.rs();
-
-            if (!rs.next()) {
-                throw new AppException("No bus with id " + id);
-            }
-
-            return getBusFromRs(rs);
-        } catch (SQLException e) {
-            throw new AppException("Can't find bus by id " + id, e);
-        } finally {
-            DbExecutor.close(executor);
-        }
-    }
-
-    @Override
     public User createUser(User user) {
         int intIsDispatcher = user.isDispatcher() ? 1 : 0;
         String busid = user.getBus() != null ? user.getBus().getId() != null ? Long.toString(user.getBus().getId()) : null : null;
@@ -199,6 +181,30 @@ public class DataBaseConnector implements JdbcConnection {
     }
 
     @Override
+    public Bus getBusById(Long id) {
+        DbExecutor executor = DbExecutor.execSelect("select * from busses where id=?", Long.toString(id));
+        try {
+            ResultSet rs = executor.rs();
+
+            if (!rs.next()) {
+                throw new AppException("No bus with id " + id);
+            }
+
+            return getBusFromRs(rs);
+        } catch (SQLException e) {
+            throw new AppException("Can't find bus by id " + id, e);
+        } finally {
+            DbExecutor.close(executor);
+        }
+    }
+
+    @Override
+    public Bus updateBusWorkingOrder(Long busId, boolean isWorking) {
+        DbExecutor.execUpdate("update busses set workingorder=? where id=?", isWorking ? "1" : "0", busId.toString());
+        return getBusById(busId);
+    }
+
+    @Override
     public BusApplication createBusApp(BusApplication busApp) {
         DbExecutor.execUpdate("insert into bus_application (minspeed,minbusload,isdone,userid) values (?,?,?,?)",
                 Integer.toString(busApp.getMinSpeed()), Integer.toString(busApp.getMinBusLoad()),
@@ -220,6 +226,24 @@ public class DataBaseConnector implements JdbcConnection {
     @Override
     public List<BusApplication> findAllBusApplications() {
         DbExecutor executor = DbExecutor.execSelect("select * from bus_application");
+        ResultSet rs = executor.rs();
+        try {
+            List<BusApplication> busApps = new ArrayList<BusApplication>();
+
+            while (rs.next()) {
+                busApps.add(getBusAppFromRs(rs));
+            }
+            return busApps;
+        } catch (SQLException e) {
+            throw new AppException("Can't extract users from DB", e);
+        } finally {
+            DbExecutor.close(executor);
+        }
+    }
+
+    @Override
+    public List<BusApplication> findBusAppsByUserId(Long userId) {
+        DbExecutor executor = DbExecutor.execSelect("select * from bus_application where userid=?", userId.toString());
         ResultSet rs = executor.rs();
         try {
             List<BusApplication> busApps = new ArrayList<BusApplication>();
