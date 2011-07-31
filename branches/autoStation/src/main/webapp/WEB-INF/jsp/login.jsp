@@ -9,7 +9,13 @@
 </head>
 <body>
 <div align=center>
-    <form action="/autoStation/authentication" method="post">
+    <c:if test="${wrong_credentials}">
+        <span style="color: red;">Wrong login or password</span>
+        <br/>
+        <br/>
+    </c:if>
+
+    <form action="login" method="post">
         <table border="1">
             <tr>
                 <td>name</td>
