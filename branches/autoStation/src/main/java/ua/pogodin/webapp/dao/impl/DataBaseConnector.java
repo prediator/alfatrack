@@ -75,7 +75,7 @@ public class DataBaseConnector implements JdbcConnection {
 
     @Override
     public User getUserByLogin(String login) {
-        DbExecutor executor = DbExecutor.execSelect("select * from users Where login=?", login);
+        DbExecutor executor = DbExecutor.execSelect("select * from users where login=?", login);
         try {
             if (!executor.rs().next()) {
                 throw new AppException("No user with login " + login);
@@ -83,6 +83,21 @@ public class DataBaseConnector implements JdbcConnection {
             return getUserFromRs(executor.rs());
         } catch (SQLException e) {
             throw new AppException("Can't find user with login " + login);
+        } finally {
+            DbExecutor.close(executor);
+        }
+    }
+
+    @Override
+    public User getUserByLoginAndPass(String login, String password) {
+        DbExecutor executor = DbExecutor.execSelect("select * from users where login=? and password=?", login, password);
+        try {
+            if (!executor.rs().next()) {
+                throw new AppException("No user with login " + login + " and password " + password);
+            }
+            return getUserFromRs(executor.rs());
+        } catch (SQLException e) {
+            throw new AppException("Can't find user with login " + login + " and password " + password);
         } finally {
             DbExecutor.close(executor);
         }

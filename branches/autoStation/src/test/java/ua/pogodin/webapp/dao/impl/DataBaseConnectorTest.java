@@ -57,6 +57,12 @@ public class DataBaseConnectorTest {
     }
 
     @Test
+    public void userShouldBeGettableByLoginAndPassword() {
+        User user = conn.getUserByLoginAndPass(this.user.getLogin(), this.user.getPassword());
+        assertUsersEqual(this.user, user);
+    }
+
+    @Test
     public void loginShouldBeFreeAfterUserDelete() {
         conn.deleteUserByLogin(user.getLogin());
 
