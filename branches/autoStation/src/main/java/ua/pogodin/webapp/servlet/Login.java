@@ -27,17 +27,16 @@ public class Login extends BaseServlet {
         String login = req.getParameter("login");
         String pass = req.getParameter("pass");
 
-        HttpSession currSession = req.getSession(true);
-
         User user;
         try {
-            user = dataBaseConnector.getUserByLoginAndPass(login, pass);
+            user = dbConnector.getUserByLoginAndPass(login, pass);
         } catch (AppException e) {
             req.setAttribute("wrong_credentials", true);
             resp.sendRedirect("login");
             return;
         }
 
+        HttpSession currSession = req.getSession(true);
         currSession.setAttribute("user", user);
         redirectToHomePage(resp, user);
     }
