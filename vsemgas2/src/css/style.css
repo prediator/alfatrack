@@ -29,7 +29,7 @@ p#action-bar a:hover { color: #66cc00; text-decoration: none; }
 
 div#status-bar {
 background: url('../img/Header1.png') repeat-x;
-border-bottom: 0px groove #ffffff;
+border-bottom: 0 groove #ffffff;
 height: 200px;
 width: 100%;
 }
