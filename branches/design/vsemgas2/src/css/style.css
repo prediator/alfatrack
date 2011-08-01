@@ -1,0 +1,52 @@
+h1 {
+color: #4d4d4d;
+font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
+font-size: 48px;
+font-weight: normal;
+}
+h1 a { color: #4d4d4d; text-decoration: none; }
+
+                                                        /* Paragraph styling */
+p {
+color: #525252;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 12px;
+}
+p.meta { color: #707070; font-size: 10px; text-align: right; }
+p#footer-text { text-align: center; }
+div#message p { color: #4d4d4d; line-height: 20px; }
+
+                                                        /* Link styling */
+a {
+
+color: #3d550a;
+text-decoration: none;
+}
+a:hover { color: #66cc00; text-decoration: none; }
+
+p#action-bar a { color: #336600; }
+p#action-bar a:hover { color: #66cc00; text-decoration: none; }
+
+div#status-bar {
+background: url('../img/Header1.png') repeat-x;
+border-bottom: 0px groove #ffffff;
+height: 200px;
+width: 100%;
+}
+
+div#logo {
+    float: left;
+padding-top: 80px;
+}
+
+
+div#left {
+	width: 25%;
+	float: left;
+	
+}
+
+div#main {
+	width: 74%;
+	float: left;
+}
