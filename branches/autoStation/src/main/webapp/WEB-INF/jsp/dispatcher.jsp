@@ -23,22 +23,42 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 			<form action="dispatcher" method="post">
 				<table border="1">
 					<c:forEach var="app" items="${apps}">
+
 						<tr>
 							<td width="100" align="center">${app.minSpeed}</td>
 							<td width="100" align="center">${app.minBusLoad}</td>
 
 							<td width="150" align="center">
+
 								<c:choose>
-									<c:when test="${app.isdone}">
-										done
-                                    </c:when>
+									
+										<c:when test="${app.isdone}">
+										    <c:forEach var="user" items="${users}">
+										      <c:if test="${app.userId==user.id}">
+											     done by ${user.name}
+											  </c:if>
+											</c:forEach>
+									    </c:when>
+									
 
 									<c:otherwise>
 										<select name="${app.id}" width="20">
+											<c:choose>
+												<c:when test="${app.userId == 0}">
+													<option value="0" selected>nobody</option>
+												</c:when>
+												<c:otherwise>
+													<option value="0">nobody</option>
+												</c:otherwise>
+												
+											</c:choose>
 											<c:forEach var="user" items="${users}">
 												<c:if
-													test="${user.bus.maxSpeed gt app.minSpeed && user.bus.busload gt app.minBusLoad && user.bus.workingOrder}">
-													<option value="${user.id}"<c:if test="${app.userId == user.id}">selected</c:if>>
+													test="${user.bus.maxSpeed gt app.minSpeed && user.bus.busload gt app.minBusLoad}">
+													<option value="${user.id}" 
+														<c:if test="${app.userId == user.id}">
+															selected</c:if>
+														>
 														<c:out value="${user.name}" />
 													</option>
 												</c:if>
@@ -46,9 +66,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 										</select>
 									</c:otherwise>
 								</c:choose>
+
 							</td>
 						</tr>
-					</c:forEach>
+				</c:forEach>
 				</table>
 				<div align="center" style="padding-top: 10px">
 					<input type=submit value="Assign drivers to Applications" />

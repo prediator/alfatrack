@@ -1,8 +1,8 @@
 INSERT INTO `users`(`login`,`password`,`isdispatcher`,`busid`,`name`) VALUES
-('disp', 'd', 1, null, 'Dispatcher'),
-('dr1', '1', 0, 1, 'Driver 1'),
-('dr2', '2', 0, 2, 'Driver 2'),
-('dr3', '3', 0, 3, 'Driver 3');
+('admin', 'admin', 1, null, 'Dispatcher'),
+('dr1', 'dr1', 0, 1, 'Driver 1'),
+('dr2', 'dr2', 0, 2, 'Driver 2'),
+('dr3', 'dr3', 0, 3, 'Driver 3');
 
 INSERT INTO `busses`(`busload`,`maxspeed`,`workingorder`) VALUES
 ('30', '120', 1),

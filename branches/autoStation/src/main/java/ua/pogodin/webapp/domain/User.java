@@ -23,6 +23,13 @@ public class User {
         this.isDispatcher = isDispatcher;
         this.bus = bus;
     }
+    public User(){
+    	this.login = "";
+        this.password = "";
+        this.name = "";
+        this.isDispatcher = false;
+        this.bus = new Bus();
+    }
 
     public Long getId() {
         return id;

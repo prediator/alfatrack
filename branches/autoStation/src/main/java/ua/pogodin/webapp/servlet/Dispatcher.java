@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Dispatcher extends BaseServlet {
@@ -14,9 +15,15 @@ public class Dispatcher extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<BusApplication> apps = dbConnector.findAllBusApplications();
 		List<User> users = dbConnector.findAllUsers();
-
+		List<User> needDrivers = new ArrayList<User>();
+		for (User user:users){
+			if(!user.isDispatcher() && user.getBus().isWorkingOrder()){
+				needDrivers.add(user);
+			}
+		}
+		
 		req.setAttribute("apps", apps);
-		req.setAttribute("users", users);
+		req.setAttribute("users", needDrivers);
 		forward("/WEB-INF/jsp/dispatcher.jsp", req, resp);
 	}
 
