@@ -18,36 +18,42 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <form action="register" method="post">
 		        <table>
 	           	<tr>
+	           	<c:if test="${loginTaken == 1}">
+	           	   <td>
+	           	       <span style="color: red;">Login not free</span>
+	           	   </td></tr><tr>
+	           	</c:if>
 	           	<td>login</td>        
-		        <td><input type="text" name="login" value="${user.login}" size=20/></td>
-		        
+		        <td><input type="text" name="login" value="${userAdded.login}" size=20/></td>
+		        </tr><tr>
+		        <c:if test="${isPassWrong == 1}">
+                   <td>
+                       <span style="color: red;">Wrong password repeat</span>
+                   </td></tr><tr>
+                </c:if>
 		        <td>password</td>        
                 <td><input type="password" name="pass1" size=20/></td>
-                
+                </tr><tr>
                 <td>repeat password</td>        
                 <td><input type="password" name="pass2" size=20/></td>
-                
+                </tr><tr>
+                <c:if test="${notNameInputted == 1}">
+                   <td>
+                       <span style="color: red;">Input name</span>
+                   </td></tr><tr>
+                </c:if>
                 <td>name</td>        
-                <td><input type="text" name="name" value="${user.name}" size=20/></td>
-                
+                <td><input type="text" name="name" value="${userAdded.name}" size=20/></td>
+                </tr><tr>
                 <td>Driver</td>        
-                <td><input type="radio" name="isDriver" value="driver" 
+                <td><input type="radio" name="isDispatcher" value="driver" 
                             <c:if test="${!user.isDispatcher}">CHECKED</c:if>/>
                 </td>
-                
+                </tr><tr>
                 <td>Dispatcher</td>        
-                <td><input type="radio" name="isDriver" value="dispatcher"
+                <td><input type="radio" name="isDispatcher" value="dispatcher"
                                         <c:if test="${user.isDispatcher}">CHECKED</c:if>/></td>
-                
-                <c:if test="${!user.isDipatcher}">
-	                <td>BusSpeed</td>        
-	                <td><input type="text" name="maxSpeed" value="${bus.maxSpeed}"/></td>
-	                
-	                <td>BusLoad</td>        
-	                <td><input type="text" name="busload" value="${bus.busload}" /></td>
-	                
-                </c:if>
-		            
+                </tr><tr>
 		        <td><input type="submit" value="NEXT"></td>
 		        
 		            

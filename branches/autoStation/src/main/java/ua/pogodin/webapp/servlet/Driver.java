@@ -14,7 +14,6 @@ public class Driver extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         changeWorkingOrderIfNeeded(req);
-
         List<BusApplication> apps = dbConnector.findBusAppsByUserId(getUser(req).getId());
         req.setAttribute("apps", apps);
         forward("/WEB-INF/jsp/driver.jsp", req, resp);
