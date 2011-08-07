@@ -15,6 +15,15 @@
         <url-pattern>/driver</url-pattern>
     </servlet-mapping>
     
+     <servlet>
+        <servlet-name>UserManagement</servlet-name>
+        <servlet-class>ua.pogodin.webapp.servlet.UserManagement</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserManagement</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>Register</servlet-name>
         <servlet-class>ua.pogodin.webapp.servlet.Register</servlet-class>
