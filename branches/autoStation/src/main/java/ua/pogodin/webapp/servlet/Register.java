@@ -27,10 +27,10 @@ public class Register extends BaseServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String pass1 = (String) req.getAttribute("pass1");
-		String pass2 = (String) req.getAttribute("pass2");
-		String login = (String) req.getAttribute("login");
-		String name = (String) req.getAttribute("name");
+		String pass1 = (String) req.getParameter("pass1");
+		String pass2 = (String) req.getParameter("pass2");
+		String login = (String) req.getParameter("login");
+		String name = (String) req.getParameter("name");
 		
 		
 
@@ -47,7 +47,7 @@ public class Register extends BaseServlet {
 		req.setAttribute("isPassWrong", isPassWrong ? 1 : 0);
 		req.setAttribute("notNameInputted", notNameInputted ? 1 : 0);
 
-		if(!loginTaken || name == null || isPassWrong){
+		if(loginTaken || name == null || isPassWrong){
 			forward("/WEB-INF/jsp/register.jsp", req, resp);
 		}else{
 			fillUp(req, resp, login, pass1, name);
