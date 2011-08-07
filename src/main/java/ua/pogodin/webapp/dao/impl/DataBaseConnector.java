@@ -105,7 +105,7 @@ public class DataBaseConnector implements JdbcConnection {
 
     @Override
     public User createUser(User user) {
-        int intIsDispatcher = user.isDispatcher() ? 1 : 0;
+        int intIsDispatcher = user.isIsDispatcher() ? 1 : 0;
         String busid = user.getBus() != null ? user.getBus().getId() != null ? Long.toString(user.getBus().getId()) : null : null;
         DbExecutor.execUpdate("insert into users (login,password,isdispatcher,busid,name) values (?,?,?,?,?)",
                 user.getLogin(), user.getPassword(), Integer.toString(intIsDispatcher),

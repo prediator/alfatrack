@@ -39,7 +39,7 @@ public class User {
         this.id = id;
     }
 
-    public boolean isDispatcher() {
+    public boolean isIsDispatcher() {
         return isDispatcher;
     }
 

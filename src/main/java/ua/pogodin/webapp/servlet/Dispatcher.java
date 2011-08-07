@@ -17,7 +17,7 @@ public class Dispatcher extends BaseServlet {
 		List<User> users = dbConnector.findAllUsers();
 		List<User> needDrivers = new ArrayList<User>();
 		for (User user:users){
-			if(!user.isDispatcher() && user.getBus().isWorkingOrder()){
+			if(!user.isIsDispatcher() && user.getBus().isWorkingOrder()){
 				needDrivers.add(user);
 			}
 		}
