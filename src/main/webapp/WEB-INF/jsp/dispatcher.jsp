@@ -19,6 +19,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				<font size="5">Applications:</font>
 			</p>
 		</div>
+		<div align = left>
+			<form>
+			 <table>
+				<tr>
+					<td>
+						<input type="button" onClick="location.href='users'" value="show all users" />
+					</td>
+				</tr>
+				<tr>
+                    <td>
+                        <input type="button" onClick="location.href='register'" value="add new user" />
+                    </td>
+                </tr>
+                </table>
+			</form>
+		</div>
+
 		<div align=center style="margin-top: 10px">
 			<form action="dispatcher" method="post">
 				<table border="1">
@@ -31,15 +48,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 							<td width="150" align="center">
 
 								<c:choose>
-									
-										<c:when test="${app.isdone}">
-										    <c:forEach var="user" items="${users}">
-										      <c:if test="${app.userId==user.id}">
-											     done by ${user.name}
+
+									<c:when test="${app.isdone}">
+										<c:forEach var="user" items="${users}">
+											<c:if test="${app.userId==user.id}">
+												done by ${user.name}
 											  </c:if>
-											</c:forEach>
-									    </c:when>
-									
+										</c:forEach>
+									</c:when>
+
 
 									<c:otherwise>
 										<select name="${app.id}" width="20">
@@ -50,12 +67,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 												<c:otherwise>
 													<option value="0">nobody</option>
 												</c:otherwise>
-												
+
 											</c:choose>
 											<c:forEach var="user" items="${users}">
 												<c:if
 													test="${user.bus.maxSpeed gt app.minSpeed && user.bus.busload gt app.minBusLoad}">
 													<option value="${user.id}" 
+														
+														
 														<c:if test="${app.userId == user.id}">
 															selected</c:if>
 														>
@@ -69,7 +88,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
 							</td>
 						</tr>
-				</c:forEach>
+					</c:forEach>
 				</table>
 				<div align="center" style="padding-top: 10px">
 					<input type=submit value="Assign drivers to Applications" />

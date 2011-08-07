@@ -20,8 +20,6 @@ import java.util.List;
 public class Register extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		User userAdded = new User();
-		req.getSession(false).setAttribute("userAdded", userAdded);
 		forward("/WEB-INF/jsp/register.jsp", req, resp);
 	}
 
@@ -31,43 +29,48 @@ public class Register extends BaseServlet {
 		String pass2 = (String) req.getParameter("pass2");
 		String login = (String) req.getParameter("login");
 		String name = (String) req.getParameter("name");
-		
-		
 
 		boolean loginTaken = ((login == null) || !dbConnector.isLoginFree(login));
 		boolean isPassWrong = ((pass1 == null) || (pass2 == null) || !pass1.equals(pass2));
 		boolean notNameInputted = (name == null);
-		
-		User user = (User)req.getSession().getAttribute("userAdded");
-		user.setName((name==null)?"":name);
-		user.setLogin(login==null?"":login);
-		
 
-		req.setAttribute("loginTaken", loginTaken ? 1 : 0);
-		req.setAttribute("isPassWrong", isPassWrong ? 1 : 0);
-		req.setAttribute("notNameInputted", notNameInputted ? 1 : 0);
+		req.setAttribute("loginTaken", loginTaken);
+		req.setAttribute("isPassWrong", isPassWrong);
+		req.setAttribute("notNameInputted", notNameInputted);
+		req.setAttribute("name", name);
+		req.setAttribute("login", login);
 
-		if(loginTaken || name == null || isPassWrong){
+		if (loginTaken || notNameInputted || isPassWrong) {
 			forward("/WEB-INF/jsp/register.jsp", req, resp);
-		}else{
-			fillUp(req, resp, login, pass1, name);
+		} else {
+			boolean disp = ((String) req.getParameter("isDispatcher")).equals("dispatcher");
+			if (disp) {
+				createDispatcher(resp, login, pass1, name);
+			} else {
+				int busload = Integer.valueOf((String) req.getParameter("busload")).intValue();
+				int maxspeed = Integer.valueOf((String) req.getParameter("maxspeed")).intValue();
+				String busWorking = (String) req.getParameter("busworking");
+
+				if (busload > 0 && maxspeed > 0) {
+					createDriver(resp, login, pass1, name, busload, maxspeed,
+							(busWorking != null) ? busWorking.equals("true") : false);
+				} else {
+					forward("/WEB-INF/jsp/register.jsp", req, resp);
+				}
+			}
 		}
 	}
 
-	protected void fillUp(HttpServletRequest req, HttpServletResponse resp, String login, String pass, String name)
-			throws IOException {
-		String isDisp = (String) req.getAttribute("isDispatcher");
-		boolean isDispatcher = isDisp.equals("dispatcher");
+	private void createDriver(HttpServletResponse resp, String login, String pass, String name, int busload,
+			int maxspeed, boolean isWork) throws IOException {
+		Bus bus = new Bus(busload, maxspeed, isWork);
+		dbConnector.createBus(bus);
+		dbConnector.createUser(new User(login, pass, name, false, bus));
+		resp.sendRedirect("users");
+	}
 
-		User addedUser = new User(login, pass, name, isDispatcher, new Bus());
-
-		if (isDispatcher) {
-			dbConnector.createUser(addedUser);
-			resp.sendRedirect("dispatcher");
-		} else {
-			req.getSession(false).setAttribute("addedUser", addedUser);
-			resp.sendRedirect("busCreate");
-		}
-
+	private void createDispatcher(HttpServletResponse resp, String login, String pass, String name) throws IOException {
+		dbConnector.createUser(new User(login, pass, name, true, new Bus()));
+		resp.sendRedirect("users");
 	}
 }
