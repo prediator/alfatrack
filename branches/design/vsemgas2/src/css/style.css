@@ -34,8 +34,14 @@ height: 200px;
 width: 100%;
 }
 
+div#status-bar-content {
+    margin: 10px auto 0px auto;
+    width: 800px;
+}
+
 div#logo {
     float: left;
+    width: 300px;
 padding-top: 80px;
 }
 
