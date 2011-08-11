@@ -13,6 +13,9 @@ import java.util.List;
 public class Dispatcher extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if(!((User)req.getSession().getAttribute("user")).isIsDispatcher()){
+			resp.sendRedirect("driver");
+		}
 		List<BusApplication> apps = dbConnector.findAllBusApplications();
 		List<User> users = dbConnector.findAllUsers();
 		List<User> needDrivers = new ArrayList<User>();

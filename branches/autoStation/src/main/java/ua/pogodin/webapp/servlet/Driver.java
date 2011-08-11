@@ -13,6 +13,9 @@ import java.util.List;
 public class Driver extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if(((User)req.getSession().getAttribute("user")).isIsDispatcher()){
+			resp.sendRedirect("dispatcher");
+		}
         changeWorkingOrderIfNeeded(req);
         List<BusApplication> apps = dbConnector.findBusAppsByUserId(getUser(req).getId());
         req.setAttribute("apps", apps);

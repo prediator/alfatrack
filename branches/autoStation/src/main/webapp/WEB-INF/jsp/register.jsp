@@ -131,12 +131,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		document.getElementById(“businfo”);
 
 		function changeHide(action){
-		if
-		(action == 'show'){
-		businfo.style.display = '';
-		} else {
-		businfo.style.display = 'none';
-		}
+			if
+			(action == 'show'){
+			businfo.style.display = '';
+			} else {
+			businfo.style.display = 'none';
+			}
 		}
     </script>
 </html>
