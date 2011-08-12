@@ -4,22 +4,32 @@
  */
 package ua.pogodin.webapp.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author elias
  */
+
+@Entity
+@Table(name = "bus_application")
+
 public class BusApplication {
+	@Id
     private Long id;
+	@Column(name = "minspeed")
     private int minSpeed;
+	@Column(name = "minbusload")
     private int minBusLoad;
     private boolean isdone;
-    private Long userId;
 
     public BusApplication(int minSpeed, int minBusLoad, boolean isdone, Long userId) {
         this.minSpeed = minSpeed;
         this.minBusLoad = minBusLoad;
         this.isdone = isdone;
-        this.userId = userId;
     }
 
     public Long getId() {
@@ -53,15 +63,6 @@ public class BusApplication {
     public void setIsdone(boolean isdone) {
         this.isdone = isdone;
     }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     @Override
     public String toString() {
         return "BusApplication{" + "id=" + id + ", minSpeed=" + minSpeed + ", minBusLoad=" + minBusLoad + '}';
@@ -77,7 +78,6 @@ public class BusApplication {
         if (isdone != that.isdone) return false;
         if (minBusLoad != that.minBusLoad) return false;
         if (minSpeed != that.minSpeed) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
 
         return true;
     }
@@ -87,7 +87,6 @@ public class BusApplication {
         int result = minSpeed;
         result = 31 * result + minBusLoad;
         result = 31 * result + (isdone ? 1 : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
     }
 }

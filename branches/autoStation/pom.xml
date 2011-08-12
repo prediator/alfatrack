@@ -90,9 +90,6 @@
 					<url>http://localhost:8080/manager</url>
 				</configuration>
 			</plugin>
-
-
-
 		</plugins>
 	</build>
 </project>
