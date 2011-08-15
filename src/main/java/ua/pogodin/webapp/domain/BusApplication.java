@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,20 +24,18 @@ import javax.persistence.Table;
 @Table(name = "bus_application")
 public class BusApplication {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(name = "minspeed")
 	private int minSpeed;
 	@Column(name = "minbusload")
 	private int minBusLoad;
-	private boolean isdone;
 	@OneToMany(mappedBy = "busapp")
 	private List<Trip> trips = new ArrayList<Trip>();
 
-	public BusApplication(int minSpeed, int minBusLoad, boolean isdone, Long userId) {
+	public BusApplication(int minSpeed, int minBusLoad) {
 		this.minSpeed = minSpeed;
 		this.minBusLoad = minBusLoad;
-		this.isdone = isdone;
 	}
 
 	public Long getId() {
@@ -63,14 +62,6 @@ public class BusApplication {
 		this.minBusLoad = minBusLoad;
 	}
 
-	public boolean isIsdone() {
-		return isdone;
-	}
-
-	public void setIsdone(boolean isdone) {
-		this.isdone = isdone;
-	}
-
 	@Override
 	public String toString() {
 		return "BusApplication{" + "id=" + id + ", minSpeed=" + minSpeed + ", minBusLoad=" + minBusLoad + '}';
@@ -85,8 +76,6 @@ public class BusApplication {
 
 		BusApplication that = (BusApplication) o;
 
-		if (isdone != that.isdone)
-			return false;
 		if (minBusLoad != that.minBusLoad)
 			return false;
 		if (minSpeed != that.minSpeed)
@@ -99,7 +88,6 @@ public class BusApplication {
 	public int hashCode() {
 		int result = minSpeed;
 		result = 31 * result + minBusLoad;
-		result = 31 * result + (isdone ? 1 : 0);
 		return result;
 	}
 

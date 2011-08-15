@@ -14,10 +14,11 @@ import ua.pogodin.webapp.domain.User;
 public class UserManagement extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		if(!((User)req.getSession().getAttribute("user")).isIsDispatcher()){
+		if(!((User)req.getSession().getAttribute("user")).isDispatcher()){
 			resp.sendRedirect("driver");
 		}
-		req.getSession().setAttribute("users", dbConnector.findAllUsers());
+		
+		req.getSession().setAttribute("users", dbJPAConnector.getAllUsers());
 		forward("/WEB-INF/jsp/userManagement.jsp", req, resp);
 	}
 	

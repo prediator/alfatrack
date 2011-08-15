@@ -13,17 +13,12 @@ import java.util.List;
 public class Dispatcher extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		if(!((User)req.getSession().getAttribute("user")).isIsDispatcher()){
+		if(!((User)req.getSession().getAttribute("user")).isDispatcher()){
 			resp.sendRedirect("driver");
 		}
-		List<BusApplication> apps = dbConnector.findAllBusApplications();
-		List<User> users = dbConnector.findAllUsers();
+		List<BusApplication> apps = dbJPAConnector.findAllBusApplications();
+		List<User> users = dbJPAConnector.getAllUsers();
 		List<User> needDrivers = new ArrayList<User>();
-		for (User user:users){
-			if(!user.isIsDispatcher() && user.getBus().isWorkingOrder()){
-				needDrivers.add(user);
-			}
-		}
 		
 		req.setAttribute("apps", apps);
 		req.setAttribute("users", needDrivers);
@@ -32,7 +27,7 @@ public class Dispatcher extends BaseServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<BusApplication> apps = dbConnector.findAllBusApplications();
+		List<BusApplication> apps = dbJPAConnector.findAllBusApplications();
 
 		for (BusApplication app : apps) {
 			if (!app.isIsdone()) {
@@ -42,7 +37,7 @@ public class Dispatcher extends BaseServlet {
 			}
 		}
 
-		dbConnector.updateBusAppsUsers(apps);
+		dbJPAConnector.updateBusAppsUsers(apps);
 		resp.sendRedirect("dispatcher");
 	}
 }

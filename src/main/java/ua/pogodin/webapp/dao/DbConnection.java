@@ -2,15 +2,19 @@ package ua.pogodin.webapp.dao;
 
 import ua.pogodin.webapp.domain.Bus;
 import ua.pogodin.webapp.domain.BusApplication;
+import ua.pogodin.webapp.domain.Driver;
+import ua.pogodin.webapp.domain.Trip;
 import ua.pogodin.webapp.domain.User;
 import ua.pogodin.webapp.util.AppException;
 
 import java.util.List;
 
-public interface JdbcConnection {
+public interface DbConnection {
     boolean isDispatcher(String login);
 
     User getUserById(Long id);
+    
+    Driver getDriverById(Long id);
 
     void deleteUserByLogin(String login);
 
@@ -18,13 +22,15 @@ public interface JdbcConnection {
 
     User getUserByLoginAndPass(String login, String password);
 
-    User createUser(User user);
+    void createUser(User user);
 
     boolean isLoginFree(String login);
 
     int getUsersCount();
 
-    List<User> findAllUsers() throws AppException;
+    List<User> getAllDispatchers() throws AppException;
+    
+    List<Driver> getAllDrivers() throws AppException;
 
     Bus getBusById(Long id);
 
@@ -36,9 +42,13 @@ public interface JdbcConnection {
 
     List<BusApplication> findAllBusApplications();
 
-    List<BusApplication> findBusAppsByUserId(Long userId);
+    List<Trip> findTripsByDriverId(Long userId);
 
-    void setBusAppsDone(Long[] appIds);
+	Driver getDriverByLogin(String login);
 
-    void updateBusAppsUsers(List<BusApplication> apps);
+	List<User> getAllUsers() throws AppException;
+
+	void setBusTripDone(Long[] convertToLongArr);
+
+	Trip getTripById(Long id);
 }
