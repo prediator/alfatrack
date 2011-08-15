@@ -2,6 +2,7 @@ package ua.pogodin.webapp.servlet;
 
 import ua.pogodin.webapp.domain.Bus;
 import ua.pogodin.webapp.domain.BusApplication;
+import ua.pogodin.webapp.domain.Trip;
 import ua.pogodin.webapp.domain.User;
 
 import javax.servlet.ServletException;
@@ -13,12 +14,12 @@ import java.util.List;
 public class Driver extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		if(((User)req.getSession().getAttribute("user")).isIsDispatcher()){
+		if(((User)req.getSession().getAttribute("user")).isDispatcher()){
 			resp.sendRedirect("dispatcher");
 		}
         changeWorkingOrderIfNeeded(req);
-        List<BusApplication> apps = dbConnector.findBusAppsByUserId(getUser(req).getId());
-        req.setAttribute("apps", apps);
+        List<Trip> trips = dbJPAConnector.findTripsByDriverId(getUser(req).getId());
+        req.setAttribute("apps", trips);
         forward("/WEB-INF/jsp/driver.jsp", req, resp);
 	}
 
@@ -26,10 +27,10 @@ public class Driver extends BaseServlet {
         String workingOrder = req.getParameter("workingOrder");
         if (workingOrder != null) {
             boolean isBusWorking = Integer.valueOf(workingOrder) == 1;
-            User user = getUser(req);
-            user.getBus().setWorkingOrder(isBusWorking);
-            Bus bus = dbConnector.updateBusWorkingOrder(user.getBus().getId(), isBusWorking);
-            user.setBus(bus);
+            ua.pogodin.webapp.domain.Driver driver = (ua.pogodin.webapp.domain.Driver) getUser(req);
+            driver.getBus().setWorkingOrder(isBusWorking);
+            Bus bus = dbJPAConnector.updateBusWorkingOrder(driver.getBus().getId(), isBusWorking);
+            driver.setBus(bus);
         }
     }
 
@@ -37,7 +38,7 @@ public class Driver extends BaseServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] appIdArray = req.getParameterValues("doapp");
         if (appIdArray != null) {
-            dbConnector.setBusAppsDone(convertToLongArr(appIdArray));
+        	dbJPAConnector.setBusTripDone(convertToLongArr(appIdArray));
         }
         resp.sendRedirect("driver");
 	}

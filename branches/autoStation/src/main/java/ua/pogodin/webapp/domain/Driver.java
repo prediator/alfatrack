@@ -25,8 +25,9 @@ public class Driver extends User {
 	@JoinColumn(name = "bus")
 	private Bus bus;
 
-	public Driver(){
-		
+	public Driver(String login, String password, String name, Bus bus){
+		super(login,password,name);
+		this.bus = bus;
 	}
 	public Bus getBus() {
 		return bus;
@@ -34,5 +35,8 @@ public class Driver extends User {
 
 	public void setBus(Bus bus) {
 		this.bus = bus;
+	}
+	public boolean isDispatcher(){
+		return false;
 	}
 }

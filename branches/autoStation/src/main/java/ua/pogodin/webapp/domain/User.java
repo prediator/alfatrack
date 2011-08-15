@@ -9,9 +9,12 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,24 +23,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE) 
-@DiscriminatorColumn(name="type", discriminatorType=DiscriminatorType.STRING,length=20) 
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING, length = 20)
 @DiscriminatorValue("dispatcher")
 public class User {
 
-	
-	//TODO: add Oneto One, ManyToMany etc.
-	//TODO: add fields to Trip
-	//TODO: add DAO
-	//TODO: run with hiber+jetty (ask about glassfish+maven)
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private String login;
 	private String password;
 	private String name;
-
+	
 	public User(String login, String password, String name) {
 		this.login = login;
 		this.password = password;
@@ -49,6 +47,11 @@ public class User {
 		this.password = "";
 		this.name = "";
 	}
+	
+	public boolean isDispatcher(){
+		return true;
+	}
+	
 
 	public Long getId() {
 		return id;
@@ -116,4 +119,6 @@ public class User {
 		hash = 83 * hash + (this.name != null ? this.name.hashCode() : 0);
 		return hash;
 	}
+
+	
 }

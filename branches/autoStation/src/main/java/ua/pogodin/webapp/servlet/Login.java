@@ -29,7 +29,7 @@ public class Login extends BaseServlet {
 
         User user;
         try {
-            user = dbConnector.getUserByLoginAndPass(login, pass);
+            user = dbJPAConnector.getUserByLoginAndPass(login, pass);
         } catch (AppException e) {
             req.setAttribute("wrong_credentials", true);
             resp.sendRedirect("login");
@@ -42,7 +42,7 @@ public class Login extends BaseServlet {
     }
 
     private void redirectToHomePage(HttpServletResponse resp, User user) throws IOException {
-        if (user.isIsDispatcher()) {
+    	if (user.isDispatcher()) {
             resp.sendRedirect("dispatcher");
         } else {
             resp.sendRedirect("driver");
