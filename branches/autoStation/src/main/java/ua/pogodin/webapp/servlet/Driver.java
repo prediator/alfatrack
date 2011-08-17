@@ -19,7 +19,7 @@ public class Driver extends BaseServlet {
 		}
         changeWorkingOrderIfNeeded(req);
         List<Trip> trips = dbJPAConnector.findTripsByDriverId(getUser(req).getId());
-        req.setAttribute("apps", trips);
+        req.setAttribute("trips", trips);
         forward("/WEB-INF/jsp/driver.jsp", req, resp);
 	}
 
@@ -28,15 +28,13 @@ public class Driver extends BaseServlet {
         if (workingOrder != null) {
             boolean isBusWorking = Integer.valueOf(workingOrder) == 1;
             ua.pogodin.webapp.domain.Driver driver = (ua.pogodin.webapp.domain.Driver) getUser(req);
-            driver.getBus().setWorkingOrder(isBusWorking);
-            Bus bus = dbJPAConnector.updateBusWorkingOrder(driver.getBus().getId(), isBusWorking);
-            driver.setBus(bus);
+            dbJPAConnector.updateBusWorkingOrder(driver.getBus(), isBusWorking);
         }
     }
 
     @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String[] appIdArray = req.getParameterValues("doapp");
+        String[] appIdArray = req.getParameterValues("dotrip");
         if (appIdArray != null) {
         	dbJPAConnector.setBusTripDone(convertToLongArr(appIdArray));
         }

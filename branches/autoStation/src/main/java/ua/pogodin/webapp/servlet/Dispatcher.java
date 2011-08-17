@@ -1,6 +1,9 @@
 package ua.pogodin.webapp.servlet;
 
+import ua.pogodin.webapp.domain.Bus;
 import ua.pogodin.webapp.domain.BusApplication;
+import ua.pogodin.webapp.domain.Driver;
+import ua.pogodin.webapp.domain.Trip;
 import ua.pogodin.webapp.domain.User;
 
 import javax.servlet.ServletException;
@@ -17,11 +20,20 @@ public class Dispatcher extends BaseServlet {
 			resp.sendRedirect("driver");
 		}
 		List<BusApplication> apps = dbJPAConnector.findAllBusApplications();
-		List<User> users = dbJPAConnector.getAllUsers();
-		List<User> needDrivers = new ArrayList<User>();
-		
+		List<List<Driver>> appListDrivers = new ArrayList<List<Driver>>();
+		for (BusApplication app : apps) {
+			List<Driver> allDrivers = dbJPAConnector.getAllDrivers();
+			List<Driver> drivers = dbJPAConnector.getDriversByAppId(app.getId());
+			allDrivers.removeAll(drivers);
+			for (Driver driver : allDrivers) {
+				if(!driver.getBus().isWorkingOrder()){
+					allDrivers.remove(driver);
+				}
+			}
+			appListDrivers.add(allDrivers);
+		}
 		req.setAttribute("apps", apps);
-		req.setAttribute("users", needDrivers);
+		req.setAttribute("applist", appListDrivers);
 		forward("/WEB-INF/jsp/dispatcher.jsp", req, resp);
 	}
 
@@ -30,14 +42,17 @@ public class Dispatcher extends BaseServlet {
 		List<BusApplication> apps = dbJPAConnector.findAllBusApplications();
 
 		for (BusApplication app : apps) {
-			if (!app.isIsdone()) {
 				String parameter = req.getParameter(app.getId().toString());
 				Long userId = Long.valueOf(parameter);
-				app.setUserId(userId);
-			}
+				if(userId > 0){
+					System.out.println(parameter);
+					Bus bus = dbJPAConnector.getBusByDriverId(userId);
+					if(bus != null){
+						dbJPAConnector.createTrip(new Trip(bus,app, false));
+					}
+				}
+				
 		}
-
-		dbJPAConnector.updateBusAppsUsers(apps);
 		resp.sendRedirect("dispatcher");
 	}
 }

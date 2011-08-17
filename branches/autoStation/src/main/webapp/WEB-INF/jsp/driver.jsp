@@ -32,27 +32,27 @@
         </tr>
 
         <form action="driver" method="post">
-            <c:forEach var="app" items="${apps}">
+            <c:forEach var="trip" items="${trips}">
                 <tr>
                     <td width="40" align="center">
                         <c:choose>
-                            <c:when test="${app.isdone}">
+                            <c:when test="${trip.isdone}">
                                 done
                             </c:when>
 
                             <c:otherwise>
-                                <input type="checkbox" name="doapp" value="${app.id}"/>
+                                <input type="checkbox" name="dotrip" value="${trip.id}"/>
                             </c:otherwise>
                         </c:choose>
                     </td>
 
-                    <td width="100" align="center">${app.minSpeed}</td>
-                    <td width="100" align="center">${app.minBusLoad}</td>
+                    <td width="100" align="center">${trip.busapp.minSpeed}</td>
+                    <td width="100" align="center">${trip.busapp.minBusLoad}</td>
                 </tr>
             </c:forEach>
             <tr>
                 <td colspan="3" align="center">
-                    <input type=submit value="Set is done"/>
+                    <input type=submit value="Set"/>
                 </td>
             </tr>
         </form>

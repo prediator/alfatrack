@@ -40,17 +40,37 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		<div align=center style="margin-top: 10px">
 			<form action="dispatcher" method="post">
 				<table border="1">
-					<c:forEach var="app" items="${apps}" varStatus="appVar">
+					<c:forEach var="app" items="${apps}">
+
 						<tr>
 							<td width="100" align="center">${app.minSpeed}</td>
 							<td width="100" align="center">${app.minBusLoad}</td>
+
 							<td width="150" align="center">
+
 								<select name="${app.id}" width="20">
-									<option value="0" selected>nobody</option>
-									<c:forEach var="user" items="${applist[appVar.index]}">
-										<option value="${user.id}">
-											${user.name}
-										</option>
+									<c:choose>
+										<c:when test="${app.userId == 0}">
+											<option value="0" selected>nobody</option>
+										</c:when>
+										<c:otherwise>
+											<option value="0">nobody</option>
+										</c:otherwise>
+
+									</c:choose>
+									<c:forEach var="user" items="${users}">
+										<c:if
+											test="${user.bus.maxSpeed gt app.minSpeed && user.bus.busload gt app.minBusLoad}">
+											<option value="${user.id}" 
+                                                        
+                                                        
+                                                        
+												<c:if test="${app.userId == user.id}">
+													selected</c:if>
+												>
+												<c:out value="${user.name}" />
+											</option>
+										</c:if>
 									</c:forEach>
 								</select>
 							</td>

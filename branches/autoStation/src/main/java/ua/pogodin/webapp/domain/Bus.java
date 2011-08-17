@@ -37,7 +37,6 @@ public class Bus {
 	public Bus() {
 	}
 
-	// only for dispatcher's bus
 	public Bus(int busload, int maxSpeed, boolean workingOrder) {
 		this.busload = busload;
 		this.maxspeed = maxSpeed;
