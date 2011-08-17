@@ -1,3 +1,16 @@
+h1 {
+color: #4d4d4d;
+font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
+font-size: 18px;
+font-weight: normal;
+}
+
+p {
+color: #336600;
+font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
+font-size: 18px;
+}
+
 ul li a {
     color: #666666;
     font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
