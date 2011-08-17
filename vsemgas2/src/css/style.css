@@ -35,24 +35,33 @@ width: 100%;
 }
 
 div#status-bar-content {
-    margin: 10px auto 0px auto;
+    margin: 10px auto 1px auto;
     width: 800px;
 }
 
 div#logo {
     float: left;
     width: 300px;
-padding-top: 80px;
+    margin-top: 80px;
 }
 
+div#main {
+    width: 100%;
+}
+
+div#content {
+    margin: 10px auto 1px auto;
+    width: 800px;
+}
 
 div#left {
-	width: 25%;
+	width: 250px;
 	float: left;
 	
 }
 
-div#main {
-	width: 74%;
+div#main-content {
+	width: 550px;
 	float: left;
 }
+
