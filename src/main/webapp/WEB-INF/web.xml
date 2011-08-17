@@ -52,15 +52,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Renew DB</servlet-name>
-        <servlet-class>ua.pogodin.webapp.servlet.RenewDb</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Renew DB</servlet-name>
-        <url-pattern>/n</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>ua.pogodin.webapp.servlet.Logout</servlet-class>
     </servlet>

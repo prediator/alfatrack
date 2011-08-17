@@ -25,6 +25,9 @@ public class Driver extends User {
 	@JoinColumn(name = "bus")
 	private Bus bus;
 
+	public Driver(){
+		
+	}
 	public Driver(String login, String password, String name, Bus bus){
 		super(login,password,name);
 		this.bus = bus;

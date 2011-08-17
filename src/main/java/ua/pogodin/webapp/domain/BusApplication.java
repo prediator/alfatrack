@@ -27,12 +27,16 @@ public class BusApplication {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(name = "minspeed")
-	private int minSpeed;
+	private Integer minSpeed;
 	@Column(name = "minbusload")
-	private int minBusLoad;
+	private Integer minBusLoad;
 	@OneToMany(mappedBy = "busapp")
 	private List<Trip> trips = new ArrayList<Trip>();
 
+	public BusApplication(){
+		
+	}
+	
 	public BusApplication(int minSpeed, int minBusLoad) {
 		this.minSpeed = minSpeed;
 		this.minBusLoad = minBusLoad;

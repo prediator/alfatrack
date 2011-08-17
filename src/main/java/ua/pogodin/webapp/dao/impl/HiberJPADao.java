@@ -1,5 +1,7 @@
 package ua.pogodin.webapp.dao.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ua.pogodin.webapp.dao.DbConnection;
@@ -32,9 +34,36 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 		bh.closeAll();
 	}
 
+	public void deleteEntity(Object obj) {
+		bh.begin();
+		bh.getEm().remove(bh.getEm().merge(obj));
+		bh.commit();
+		bh.closeAll();
+	}
+
+	public void deleteListEnteties(List<Object> objs) {
+
+		int j = 0;
+		for (int i = 0; i < objs.size() && j < objs.size(); i++) {
+			if (objs.get(i) instanceof Trip) {
+				Collections.swap(objs, i, j);
+				j++;
+			}
+		}
+		for (int i = 0; i < objs.size() && j < objs.size(); i++) {
+			if (objs.get(i) instanceof User) {
+				Collections.swap(objs, i, j);
+				j++;
+			}
+		}
+		System.out.println(objs);
+		for (Object object : objs) {
+			deleteEntity(object);
+		}
+	}
+
 	@Override
 	public boolean isDispatcher(String login) {
-
 		return false;
 	}
 
@@ -45,8 +74,9 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 		bh.closeAll();
 		return user;
 	}
+
 	@Override
-	public Trip getTripById(Long id){
+	public Trip getTripById(Long id) {
 		bh.begin();
 		Trip trip = bh.getEm().find(Trip.class, id);
 		bh.closeAll();
@@ -82,11 +112,12 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 		}
 		return null;
 	}
+
 	@Override
 	public Driver getDriverByLogin(String login) {
 		bh.begin();
-		List<Driver> drivers = bh.getEm().createQuery("SELECT u FROM Driver u WHERE u.login LIKE ?1").setParameter(1, login)
-				.getResultList();
+		List<Driver> drivers = bh.getEm().createQuery("SELECT u FROM Driver u WHERE u.login LIKE ?1")
+				.setParameter(1, login).getResultList();
 		bh.closeAll();
 		if (drivers != null && !drivers.isEmpty()) {
 			return drivers.get(0);
@@ -100,9 +131,9 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 		bh.begin();
 		if (user != null && user.getPassword().equals(password)) {
 			return user;
-		}else{
+		} else {
 			Driver driver = getDriverByLogin(login);
-			if(driver != null && driver.getPassword().equals(password)){
+			if (driver != null && driver.getPassword().equals(password)) {
 				return driver;
 			}
 		}
@@ -158,7 +189,7 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 		bh.closeAll();
 		return users;
 	}
-	
+
 	@Override
 	public List<User> getAllUsers() throws AppException {
 		bh.begin();
@@ -167,8 +198,6 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 		bh.closeAll();
 		return users;
 	}
-	
-	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -177,6 +206,20 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 		Bus bus = bh.getEm().find(Bus.class, id);
 		bh.closeAll();
 		return bus;
+	}
+
+	@Override
+	public Bus getBusByDriverId(Long id) {
+		Driver dr = getDriverById(id);
+		return dr.getBus();
+
+	}
+
+	@Override
+	public Driver getDriverByBusId(Long id) {
+		Bus bus = getBusById(id);
+		return bus.getDriver();
+
 	}
 
 	@Override
@@ -190,14 +233,12 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	}
 
 	@Override
-	public Bus updateBusWorkingOrder(Long busId, boolean isWorking) {
-		Bus bus = getBusById(busId);
+	public void updateBusWorkingOrder(Bus bus, boolean isWorking) {
 		bh.begin();
 		bh.getEm().merge(bus);
 		bus.setWorkingOrder(isWorking);
 		bh.commit();
 		bh.closeAll();
-		return null;
 	}
 
 	@Override
@@ -218,7 +259,8 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	@Override
 	public List<Trip> findTripsByDriverId(Long userId) {
 		Driver dr = getDriverById(userId);
-		return dr.getBus().getTrips();
+		Bus bus = getBusById(dr.getBus().getId());
+		return bus.getTrips();
 	}
 
 	@Override
@@ -228,8 +270,74 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 			Trip trip = getTripById(id);
 			bh.getEm().merge(trip);
 			trip.setIsdone(true);
-			bh.getEm().getTransaction().commit();
+			bh.commit();
 		}
 		bh.closeAll();
 	}
+
+	@Override
+	public void deleteTrip(Trip trip) {
+		bh.begin();
+		bh.getEm().remove(bh.getEm().merge(trip));
+		bh.getEm().getTransaction().commit();
+		bh.closeAll();
+	}
+
+	@Override
+	public void deleteTrips(List<Trip> trips) {
+		bh.begin();
+		for (Trip trip : trips) {
+			bh.getEm().remove(bh.getEm().merge(trip));
+		}
+		bh.getEm().getTransaction().commit();
+		bh.closeAll();
+	}
+
+	@Override
+	public void createTrip(Trip trip) {
+		createEntity(trip);
+	}
+
+	@Override
+	public void createTrips(List<Trip> trips) {
+		for (Trip trip : trips) {
+			createTrip(trip);
+		}
+	}
+
+	@Override
+	public void updateTrips(List<Trip> trips) {
+
+	}
+
+	@Override
+	public List<Driver> getDriversByAppId(Long id) {
+
+		bh.begin();
+		List<Trip> trips = bh.getEm().createQuery("SELECT t FROM Trip t WHERE t.busapp.id LIKE ?1").setParameter(1, id)
+				.getResultList();
+		List<Driver> drivers = new ArrayList<Driver>();
+		for (Trip trip : trips) {
+			drivers.add(getDriverByBusId(trip.getBus().getId()));
+		}
+		return drivers;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Trip> getAllTrips() {
+		return bh.getEm().createQuery("SELECT t FROM Trip t").getResultList();
+	}
+
+	@Override
+	public BusApplication getBusAppById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Driver> getUserByAppId(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

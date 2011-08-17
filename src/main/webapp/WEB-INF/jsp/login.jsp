@@ -19,11 +19,11 @@
         <table border="1">
             <tr>
                 <td>name</td>
-                <td><input type="text" name="login" size=20></td>
+                <td><input type="text" name="login" value="admin" size=20></td>
             </tr>
             <tr>
                 <td>password</td>
-                <td><input type="password" name="pass" size=20></td>
+                <td><input type="password" name="pass" value="admin" size=20></td>
             </tr>
             <tr>
                 <td><input type=submit value="CHOOSE"/></td>

@@ -10,39 +10,41 @@ import ua.pogodin.webapp.util.AppException;
 import java.util.List;
 
 public interface DbConnection {
-    boolean isDispatcher(String login);
+	boolean isDispatcher(String login);
 
-    User getUserById(Long id);
-    
-    Driver getDriverById(Long id);
+	User getUserById(Long id);
 
-    void deleteUserByLogin(String login);
+	Driver getDriverById(Long id);
 
-    User getUserByLogin(String login);
+	void deleteUserByLogin(String login);
 
-    User getUserByLoginAndPass(String login, String password);
+	User getUserByLogin(String login);
 
-    void createUser(User user);
+	User getUserByLoginAndPass(String login, String password);
 
-    boolean isLoginFree(String login);
+	void createUser(User user);
 
-    int getUsersCount();
+	void createTrip(Trip trip);
 
-    List<User> getAllDispatchers() throws AppException;
-    
-    List<Driver> getAllDrivers() throws AppException;
+	boolean isLoginFree(String login);
 
-    Bus getBusById(Long id);
+	int getUsersCount();
 
-    Bus createBus(Bus bus);
+	List<User> getAllDispatchers() throws AppException;
 
-    Bus updateBusWorkingOrder(Long busId, boolean isWorking);
+	List<Driver> getAllDrivers() throws AppException;
 
-    BusApplication createBusApp(BusApplication busApplication);
+	Bus getBusById(Long id);
 
-    List<BusApplication> findAllBusApplications();
+	Bus createBus(Bus bus);
 
-    List<Trip> findTripsByDriverId(Long userId);
+	void updateBusWorkingOrder(Long busId, boolean isWorking);
+
+	BusApplication createBusApp(BusApplication busApplication);
+
+	List<BusApplication> findAllBusApplications();
+
+	List<Trip> findTripsByDriverId(Long userId);
 
 	Driver getDriverByLogin(String login);
 
@@ -51,4 +53,32 @@ public interface DbConnection {
 	void setBusTripDone(Long[] convertToLongArr);
 
 	Trip getTripById(Long id);
+
+	void deleteTrip(Trip trip);
+
+	void deleteTrips(List<Trip> trips);
+
+	void updateTrips(List<Trip> trips);
+
+	void createTrips(List<Trip> trips);
+
+	Bus getBusByDriverId(Long id);
+
+	List<Driver> getUserByAppId(Long id);
+
+	BusApplication getBusAppById(Long id);
+
+	Driver getDriverByBusId(Long id);
+
+	List<Driver> getDriversByAppId(Long id);
+	
+	List<Trip> getAllTrips();
+	
+	void deleteEntity(Object obj);
+	
+	void deleteListEnteties(List<Object> objs);
+
+	void updateBusWorkingOrder(Driver dr, boolean isWorking);
+
+	void updateBusWorkingOrder(Bus bus, boolean isWorking);
 }
