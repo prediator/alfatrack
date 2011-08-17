@@ -21,6 +21,11 @@ div#status-bar {
     width: 100%;
 }
 
+div#logo-container {
+    margin: 10px auto 1px auto;
+    width: 800px;
+}
+
 div#status-bar-content {
     margin: 10px auto 1px auto;
     width: 800px;
