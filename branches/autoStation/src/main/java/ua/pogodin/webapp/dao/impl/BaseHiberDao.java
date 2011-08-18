@@ -27,9 +27,7 @@ public class BaseHiberDao {
 	}
 
 	public void persist(Object obj) {
-		if (em != null) {
 			em.persist(obj);
-		}
 	}
 
 	public void closeAll() {
