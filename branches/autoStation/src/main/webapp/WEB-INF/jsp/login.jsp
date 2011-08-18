@@ -26,7 +26,7 @@
                 <td><input type="password" name="pass" value="admin" size=20></td>
             </tr>
             <tr>
-                <td><input type=submit value="CHOOSE"/></td>
+                <td colspan = "2" align = "center"><input type=submit value="LOGIN"/></td>
             </tr>
         </table>
     </form>

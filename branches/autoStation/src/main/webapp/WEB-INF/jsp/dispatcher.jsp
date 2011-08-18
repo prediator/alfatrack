@@ -28,6 +28,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 						</td>
 					</tr>
 					<tr>
+                        <td>
+                            <input type="button" onClick="location.href='trips'" value="show trips" />
+                        </td>
+                    </tr>
+					<tr>
 						<td>
 							<input type="button" onClick="location.href='register'"
 								value="add new user" />
@@ -42,8 +47,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				<table border="1">
 					<c:forEach var="app" items="${apps}" varStatus="appVar">
 						<tr>
-							<td width="100" align="center">${app.minSpeed}</td>
-							<td width="100" align="center">${app.minBusLoad}</td>
+							<td width="100" align="center">${app.minspeed}</td>
+							<td width="100" align="center">${app.minbusload}</td>
 							<td width="150" align="center">
 								<select name="${app.id}" width="20">
 									<option value="0" selected>nobody</option>
