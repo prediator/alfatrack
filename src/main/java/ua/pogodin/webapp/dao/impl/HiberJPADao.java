@@ -150,13 +150,13 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 					bh.persist(user);
 				} else {
 					Driver driver = (Driver) user;
-					if(!driver.getBus().isBusReal()){
+					if (!driver.getBus().isBusReal()) {
 						return;
 					}
 					if (driver.getBus() != null) {
-						if(driver.getBus().getId() != null){
+						if (driver.getBus().getId() != null) {
 							bh.persist(driver);
-						}else{
+						} else {
 							bh.commit();
 							createBus(driver.getBus());
 							bh.begin();
@@ -199,9 +199,11 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	@Override
 	public List<Driver> getAllDrivers() throws AppException {
 		bh.begin();
-		List<Driver> users = bh.getEm().createQuery("SELECT u FROM Driver u").getResultList();
+		List<Driver> drivers = bh.getEm().createQuery("SELECT u FROM Driver u").getResultList();
+		List<Driver> returned = new ArrayList<Driver>();
+		returned.addAll(drivers);
 		bh.closeAll();
-		return users;
+		return returned;
 	}
 
 	@Override
@@ -216,13 +218,13 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Bus getBusById(Long id) {
-		try{
+		try {
 			bh.begin();
 			Bus bus = bh.getEm().find(Bus.class, id);
 			return bus;
-		}catch(java.lang.IllegalArgumentException e){
+		} catch (java.lang.IllegalArgumentException e) {
 			return null;
-		}finally{
+		} finally {
 			bh.closeAll();
 		}
 	}
@@ -245,7 +247,7 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	public Bus createBus(Bus bus) {
 		try {
 			createEntity(bus);
-			if(bus.getDriver() != null){
+			if (bus.getDriver() != null) {
 				bus.getDriver().setBus(bus);
 			}
 			return bus;
@@ -258,7 +260,7 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	public void updateBusWorkingOrder(Bus bus, boolean isWorking) {
 		bh.begin();
 		bh.getEm().merge(bus);
-		bus.setWorkingOrder(isWorking);
+		bus.setWorkingorder(isWorking);
 		bh.commit();
 		bh.closeAll();
 	}
@@ -287,10 +289,10 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 
 	@Override
 	public void setBusTripDone(Long[] ids) {
-		bh.begin();
 		for (Long id : ids) {
 			Trip trip = getTripById(id);
 			trip.setIsdone(true);
+			bh.begin();
 			bh.getEm().merge(trip);
 		}
 		bh.commit();
@@ -347,7 +349,12 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 
 	@SuppressWarnings("unchecked")
 	public List<Trip> getAllTrips() {
-		return bh.getEm().createQuery("SELECT t FROM Trip t").getResultList();
+		try {
+			bh.begin();
+			return bh.getEm().createQuery("SELECT t FROM Trip t").getResultList();
+		} finally {
+			bh.closeAll();
+		}
 	}
 
 	@Override

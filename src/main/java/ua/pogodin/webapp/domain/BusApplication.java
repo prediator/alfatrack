@@ -27,9 +27,9 @@ public class BusApplication {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(name = "minspeed")
-	private Integer minSpeed;
+	private Integer minspeed;
 	@Column(name = "minbusload")
-	private Integer minBusLoad;
+	private Integer minbusload;
 	@OneToMany(mappedBy = "busapp")
 	private List<Trip> trips = new ArrayList<Trip>();
 
@@ -38,8 +38,8 @@ public class BusApplication {
 	}
 	
 	public BusApplication(int minSpeed, int minBusLoad) {
-		this.minSpeed = minSpeed;
-		this.minBusLoad = minBusLoad;
+		this.minspeed = minSpeed;
+		this.minbusload = minBusLoad;
 	}
 
 	public Long getId() {
@@ -50,25 +50,25 @@ public class BusApplication {
 		this.id = id;
 	}
 
-	public int getMinSpeed() {
-		return minSpeed;
+	public int getMinspeed() {
+		return minspeed;
 	}
 
-	public void setMinSpeed(int minSpeed) {
-		this.minSpeed = minSpeed;
+	public void setMinspeed(int minSpeed) {
+		this.minspeed = minSpeed;
 	}
 
-	public int getMinBusLoad() {
-		return minBusLoad;
+	public int getMinbusload() {
+		return minbusload;
 	}
 
-	public void setMinBusLoad(int minBusLoad) {
-		this.minBusLoad = minBusLoad;
+	public void setMinbusload(int minBusLoad) {
+		this.minbusload = minBusLoad;
 	}
 
 	@Override
 	public String toString() {
-		return "BusApplication{" + "id=" + id + ", minSpeed=" + minSpeed + ", minBusLoad=" + minBusLoad + '}';
+		return "BusApplication{" + "id=" + id + ", minSpeed=" + minspeed + ", minBusLoad=" + minbusload + '}';
 	}
 
 	@Override
@@ -80,9 +80,9 @@ public class BusApplication {
 
 		BusApplication that = (BusApplication) o;
 
-		if (minBusLoad != that.minBusLoad)
+		if (minbusload != that.minbusload)
 			return false;
-		if (minSpeed != that.minSpeed)
+		if (minspeed != that.minspeed)
 			return false;
 
 		return true;
@@ -90,8 +90,8 @@ public class BusApplication {
 
 	@Override
 	public int hashCode() {
-		int result = minSpeed;
-		result = 31 * result + minBusLoad;
+		int result = minspeed;
+		result = 31 * result + minbusload;
 		return result;
 	}
 

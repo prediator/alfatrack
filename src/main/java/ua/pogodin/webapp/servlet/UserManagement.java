@@ -18,7 +18,8 @@ public class UserManagement extends BaseServlet {
 			resp.sendRedirect("driver");
 		}
 		
-		req.getSession().setAttribute("users", dbJPAConnector.getAllUsers());
+		req.setAttribute("disps", dbJPAConnector.getAllDispatchers());
+		req.setAttribute("drivers", dbJPAConnector.getAllDrivers());
 		forward("/WEB-INF/jsp/userManagement.jsp", req, resp);
 	}
 	

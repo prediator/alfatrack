@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Dispatcher extends BaseServlet {
@@ -25,9 +26,10 @@ public class Dispatcher extends BaseServlet {
 			List<Driver> allDrivers = dbJPAConnector.getAllDrivers();
 			List<Driver> drivers = dbJPAConnector.getDriversByAppId(app.getId());
 			allDrivers.removeAll(drivers);
-			for (Driver driver : allDrivers) {
-				if(!driver.getBus().isWorkingOrder()){
-					allDrivers.remove(driver);
+			allDrivers = Collections.synchronizedList(allDrivers);
+			for(int i = 0; i < allDrivers.size(); i++){
+				if(!allDrivers.get(i).getBus().isWorkingorder()){
+					allDrivers.remove(allDrivers.get(i));
 				}
 			}
 			appListDrivers.add(allDrivers);

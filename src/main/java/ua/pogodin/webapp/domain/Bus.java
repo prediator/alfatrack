@@ -59,19 +59,19 @@ public class Bus {
 		this.busload = busload;
 	}
 
-	public int getMaxSpeed() {
+	public int getMaxspeed() {
 		return maxspeed;
 	}
 
-	public void setMaxSpeed(int maxSpeed) {
+	public void setMaxspeed(int maxSpeed) {
 		this.maxspeed = maxSpeed;
 	}
 
-	public boolean isWorkingOrder() {
+	public boolean isWorkingorder() {
 		return workingorder;
 	}
 
-	public void setWorkingOrder(boolean workingOrder) {
+	public void setWorkingorder(boolean workingOrder) {
 		this.workingorder = workingOrder;
 	}
 

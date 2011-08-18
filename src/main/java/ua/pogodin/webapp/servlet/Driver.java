@@ -24,7 +24,7 @@ public class Driver extends BaseServlet {
 	}
 
     private void changeWorkingOrderIfNeeded(HttpServletRequest req) {
-        String workingOrder = req.getParameter("workingOrder");
+        String workingOrder = req.getParameter("workingorder");
         if (workingOrder != null) {
             boolean isBusWorking = Integer.valueOf(workingOrder) == 1;
             ua.pogodin.webapp.domain.Driver driver = (ua.pogodin.webapp.domain.Driver) getUser(req);
