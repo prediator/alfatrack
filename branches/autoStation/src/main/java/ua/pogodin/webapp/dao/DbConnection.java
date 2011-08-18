@@ -9,6 +9,9 @@ import ua.pogodin.webapp.util.AppException;
 
 import java.util.List;
 
+import javax.ejb.Local;
+
+@Local
 public interface DbConnection {
 	boolean isDispatcher(String login);
 

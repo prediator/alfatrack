@@ -3,8 +3,9 @@ package ua.pogodin.tryier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.persistence.EntityManager;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import ua.pogodin.webapp.dao.DbConnection;
 import ua.pogodin.webapp.dao.impl.BaseHiberDao;
@@ -15,6 +16,7 @@ import ua.pogodin.webapp.domain.BusApplication;
 import ua.pogodin.webapp.domain.Driver;
 import ua.pogodin.webapp.domain.Trip;
 import ua.pogodin.webapp.domain.User;
+
 
 public class HibernateTryier {
 
@@ -59,6 +61,7 @@ public class HibernateTryier {
 		List<Trip> trips = db.findTripsByDriverId(dr.getId());
 		System.out.println("creating trips");
 		db.deleteTrips(trips);*/
+		
 		
 		List<Integer> ii = new ArrayList<Integer>();
 		ii.add(1);

@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Dispatcher extends BaseServlet {
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if(!((User)req.getSession().getAttribute("user")).isDispatcher()){
@@ -57,4 +59,5 @@ public class Dispatcher extends BaseServlet {
 		}
 		resp.sendRedirect("dispatcher");
 	}
+	
 }

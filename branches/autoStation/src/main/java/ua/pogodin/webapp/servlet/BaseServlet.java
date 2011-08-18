@@ -2,6 +2,7 @@ package ua.pogodin.webapp.servlet;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +17,20 @@ import ua.pogodin.webapp.domain.User;
  */
 public class BaseServlet extends HttpServlet {
 
-    protected static DbConnection dbJPAConnector;
+	@EJB
+    protected DbConnection dbJPAConnector;
+    
 
     /**
      * Yes, I know that the initialization is not thread safe. So as all the application.
      * @throws ServletException if something goes wrong
      */
-    @Override
+    /*@Override
     public void init() throws ServletException {
         if (dbJPAConnector == null) {
             dbJPAConnector = new HiberJPADao();
         }
-    }
+    }*/
 
     protected void forward(String jspPath, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher(jspPath).forward(req, resp);
