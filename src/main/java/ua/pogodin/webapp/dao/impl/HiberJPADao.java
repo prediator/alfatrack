@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.ejb.Stateless;
+
 import ua.pogodin.webapp.dao.DbConnection;
 import ua.pogodin.webapp.domain.Bus;
 import ua.pogodin.webapp.domain.BusApplication;
@@ -12,6 +14,7 @@ import ua.pogodin.webapp.domain.Trip;
 import ua.pogodin.webapp.domain.User;
 import ua.pogodin.webapp.util.AppException;
 
+@Stateless
 public class HiberJPADao extends BaseHiberDao implements DbConnection {
 
 	private BaseHiberDao bh = new BaseHiberDao();
