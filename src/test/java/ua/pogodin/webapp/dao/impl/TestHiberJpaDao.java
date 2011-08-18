@@ -50,7 +50,7 @@ public class TestHiberJpaDao {
 		db.createUser(dr);
 		db.updateBusWorkingOrder(dr.getBus(), true);
 		
-		assertEquals(true, bus.isWorkingOrder());
+		assertEquals(true, bus.isWorkingorder());
 		List<Object>objs = new ArrayList<Object>();
 		objs.add(dr);
 		objs.add(bus);

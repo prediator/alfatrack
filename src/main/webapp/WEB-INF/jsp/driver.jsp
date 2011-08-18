@@ -18,14 +18,14 @@
         <tr>
             <td colspan="3" align="center">
                 <c:choose>
-                    <c:when test="${user.bus.workingOrder}">
+                    <c:when test="${user.bus.workingorder}">
                         bus is in working order &nbsp;&nbsp;&nbsp;
-                        <a href="driver?workingOrder=0">CRASH</a>
+                        <a href="driver?workingorder=0">CRASH</a>
                     </c:when>
 
                     <c:otherwise>
                         bus is <span style="color: red;">NOT</span> in working order &nbsp;&nbsp;
-                        <a href="driver?workingOrder=1">REPAIR</a>
+                        <a href="driver?workingorder=1">REPAIR</a>
                     </c:otherwise>
                 </c:choose>
             </td>

@@ -18,51 +18,85 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 			<form>
 				<table border="1">
 					<tr>
-						<td colspan = "3" align="center">
-							<span style="color: red;">USERS:</span>
+						<td colspan="3" align="center">
+							<span style="color: red;">DISPATCHERS:</span>
 						</td>
 					</tr>
 					<tr>
 						<td width="100" align="center">
-						      <span style="color: blue;">LOGIN</span>
+							<span style="color: blue;">LOGIN</span>
 						</td>
 						<td width="100" align="center">
-                              <span style="color: blue;">NAME</span>
-                        </td>
-                        <td width="100" align="center">
-                              <span style="color: blue;">dispatcher/driver</span>
-                        </td>
+							<span style="color: blue;">NAME</span>
+						</td>
 					</tr>
-					<c:forEach var="user" items="${users}">
+					<c:forEach var="disp" items="${disps}">
 
 						<tr>
-							<td width="100" align="center">${user.login}</td>
-							<td width="100" align="center">${user.name}</td>
-							<td width="150" align="center">
-								<c:choose>
-									<c:when test="${user.isDispatcher}">
-										dispatcher
-					                </c:when>
-									<c:otherwise>
-										driver
-					                </c:otherwise>
-								</c:choose>
-							</td>
+							<td width="100" align="center">${disp.login}</td>
+							<td width="100" align="center">${disp.name}</td>
 						</tr>
 					</c:forEach>
-					<tr>
-						<td colspan="3" align="center">
-							<input type="button" onClick="location.href='register'"
-								value="register new user">
-						</td>
-					</tr>
-					<tr>
-						<td colspan="3" align="center">
-							<input type="button" onClick="location.href='dispatcher'"
-								value="to driver page">
-						</td>
-					</tr>
 				</table>
+				<div align=center style="margin-top: 70px">
+					<table border="1">
+						<tr>
+							<td colspan="6" align="center">
+								<span style="color: red;">DISPATCHERS:</span>
+							</td>
+						</tr>
+						<tr>
+							<td width="100" align="center">
+								<span style="color: blue;">LOGIN</span>
+							</td>
+							<td width="100" align="center">
+								<span style="color: blue;">NAME</span>
+							</td>
+							<td width="100" align="center">
+								<span style="color: blue;">Bus number</span>
+							</td>
+							<td width="100" align="center">
+								<span style="color: blue;">Bus MAX speed</span>
+							</td>
+							<td width="100" align="center">
+								<span style="color: blue;">Bus MAX load</span>
+							</td>
+							<td width="100" align="center">
+								<span style="color: blue;">Bus workingOrder</span>
+							</td>
+						</tr>
+						<c:forEach var="driver" items="${drivers}">
+							<tr>
+								<td width="100" align="center">${driver.login}</td>
+								<td width="100" align="center">${driver.name}</td>
+								<td width="150" align="center">${driver.bus.id}</td>
+								<td width="150" align="center">${driver.bus.maxspeed}</td>
+								<td width="150" align="center">${driver.bus.busload}</td>
+								<td width="150" align="center">
+									<c:choose>
+										<c:when test="${driver.bus.workingorder}">
+											works
+								    </c:when>
+										<c:otherwise>
+											<span style="color: red;">crashed</span>
+										</c:otherwise>
+									</c:choose>
+							</tr>
+						</c:forEach>
+						<tr>
+							<td colspan="6" align="center">
+								<input type="button" onClick="location.href='register'"
+									value="register new user">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="6" align="center">
+								<input type="button" onClick="location.href='dispatcher'"
+									value="to dispatcher page">
+							</td>
+						</tr>
+					</table>
+				</div>
 			</form>
 
 		</div>
