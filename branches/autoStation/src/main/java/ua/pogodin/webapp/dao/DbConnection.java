@@ -38,8 +38,6 @@ public interface DbConnection {
 
 	Bus createBus(Bus bus);
 
-	void updateBusWorkingOrder(Long busId, boolean isWorking);
-
 	BusApplication createBusApp(BusApplication busApplication);
 
 	List<BusApplication> findAllBusApplications();
@@ -77,8 +75,6 @@ public interface DbConnection {
 	void deleteEntity(Object obj);
 	
 	void deleteListEnteties(List<Object> objs);
-
-	void updateBusWorkingOrder(Driver dr, boolean isWorking);
 
 	void updateBusWorkingOrder(Bus bus, boolean isWorking);
 }

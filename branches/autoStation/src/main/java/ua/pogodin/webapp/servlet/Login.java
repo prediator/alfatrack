@@ -30,12 +30,15 @@ public class Login extends BaseServlet {
         User user;
         try {
             user = dbJPAConnector.getUserByLoginAndPass(login, pass);
+            if(user == null){
+            	resp.sendRedirect("login");
+            }
         } catch (AppException e) {
             req.setAttribute("wrong_credentials", true);
             resp.sendRedirect("login");
             return;
         }
-
+        
         HttpSession currSession = req.getSession(true);
         currSession.setAttribute("user", user);
         redirectToHomePage(resp, user);

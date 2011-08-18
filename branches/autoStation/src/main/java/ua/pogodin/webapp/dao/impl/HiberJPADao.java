@@ -149,7 +149,21 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 				if (user.isDispatcher()) {
 					bh.persist(user);
 				} else {
-					bh.persist((Driver) user);
+					Driver driver = (Driver) user;
+					if(!driver.getBus().isBusReal()){
+						return;
+					}
+					if (driver.getBus() != null) {
+						if(driver.getBus().getId() != null){
+							bh.persist(driver);
+						}else{
+							bh.commit();
+							createBus(driver.getBus());
+							bh.begin();
+							bh.persist(driver);
+						}
+
+					}
 				}
 			}
 		} finally {
@@ -202,10 +216,15 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Bus getBusById(Long id) {
-		bh.begin();
-		Bus bus = bh.getEm().find(Bus.class, id);
-		bh.closeAll();
-		return bus;
+		try{
+			bh.begin();
+			Bus bus = bh.getEm().find(Bus.class, id);
+			return bus;
+		}catch(java.lang.IllegalArgumentException e){
+			return null;
+		}finally{
+			bh.closeAll();
+		}
 	}
 
 	@Override
@@ -226,6 +245,9 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	public Bus createBus(Bus bus) {
 		try {
 			createEntity(bus);
+			if(bus.getDriver() != null){
+				bus.getDriver().setBus(bus);
+			}
 			return bus;
 		} catch (Exception e) {
 			return null;
@@ -268,10 +290,10 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 		bh.begin();
 		for (Long id : ids) {
 			Trip trip = getTripById(id);
-			bh.getEm().merge(trip);
 			trip.setIsdone(true);
-			bh.commit();
+			bh.getEm().merge(trip);
 		}
+		bh.commit();
 		bh.closeAll();
 	}
 

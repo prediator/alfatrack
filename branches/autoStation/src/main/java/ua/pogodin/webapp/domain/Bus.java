@@ -74,13 +74,20 @@ public class Bus {
 	public void setWorkingOrder(boolean workingOrder) {
 		this.workingorder = workingOrder;
 	}
-	
+
 	public void setTrips(List<Trip> trips) {
 		this.trips = trips;
 	}
-	
+
 	public List<Trip> getTrips() {
 		return trips;
+	}
+
+	public boolean isBusReal() {
+		if (maxspeed != null && busload != null && maxspeed > 0 && busload > 0) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
