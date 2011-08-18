@@ -43,6 +43,29 @@ public class TestHiberJpaDao {
 	}
 	@Ignore
 	@Test
+	public void mustToUpdateBusWorkingOrder(){
+		Bus bus = new Bus(999, 999, false);
+		Driver dr = new Driver("testedBus", "tested", "tested",bus);
+		db.createBus(bus);
+		db.createUser(dr);
+		db.updateBusWorkingOrder(dr.getBus(), true);
+		
+		assertEquals(true, bus.isWorkingOrder());
+		List<Object>objs = new ArrayList<Object>();
+		objs.add(dr);
+		objs.add(bus);
+		db.deleteListEnteties(objs);
+		
+	}
+	@Test
+	public void testCreatingBus(){
+		Driver dr = new Driver("testCreate", "tested", "tested", new Bus(11,12,false));
+		db.createUser(dr);
+		assertEquals(dr,db.getUserByLogin("testCreate"));
+		db.deleteEntity(dr);
+	}
+	@Ignore
+	@Test
 	public void createAndDeleteBus() {
 		Bus bus = new Bus(100, 100, false);
 		db.createBus(bus);
@@ -54,12 +77,12 @@ public class TestHiberJpaDao {
 	@Test
 	public void testGetBusByDriverId(){
 		Bus bus = new Bus(120, 10, false);
-		Driver dr = new Driver("tested", "tested", "tested", bus);
 		List<Object> os = new ArrayList<Object>();
-		os.add(dr);
 		os.add(bus);
-		
 		db.createBus(bus);
+		
+		Driver dr = new Driver("tested", "tested", "tested", bus);
+		os.add(dr);
 		db.createUser(dr);
 		
 		assertEquals(bus, db.getBusByDriverId(dr.getId()));
@@ -70,13 +93,13 @@ public class TestHiberJpaDao {
 		Bus bus1 = new Bus(100,100, true);
 		Bus bus2 = new Bus(101,101, true);
 		BusApplication app = new BusApplication(10, 10);
-		Driver driver1 = new Driver("tested1", "tested1", "tested1", bus1);
-		Driver driver2 = new Driver("tested2", "tested2", "tested2", bus2);
 		Trip trip1 = new Trip(bus1, app, false);
 		Trip trip2 = new Trip(bus2, app, false);
 		
 		db.createBus(bus1);
 		db.createBus(bus2);
+		Driver driver1 = new Driver("tested1", "tested1", "tested1", bus1);
+		Driver driver2 = new Driver("tested2", "tested2", "tested2", bus2);
 		db.createUser(driver1);
 		db.createUser(driver2);
 		db.createBusApp(app);
