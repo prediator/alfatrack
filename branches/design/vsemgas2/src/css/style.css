@@ -24,6 +24,7 @@ div#status-bar {
 div#logo-container {
     margin: 10px auto 1px auto;
     width: 800px;
+    height: 100px;
 }
 
 div#status-bar-content {
@@ -32,13 +33,12 @@ div#status-bar-content {
 }
 
 div#logo {
-    float: left;
-    width: 300px;
-    margin-top: 80px;
+	width: 300px;
+	margin-top: 1px;
 }
 
 div#main {
-    width: 100%;
+    width: 800px;
 }
 
 div#content {
@@ -56,4 +56,3 @@ div#main-content {
 	width: 550px;
 	float: left;
 }
-
