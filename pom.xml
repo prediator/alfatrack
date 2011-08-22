@@ -127,7 +127,6 @@
 				<version>2.1</version>
 				<configuration>
 					<user>admin</user>
-					<echo>true</echo>
 					<adminPassword>password</adminPassword>
 					<glassfishDirectory>/Users/illia_pogodin/MINE/Programs/Glassfish</glassfishDirectory>
 					<components>
