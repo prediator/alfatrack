@@ -17,15 +17,15 @@ import ua.pogodin.webapp.domain.User;
  */
 public class BaseServlet extends HttpServlet {
 
-	
+	@EJB
     protected DbConnection dbJPAConnector;
     
-    @Override
+/*    @Override
     public void init() throws ServletException {
         if (dbJPAConnector == null) {
             dbJPAConnector = new HiberJPADao();
         }
-    }
+    }*/
 
     protected void forward(String jspPath, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher(jspPath).forward(req, resp);
