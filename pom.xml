@@ -117,6 +117,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ejb-plugin</artifactId>
+				<version>2.3</version>
 				<configuration>
 					<ejbVersion>3.0</ejbVersion>
 				</configuration>
@@ -128,7 +129,10 @@
 				<configuration>
 					<user>admin</user>
 					<adminPassword>password</adminPassword>
-					<glassfishDirectory>/Users/illia_pogodin/MINE/Programs/Glassfish</glassfishDirectory>
+					<glassfishDirectory>/Users/illia_pogodin/MINE/Programs/Glassfish/glassfish</glassfishDirectory>
+					<echo>true</echo>
+					<autoCreate>true</autoCreate>
+					<debug>true</debug>
 					<components>
 						<component>
 							<name>${project.artifactId}</name>
@@ -141,6 +145,17 @@
 						<httpPort>8080</httpPort>
 						<httpsPort>8443</httpsPort>
 					</domain>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.glassfish</groupId>
+				<artifactId>maven-embedded-glassfish-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<app>${project.build.directory}/${project.build.finalName}.war</app>
+					<autoDelete>true</autoDelete>
+					<port>8887</port>
+					<contextRoot>autostation</contextRoot>
 				</configuration>
 			</plugin>
 		</plugins>

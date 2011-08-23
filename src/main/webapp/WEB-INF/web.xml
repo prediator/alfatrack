@@ -1,80 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5">
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
 
-    <display-name>Autostation</display-name>
+	<display-name>Autostation</display-name>
 
-    <servlet>
-        <servlet-name>Driver</servlet-name>
-        <servlet-class>ua.pogodin.webapp.servlet.Driver</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Driver</servlet-name>
-        <url-pattern>/driver</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>Trips</servlet-name>
-        <servlet-class>ua.pogodin.webapp.servlet.ShowTrips</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Trips</servlet-name>
-        <url-pattern>/trips</url-pattern>
-    </servlet-mapping>
-    
-     <servlet>
-        <servlet-name>UserManagement</servlet-name>
-        <servlet-class>ua.pogodin.webapp.servlet.UserManagement</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UserManagement</servlet-name>
-        <url-pattern>/users</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>Register</servlet-name>
-        <servlet-class>ua.pogodin.webapp.servlet.Register</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Register</servlet-name>
-        <url-pattern>/register</url-pattern>
-    </servlet-mapping>
+	<servlet>
+		<servlet-name>Driver</servlet-name>
+		<servlet-class>ua.pogodin.webapp.servlet.Driver</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Driver</servlet-name>
+		<url-pattern>/driver</url-pattern>
+	</servlet-mapping>
 
-    <servlet>
-        <servlet-name>Dispatcher</servlet-name>
-        <servlet-class>ua.pogodin.webapp.servlet.Dispatcher</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Dispatcher</servlet-name>
-        <url-pattern>/dispatcher</url-pattern>
-    </servlet-mapping>
+	<servlet>
+		<servlet-name>Trips</servlet-name>
+		<servlet-class>ua.pogodin.webapp.servlet.ShowTrips</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Trips</servlet-name>
+		<url-pattern>/trips</url-pattern>
+	</servlet-mapping>
 
-    <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>ua.pogodin.webapp.servlet.Login</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
+	<servlet>
+		<servlet-name>UserManagement</servlet-name>
+		<servlet-class>ua.pogodin.webapp.servlet.UserManagement</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserManagement</servlet-name>
+		<url-pattern>/users</url-pattern>
+	</servlet-mapping>
 
-    <servlet>
-        <servlet-name>Logout</servlet-name>
-        <servlet-class>ua.pogodin.webapp.servlet.Logout</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Logout</servlet-name>
-        <url-pattern>/logout</url-pattern>
-    </servlet-mapping>
+	<servlet>
+		<servlet-name>Register</servlet-name>
+		<servlet-class>ua.pogodin.webapp.servlet.Register</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Register</servlet-name>
+		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
 
-    <filter>
-        <filter-name>UserCheckingFilter</filter-name>
-        <filter-class>ua.pogodin.webapp.servlet.UserCheckingFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>UserCheckingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+	<servlet>
+		<servlet-name>Dispatcher</servlet-name>
+		<servlet-class>ua.pogodin.webapp.servlet.Dispatcher</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Dispatcher</servlet-name>
+		<url-pattern>/dispatcher</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>ua.pogodin.webapp.servlet.Login</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>ua.pogodin.webapp.servlet.Logout</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+
+	<security-role>
+		<role-name>dispatcher</role-name>
+	</security-role>
+	<security-role>
+		<role-name>driver</role-name>
+	</security-role>
+	<login-config>
+		<auth-method>LOGIN</auth-method>
+		<realm-name>autoStation</realm-name>
+		<form-login-config>
+			<form-login-page>/login</form-login-page>
+			<form-error-page>/register</form-error-page>
+		</form-login-config>
+	</login-config>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>autost</web-resource-name>
+			<url-pattern>autoStation/dispatcher</url-pattern>
+			<http-method>POST</http-method>
+			<http-method>GET</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>dispatcher</role-name>
+		</auth-constraint>
+	</security-constraint>
 </web-app>
