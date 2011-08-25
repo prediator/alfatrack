@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import ua.pogodin.webapp.dao.DbConnection;
 import ua.pogodin.webapp.domain.Bus;
@@ -15,31 +17,28 @@ import ua.pogodin.webapp.domain.User;
 import ua.pogodin.webapp.util.AppException;
 
 @Stateless
-public class HiberJPADao extends BaseHiberDao implements DbConnection {
+public class DbUtil implements DbConnection {
+
+	@PersistenceContext(unitName = "autost")
+	EntityManager em;
 
 	@SuppressWarnings("unchecked")
 	public List<User> getAllTrips(Bus bus) {
 		try {
-			begin();
-			return getEm().createQuery("SELECT DISTINCT t FROM Trip t WHERE t.bus=?1").setParameter(1, bus)
-					.getResultList();
+			return em
+					.createQuery("SELECT DISTINCT t FROM Trip t WHERE t.bus=?1")
+					.setParameter(1, bus).getResultList();
 		} catch (Exception e) {
 			return null;
 		}
 	}
 
 	public void createEntity(Object entity) {
-		begin();
-		persist(entity);
-		commit();
-		closeAll();
+		em.persist(entity);
 	}
 
 	public void deleteEntity(Object obj) {
-		begin();
-		getEm().remove(getEm().merge(obj));
-		commit();
-		closeAll();
+		em.remove(em.merge(obj));
 	}
 
 	public void deleteListEnteties(List<Object> objs) {
@@ -70,44 +69,42 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 
 	@Override
 	public User getUserById(Long id) {
-		begin();
-		User user = getEm().find(User.class, id);
-		closeAll();
+
+		User user = em.find(User.class, id);
+
 		return user;
 	}
 
 	@Override
 	public Trip getTripById(Long id) {
-		begin();
-		Trip trip = getEm().find(Trip.class, id);
-		closeAll();
+
+		Trip trip = em.find(Trip.class, id);
+
 		return trip;
 	}
 
 	@Override
 	public Driver getDriverById(Long id) {
-		begin();
-		Driver driver = getEm().find(Driver.class, id);
-		closeAll();
+
+		Driver driver = em.find(Driver.class, id);
+
 		return driver;
 	}
 
 	@Override
 	public void deleteUserByLogin(String login) {
 		User deletedUser = getUserByLogin(login);
-		begin();
-		getEm().remove(getEm().merge(deletedUser));
-		commit();
-		closeAll();
+		em.remove(em.merge(deletedUser));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public User getUserByLogin(String login) {
-		begin();
-		List<User> users = getEm().createQuery("SELECT u FROM User u WHERE u.login LIKE ?1").setParameter(1, login)
-				.getResultList();
-		closeAll();
+
+		List<User> users = em
+				.createQuery("SELECT u FROM User u WHERE u.login LIKE ?1")
+				.setParameter(1, login).getResultList();
+
 		if (users != null && !users.isEmpty()) {
 			return users.get(0);
 		}
@@ -116,10 +113,11 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 
 	@Override
 	public Driver getDriverByLogin(String login) {
-		begin();
-		List<Driver> drivers = getEm().createQuery("SELECT u FROM Driver u WHERE u.login LIKE ?1")
+
+		List<Driver> drivers = em
+				.createQuery("SELECT u FROM Driver u WHERE u.login LIKE ?1")
 				.setParameter(1, login).getResultList();
-		closeAll();
+
 		if (drivers != null && !drivers.isEmpty()) {
 			return drivers.get(0);
 		}
@@ -129,7 +127,7 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	@Override
 	public User getUserByLoginAndPass(String login, String password) {
 		User user = getUserByLogin(login);
-		begin();
+
 		if (user != null && user.getPassword().equals(password)) {
 			return user;
 		} else {
@@ -138,7 +136,7 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 				return driver;
 			}
 		}
-		closeAll();
+
 		return null;
 	}
 
@@ -146,9 +144,9 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	public void createUser(User user) {
 		try {
 			if (isLoginFree(user.getLogin())) {
-				begin();
+
 				if (user.isDispatcher()) {
-					persist(user);
+					em.persist(user);
 				} else {
 					Driver driver = (Driver) user;
 					if (!driver.getBus().isBusReal()) {
@@ -156,21 +154,18 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 					}
 					if (driver.getBus() != null) {
 						if (driver.getBus().getId() != null) {
-							persist(driver);
+							em.persist(driver);
 						} else {
-							commit();
 							createBus(driver.getBus());
-							begin();
-							persist(driver);
+							em.persist(driver);
 						}
 
 					}
 				}
 			}
-		} finally {
-			commit();
-			closeAll();
+		} catch (Exception e) {
 		}
+
 	}
 
 	@Override
@@ -190,29 +185,32 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getAllDispatchers() throws AppException {
-		begin();
-		List<User> users = getEm().createQuery("SELECT u FROM User u").getResultList();
-		closeAll();
+
+		List<User> users = em.createQuery("SELECT u FROM User u")
+				.getResultList();
+
 		return users;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Driver> getAllDrivers() throws AppException {
-		begin();
-		List<Driver> drivers = getEm().createQuery("SELECT u FROM Driver u").getResultList();
+
+		List<Driver> drivers = em.createQuery("SELECT u FROM Driver u")
+				.getResultList();
 		List<Driver> returned = new ArrayList<Driver>();
 		returned.addAll(drivers);
-		closeAll();
+
 		return returned;
 	}
 
 	@Override
 	public List<User> getAllUsers() throws AppException {
-		begin();
-		List<User> users = getEm().createQuery("SELECT u FROM User u").getResultList();
-		users.addAll(getEm().createQuery("SELECT u FROM Driver u").getResultList());
-		closeAll();
+
+		List<User> users = em.createQuery("SELECT u FROM User u")
+				.getResultList();
+		users.addAll(em.createQuery("SELECT u FROM Driver u").getResultList());
+
 		return users;
 	}
 
@@ -220,13 +218,13 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	@Override
 	public Bus getBusById(Long id) {
 		try {
-			begin();
-			Bus bus = getEm().find(Bus.class, id);
+
+			Bus bus = em.find(Bus.class, id);
 			return bus;
 		} catch (java.lang.IllegalArgumentException e) {
 			return null;
 		} finally {
-			closeAll();
+
 		}
 	}
 
@@ -259,11 +257,10 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 
 	@Override
 	public void updateBusWorkingOrder(Bus bus, boolean isWorking) {
-		begin();
-		getEm().merge(bus);
+
+		em.merge(bus);
 		bus.setWorkingorder(isWorking);
-		commit();
-		closeAll();
+
 	}
 
 	@Override
@@ -275,9 +272,10 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<BusApplication> findAllBusApplications() {
-		begin();
-		List<BusApplication> busapps = getEm().createQuery("SELECT ba FROM BusApplication ba").getResultList();
-		closeAll();
+
+		List<BusApplication> busapps = em.createQuery(
+				"SELECT ba FROM BusApplication ba").getResultList();
+
 		return busapps;
 	}
 
@@ -293,29 +291,28 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 		for (Long id : ids) {
 			Trip trip = getTripById(id);
 			trip.setIsdone(true);
-			begin();
-			getEm().merge(trip);
+
+			em.merge(trip);
 		}
-		commit();
-		closeAll();
+
 	}
 
 	@Override
 	public void deleteTrip(Trip trip) {
-		begin();
-		getEm().remove(getEm().merge(trip));
-		getEm().getTransaction().commit();
-		closeAll();
+
+		em.remove(em.merge(trip));
+		em.getTransaction().commit();
+
 	}
 
 	@Override
 	public void deleteTrips(List<Trip> trips) {
-		begin();
+
 		for (Trip trip : trips) {
-			getEm().remove(getEm().merge(trip));
+			em.remove(em.merge(trip));
 		}
-		getEm().getTransaction().commit();
-		closeAll();
+		em.getTransaction().commit();
+
 	}
 
 	@Override
@@ -338,9 +335,9 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	@Override
 	public List<Driver> getDriversByAppId(Long id) {
 
-		begin();
-		List<Trip> trips = getEm().createQuery("SELECT t FROM Trip t WHERE t.busapp.id LIKE ?1").setParameter(1, id)
-				.getResultList();
+		List<Trip> trips = em
+				.createQuery("SELECT t FROM Trip t WHERE t.busapp.id LIKE ?1")
+				.setParameter(1, id).getResultList();
 		List<Driver> drivers = new ArrayList<Driver>();
 		for (Trip trip : trips) {
 			drivers.add(getDriverByBusId(trip.getBus().getId()));
@@ -351,10 +348,9 @@ public class HiberJPADao extends BaseHiberDao implements DbConnection {
 	@SuppressWarnings("unchecked")
 	public List<Trip> getAllTrips() {
 		try {
-			begin();
-			return getEm().createQuery("SELECT t FROM Trip t").getResultList();
+
+			return em.createQuery("SELECT t FROM Trip t").getResultList();
 		} finally {
-			closeAll();
 		}
 	}
 

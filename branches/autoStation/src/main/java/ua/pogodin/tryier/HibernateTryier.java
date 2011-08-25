@@ -3,19 +3,6 @@ package ua.pogodin.tryier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-
-import ua.pogodin.webapp.dao.DbConnection;
-import ua.pogodin.webapp.dao.impl.BaseHiberDao;
-import ua.pogodin.webapp.dao.impl.HiberJPADao;
-import ua.pogodin.webapp.dao.impl.HibernateUtil;
-import ua.pogodin.webapp.domain.Bus;
-import ua.pogodin.webapp.domain.BusApplication;
-import ua.pogodin.webapp.domain.Driver;
-import ua.pogodin.webapp.domain.Trip;
-import ua.pogodin.webapp.domain.User;
 
 
 public class HibernateTryier {

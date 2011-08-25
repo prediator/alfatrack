@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.pogodin.webapp.dao.DbConnection;
-import ua.pogodin.webapp.dao.impl.HiberJPADao;
 import ua.pogodin.webapp.domain.User;
 
 /**

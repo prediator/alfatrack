@@ -7,12 +7,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>AutoStation</name>
 
-	<properties>
-		<hibernate.core.version>3.6.7.Final</hibernate.core.version>
-		<hibernate.annotation.version>3.5.6-Final</hibernate.annotation.version>
-		<hibernate.entitymanager.version>3.6.7.Final</hibernate.entitymanager.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -69,30 +63,6 @@
 			<artifactId>commons-logging</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-
-		<!-- Hibernate -->
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hibernate.core.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>${hibernate.annotation.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate.entitymanager.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>ejb3-persistence</artifactId>
-			<version>3.3.2.Beta1</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
