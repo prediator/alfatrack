@@ -15,9 +15,9 @@ import ua.pogodin.webapp.domain.Trip;
 
 import static junit.framework.Assert.*;
 
-public class TestHiberJpaDao {
+public class TestDbUtil {
 
-	DbConnection db = new HiberJPADao();
+	DbConnection db = new DbUtil();
 
 	@Before
 	public void setUp() throws Exception {

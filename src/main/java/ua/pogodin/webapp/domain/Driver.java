@@ -1,6 +1,5 @@
 package ua.pogodin.webapp.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
@@ -9,10 +8,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "users")
