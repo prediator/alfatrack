@@ -2,8 +2,7 @@
 <persistence version="2.0"
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="LowCostAir" transaction-type="JTA">
-		<jta-data-source>LowCostAir</jta-data-source>
+	<persistence-unit name="autostation" transaction-type="JTA">
 		<class>ua.pogodin.webapp.domain.User</class>
 		<class>ua.pogodin.webapp.domain.Driver</class>
 		<class>ua.pogodin.webapp.domain.Trip</class>
