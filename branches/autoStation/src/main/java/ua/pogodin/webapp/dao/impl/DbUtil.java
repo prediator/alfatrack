@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.sql.DataSourceDefinition;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,10 +18,18 @@ import ua.pogodin.webapp.domain.User;
 import ua.pogodin.webapp.util.AppException;
 
 @Stateless
+@DataSourceDefinition(
+        name="autostation",
+        className="com.mysql.jdbc.Driver",
+        user="root",
+        password="letmeinit",
+        databaseName="example",
+        serverName="localhost",
+        portNumber=3306 )
 public class DbUtil implements DbConnection {
 
-	@PersistenceContext(unitName = "autost")
-	EntityManager em;
+	@PersistenceContext(unitName = "autostation" )
+	public EntityManager em;
 
 	@SuppressWarnings("unchecked")
 	public List<User> getAllTrips(Bus bus) {

@@ -17,7 +17,7 @@ import ua.pogodin.webapp.domain.User;
 public class BaseServlet extends HttpServlet {
 
 	@EJB
-    protected DbConnection dbJPAConnector;
+    public DbConnection dbJPAConnector;
     
 /*    @Override
     public void init() throws ServletException {
