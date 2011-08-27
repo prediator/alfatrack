@@ -32,4 +32,8 @@
          JNDI Name: jdbc/MySQLDataSource
          Pool Name: MySqlConnPool
          Button "OK"
-         
+
+4. Edit src/main/resources/project.properties:
+    glassfish.directory: <your glassfish directory>/glassfish
+    glassfish.username: <your specific value>
+    glassfish.password: <your specific value>
