@@ -33,14 +33,6 @@
 			<version>5.1.17</version>
 		</dependency>
 
-        <!-- 	
-        <dependency>
-			<groupId>javax.ejb</groupId>
-			<artifactId>ejb-api</artifactId>
-			<version>3.0-alpha-1</version>
-		</dependency>
-		-->
-
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
@@ -86,15 +78,6 @@
 				<version>6.1.26</version>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>tomcat-maven-plugin</artifactId>
-				<version>1.1</version>
-				<configuration>
-					<server>localhost</server>
-					<url>http://localhost:8080/manager</url>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
@@ -111,14 +94,32 @@
 					<ejbVersion>3.0</ejbVersion>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.glassfish.maven.plugin</groupId>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0-alpha-2</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>src/main/resources/project.properties</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.glassfish.maven.plugin</groupId>
 				<artifactId>maven-glassfish-plugin</artifactId>
 				<version>2.1</version>
 				<configuration>
-					<user>admin</user>
-					<adminPassword>admin</adminPassword>
-					<glassfishDirectory>D:/Dev/glassfish/glassfish</glassfishDirectory>
+					<user>${glassfish.username}</user>
+					<adminPassword>${glassfish.password}</adminPassword>
+					<glassfishDirectory>${glassfish.directory}</glassfishDirectory>
 					<echo>true</echo>
 					<autoCreate>true</autoCreate>
 					<debug>true</debug>
@@ -136,7 +137,7 @@
 					</domain>
 				</configuration>
 			</plugin>
-			<!-- 
+			<!--
 			<plugin>
 				<groupId>org.glassfish</groupId>
 				<artifactId>maven-embedded-glassfish-plugin</artifactId>
