@@ -1,31 +1,17 @@
 package ua.pogodin.webapp.dao.impl;
 
+import ua.pogodin.webapp.dao.DbConnection;
+import ua.pogodin.webapp.domain.*;
+import ua.pogodin.webapp.util.AppException;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.sql.DataSourceDefinition;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import ua.pogodin.webapp.dao.DbConnection;
-import ua.pogodin.webapp.domain.Bus;
-import ua.pogodin.webapp.domain.BusApplication;
-import ua.pogodin.webapp.domain.Driver;
-import ua.pogodin.webapp.domain.Trip;
-import ua.pogodin.webapp.domain.User;
-import ua.pogodin.webapp.util.AppException;
-
 @Stateless
-@DataSourceDefinition(
-        name="autostation",
-        className="com.mysql.jdbc.Driver",
-        user="root",
-        password="letmeinit",
-        databaseName="example",
-        serverName="localhost",
-        portNumber=3306 )
 public class DbUtil implements DbConnection {
 
 	@PersistenceContext(unitName = "autostation" )

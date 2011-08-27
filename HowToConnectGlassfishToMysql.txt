@@ -1,0 +1,35 @@
+1. Copy target/autostation/WEB-INF/lib/mysql-connector-java-5.1.17.jar (if not exists, compile project)
+    to <your_glassfish_folder>/glassfish/lib
+
+2. Relaunch GlassFish server.
+
+3. On GlassFish admin page create:
+    3a. Create JDBC Connection Pool:
+        Resources -> JDBC - > JDBC Connection Pools
+        Button "New"
+
+        Pool Name: MySqlConnPool
+        Resource Type: javax.sql.DataSource
+        Database Driver Vendor: MySql
+        Button "Next"
+
+        Scroll down to Additional Properties. Fill values for:
+            ServerName: localhost
+            DatabaseName: <your specific value>
+            User: <your specific value>
+            Password: <your specific value>
+        Button "Finish"
+
+        Resources -> JDBC - > JDBC Connection Pools
+        click "MySqlConnPool"
+        Button "Ping"
+        Message "Ping Succeeded" expected. Otherwise kill yourself.
+
+    3b. Create JDBC Resource:
+         Resources -> JDBC -> JDBC Resources
+         Button "New"
+
+         JNDI Name: jdbc/MySQLDataSource
+         Pool Name: MySqlConnPool
+         Button "OK"
+         
