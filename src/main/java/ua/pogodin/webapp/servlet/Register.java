@@ -26,10 +26,10 @@ public class Register extends BaseServlet {
 		String login = (String) req.getParameter("login");
 		String name = (String) req.getParameter("name");
 
-		boolean loginTaken = ((login == null) || !dbJPAConnector.isLoginFree(login));
-		boolean isPassWrong = ((pass1 == null) || (pass2 == null) || !pass1.equals(pass2));
-		boolean notNameInputted = (name == null);
-
+		boolean loginTaken = ((login == null) || !dbJPAConnector.isLoginFree(login) || login.equals(""));
+		boolean isPassWrong = ((pass1 == null) || (pass2 == null) || !pass1.equals(pass2) || pass1.equals(""));
+		boolean notNameInputted = ((name == null) || name.equals(""));
+ 
 		req.setAttribute("loginTaken", loginTaken);
 		req.setAttribute("isPassWrong", isPassWrong);
 		req.setAttribute("notNameInputted", notNameInputted);
@@ -60,8 +60,10 @@ public class Register extends BaseServlet {
 	private void createDriver(HttpServletResponse resp, String login, String pass, String name, int busload,
 			int maxspeed, boolean isWork) throws IOException {
 		Bus bus = new Bus(busload, maxspeed, isWork);
+		Driver driver = new Driver(login, pass, name, bus);
+		bus.setDriver(driver);
+		dbJPAConnector.createUser(driver);
 		dbJPAConnector.createBus(bus);
-		dbJPAConnector.createUser(new Driver(login, pass, name, bus));
 		resp.sendRedirect("users");
 	}
 

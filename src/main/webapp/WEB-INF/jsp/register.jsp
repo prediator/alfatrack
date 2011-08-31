@@ -27,7 +27,7 @@
 			</table>
 
 			<table align=center>
-				<c:if test="${loginTaken == 1}">
+				<c:if test="${loginTaken}">
 					<tr>
 						<td><span style="color: red;">Login not free</span></td>
 					</tr>
@@ -37,7 +37,7 @@
 					<td><input type="text" name="login" value="${login}" size=20 />
 					</td>
 				</tr>
-				<c:if test="${isPassWrong == 1}">
+				<c:if test="${isPassWrong}">
 					<tr>
 						<td><span style="color: red;">Wrong password repeat</span></td>
 					</tr>
@@ -50,7 +50,7 @@
 					<td>repeat password</td>
 					<td><input type="password" name="pass2" size=20 /></td>
 				</tr>
-				<c:if test="${notNameInputted == 1}">
+				<c:if test="${notNameInputted}">
 					<tr>
 						<td><span style="color: red;">Input name</span></td>
 					</tr>

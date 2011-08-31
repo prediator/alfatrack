@@ -16,11 +16,11 @@ import javax.persistence.Table;
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING, length = 20)
 @DiscriminatorValue("driver")
 public class Driver extends User {
-	
+
 	@OneToOne()
 	@JoinColumn(name = "bus")
 	private Bus bus;
-
+	
 	public Driver(){
 		
 	}
