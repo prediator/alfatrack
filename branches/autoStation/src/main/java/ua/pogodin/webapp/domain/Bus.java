@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,13 +23,14 @@ import javax.persistence.Table;
 @Table(name = "busses")
 public class Bus {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Integer busload;
 	private Integer maxspeed;
 	private boolean workingorder;
 	@OneToMany(mappedBy = "bus")
 	private List<Trip> trips = new ArrayList<Trip>();
+	
 	@OneToOne(mappedBy = "bus")
 	private Driver driver;
 

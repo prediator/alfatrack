@@ -130,7 +130,7 @@
 						</component>
 					</components>
 					<domain>
-						<name>domain1</name>
+						<name>autoStation</name>
 						<adminPort>4848</adminPort>
 						<httpPort>8080</httpPort>
 						<httpsPort>8443</httpsPort>

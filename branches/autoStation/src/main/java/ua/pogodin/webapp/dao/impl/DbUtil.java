@@ -159,6 +159,7 @@ public class DbUtil implements DbConnection {
 				}
 			}
 		} catch (Exception e) {
+			throw new AppException("can't create user" + user);
 		}
 
 	}
@@ -181,10 +182,15 @@ public class DbUtil implements DbConnection {
 	@Override
 	public List<User> getAllDispatchers() throws AppException {
 
-		List<User> users = em.createQuery("SELECT u FROM User u")
-				.getResultList();
+		List<User> users = getAllUsers();
+		List<User> disps = new ArrayList<User>();
+		for (User user : users) {
+			if(user.isDispatcher()){
+				disps.add(user);
+			}
+		}
 
-		return users;
+		return disps;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -204,8 +210,6 @@ public class DbUtil implements DbConnection {
 
 		List<User> users = em.createQuery("SELECT u FROM User u")
 				.getResultList();
-		users.addAll(em.createQuery("SELECT u FROM Driver u").getResultList());
-
 		return users;
 	}
 
@@ -239,20 +243,16 @@ public class DbUtil implements DbConnection {
 
 	@Override
 	public Bus createBus(Bus bus) {
-		try {
-			createEntity(bus);
+		
+			em.persist(bus);
 			if (bus.getDriver() != null) {
 				bus.getDriver().setBus(bus);
 			}
 			return bus;
-		} catch (Exception e) {
-			return null;
-		}
 	}
 
 	@Override
 	public void updateBusWorkingOrder(Bus bus, boolean isWorking) {
-
 		em.merge(bus);
 		bus.setWorkingorder(isWorking);
 
@@ -332,7 +332,7 @@ public class DbUtil implements DbConnection {
 
 		List<Trip> trips = em
 				.createQuery("SELECT t FROM Trip t WHERE t.busapp.id LIKE ?1")
-				.setParameter(1, id).getResultList();
+				.setParameter(1, id.toString()).getResultList();
 		List<Driver> drivers = new ArrayList<Driver>();
 		for (Trip trip : trips) {
 			drivers.add(getDriverByBusId(trip.getBus().getId()));

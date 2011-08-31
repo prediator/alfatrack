@@ -24,7 +24,7 @@ import javax.persistence.Table;
 @Table(name = "bus_application")
 public class BusApplication {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "minspeed")
 	private Integer minspeed;
