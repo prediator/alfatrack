@@ -5,12 +5,14 @@ import ua.pogodin.webapp.domain.BusApplication;
 import ua.pogodin.webapp.domain.Trip;
 import ua.pogodin.webapp.domain.User;
 
+import javax.annotation.security.DeclareRoles;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@DeclareRoles({"driver"})
 public class Driver extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

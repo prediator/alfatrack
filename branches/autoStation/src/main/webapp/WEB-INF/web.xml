@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
-	<display-name>Autostation</display-name>
+	<display-name>autoStation</display-name>
 
 	<servlet>
 		<servlet-name>Driver</servlet-name>
@@ -69,14 +69,9 @@
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
 
-	<login-config>
-		<auth-method>FORM</auth-method>
-		<realm-name>autoStation</realm-name>
-		<form-login-config>
-			<form-login-page>/login</form-login-page>
-			<form-error-page>/error.jsp</form-error-page>
-		</form-login-config>
-	</login-config>
 
-
+	<welcome-file-list>
+		<welcome-file>jsp/login.jsp</welcome-file>
+	</welcome-file-list>
+ 
 </web-app>
