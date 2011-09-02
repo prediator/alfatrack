@@ -6,6 +6,7 @@ import ua.pogodin.webapp.domain.Driver;
 import ua.pogodin.webapp.domain.Trip;
 import ua.pogodin.webapp.domain.User;
 
+import javax.annotation.security.DeclareRoles;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@DeclareRoles({"dispatcher"})
 public class Dispatcher extends BaseServlet {
 	
 	
