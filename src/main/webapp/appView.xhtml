@@ -1,19 +1,83 @@
-<?xml version='1.0' encoding='windows-1251' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<title>11</title>
+	<title>User list</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF8" />
 </h:head>
 <h:body>
-	<h1>С111</h1>
-	<h3>"#{apps.hello}"</h3>
-	<h:dataTable value="#{apps.apps}" var="app">
+	<h4>
+		You are logined as ${user.name} <a href="logout">logout</a>
+	</h4>
+	<hr />
+
+	<h:dataTable value="${apps.apps}" var="appUtil" frame="box" rules="all">
+		<h:column>
+			<f:facet name="header">App ID</f:facet>
+                    #{appUtil.app.id}
+                </h:column>
 		<h:column>
 			<f:facet name="header">minspeed</f:facet>
-	            #{app.minspeed}
-	    </h:column>
+                    #{appUtil.app.minspeed}
+                </h:column>
+		<h:column>
+			<f:facet name="header">minbusload</f:facet>
+                    #{appUtil.app.minbusload}
+                </h:column>
+		<h:column>
+			<f:facet name="header">Drivers(wanna to work)</f:facet>
+
+			<h:form>
+				<h:dataTable value="${appUtil.driversOff}" var="driver" frame="box"
+					rules="all">
+					<h:column>
+						<f:facet name="header">Driver Id</f:facet>
+                                #{driver.id}
+                            </h:column>
+					<h:column>
+						<f:facet name="header">Driver name</f:facet>
+                                #{driver.name}
+                            </h:column>
+					<h:column>
+						<f:facet name="header">Driver login</f:facet>
+                                #{driver.login}
+                            </h:column>
+
+					<h:column>
+					<!-- 
+						<h:inputText name = "#{driver.id}" value = 'free'
+							onselect = "changeUse('#{driver.id}')" readonly = "true"
+							style = "color: Yellow; background: Teal;">
+						</h:inputText>
+						 -->
+						 <h:commandButton name = "${driver.id}" value = "free" onclick = "changeUse('#{driver.id}')">
+						 </h:commandButton>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</h:column>
 	</h:dataTable>
+
+
 </h:body>
+
+<script type="text/javascript">
+<!--//<![CDATA[
+	function changeUse(name) {
+		
+		var inp = document.getElementByName(name);
+		var alolo = document.getElementByName("free");
+		alert("1111 " + inp.value);
+		alert("1111 " + alolo.value);
+		if (inp.value == "free") {
+			alert("free " + inp.value);
+			inp.value = "busy";
+		} else {
+			inp.value = "free";
+		}
+	}
+//]]>-->
+</script>
 </html>

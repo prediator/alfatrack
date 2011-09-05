@@ -18,11 +18,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 			<form>
 				<table border="1">
 					<tr>
-						<td colspan="3" align="center">
+						<td colspan="4" align="center">
 							<span style="color: red;">DISPATCHERS:</span>
 						</td>
 					</tr>
 					<tr>
+						<td width="20" align="center">
+							<span style="color: blue;">ID</span>
+						</td>
 						<td width="100" align="center">
 							<span style="color: blue;">LOGIN</span>
 						</td>
@@ -33,6 +36,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					<c:forEach var="disp" items="${disps}">
 
 						<tr>
+							<td width="20" align="center">${disp.id}</td>
 							<td width="100" align="center">${disp.login}</td>
 							<td width="100" align="center">${disp.name}</td>
 						</tr>
@@ -41,11 +45,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				<div align=center style="margin-top: 70px">
 					<table border="1">
 						<tr>
-							<td colspan="6" align="center">
+							<td colspan="7" align="center">
 								<span style="color: green;">DRIVERS:</span>
 							</td>
 						</tr>
 						<tr>
+							<td width="20" align="center">
+								<span style="color: blue;">ID</span>
+							</td>
 							<td width="100" align="center">
 								<span style="color: blue;">LOGIN</span>
 							</td>
@@ -67,6 +74,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 						</tr>
 						<c:forEach var="driver" items="${drivers}">
 							<tr>
+								<td width="100" align="center">${driver.id}</td>
 								<td width="100" align="center">${driver.login}</td>
 								<td width="100" align="center">${driver.name}</td>
 								<td width="150" align="center">${driver.bus.id}</td>
@@ -84,13 +92,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 							</tr>
 						</c:forEach>
 						<tr>
-							<td colspan="6" align="center">
+							<td colspan="7" align="center">
 								<input type="button" onClick="location.href='register'"
 									value="register new user">
 							</td>
 						</tr>
 						<tr>
-							<td colspan="6" align="center">
+							<td colspan="7" align="center">
 								<input type="button" onClick="location.href='dispatcher'"
 									value="to dispatcher page">
 							</td>
