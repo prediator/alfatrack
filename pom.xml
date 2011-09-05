@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ua.pogodin.autostation</groupId>
 	<artifactId>autoStation</artifactId>
-	<packaging>ear</packaging>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>AutoStation</name>
 
@@ -13,13 +13,6 @@
 			<artifactId>junit</artifactId>
 			<version>4.8.2</version>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>ua.pogodin.autostation</groupId>
-			<artifactId>autostEjbs</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<type>jar</type>
 		</dependency>
 		
 		<dependency>
@@ -154,7 +147,7 @@
 					<components>
 						<component>
 							<name>${project.artifactId}</name>
-							<artifact>${project.build.directory}/${project.build.finalName}.ear</artifact>
+							<artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
 						</component>
 					</components>
 					<domain>
