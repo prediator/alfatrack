@@ -19,21 +19,8 @@ public class AppsUtil {
 		driversOff = new ArrayList<Driver>();
 	}
 
-	private void setDriversOnOff(List<Driver> allDrivers) {
-		if (driversOff.isEmpty()) {
-			driversOff.addAll(allDrivers);
-			driversOff.removeAll(driversOn);
-			driversOff = Collections.synchronizedList(driversOff);
-			for (int i = 0; i < driversOff.size(); i++) {
-				if (!driversOff.get(i).getBus().isWorkingorder()) {
-					driversOff.remove(driversOff.get(i));
-				}
-			}
-		} else {
 
-		}
-	}
-
+	
 	public BusApplication getApp() {
 		return app;
 	}
@@ -50,17 +37,24 @@ public class AppsUtil {
 		this.driversOn = driversOn;
 	}
 
-	public void setDriversOn(List<Driver> driversOn, List<Driver> allDrivers) {
-		this.driversOn.addAll(driversOn);
-		setDriversOnOff(allDrivers);
-	}
-
-	public List<Driver> getDriversOff() {
-		return driversOff;
-	}
 
 	public void setDriversOff(List<Driver> driversOff) {
 		this.driversOff = driversOff;
 	}
 
+	public static List<Driver> getOtherDrivers(List<Driver> driversInp,
+			List<Driver> allDrivers) {
+		List<Driver> driversOut = new ArrayList<Driver>();
+		driversOut.addAll(allDrivers);
+		driversOut.removeAll(driversInp);
+		driversOut = Collections.synchronizedList(driversOut);
+		for (int i = 0; i < driversOut.size(); i++) {
+			if (!driversOut.get(i).getBus().isWorkingorder()) {
+				driversOut.remove(driversInp.get(i));
+			}
+		}
+		return driversOut;
+	}
+
 }
+

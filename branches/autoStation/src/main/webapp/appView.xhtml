@@ -9,56 +9,50 @@
 </h:head>
 <h:body>
 	<h4>
-		You are logined as ${user.name} <a href="logout">logout</a>
+		You are logined <a href="logout">logout</a>
 	</h4>
 	<hr />
-
-	<h:dataTable value="${apps.apps}" var="appUtil" frame="box" rules="all">
-		<h:column>
-			<f:facet name="header">App ID</f:facet>
-                    #{appUtil.app.id}
+	<h:form>
+		<h:dataTable value="${apps.trips}" var="trip" frame="box"
+			rules="all">
+			<h:column>
+				<f:facet name="header">App ID</f:facet>
+                    #{trip.app.id}
                 </h:column>
-		<h:column>
-			<f:facet name="header">minspeed</f:facet>
-                    #{appUtil.app.minspeed}
+			<h:column>
+				<f:facet name="header">minspeed</f:facet>
+                    #{trip.app.minspeed}
                 </h:column>
-		<h:column>
-			<f:facet name="header">minbusload</f:facet>
-                    #{appUtil.app.minbusload}
+			<h:column>
+				<f:facet name="header">minbusload</f:facet>
+                    #{trip.app.minbusload}
                 </h:column>
-		<h:column>
-			<f:facet name="header">Drivers(wanna to work)</f:facet>
-
-			<h:form>
-				<h:dataTable value="${appUtil.driversOff}" var="driver" frame="box"
-					rules="all">
-					<h:column>
-						<f:facet name="header">Driver Id</f:facet>
-                                #{driver.id}
+			<h:column>
+				<f:facet name="header">Driver Id</f:facet>
+                                #{trip.driver.id}
                             </h:column>
-					<h:column>
-						<f:facet name="header">Driver name</f:facet>
-                                #{driver.name}
+			<h:column>
+				<f:facet name="header">Driver name</f:facet>
+                                #{trip.driver.name}
                             </h:column>
-					<h:column>
-						<f:facet name="header">Driver login</f:facet>
-                                #{driver.login}
+			<h:column>
+				<f:facet name="header">Driver login</f:facet>
+                                #{trip.driver.login}
                             </h:column>
 
-					<h:column>
-					<!-- 
+			<h:column>
+				<!-- 
 						<h:inputText name = "#{driver.id}" value = 'free'
 							onselect = "changeUse('#{driver.id}')" readonly = "true"
 							style = "color: Yellow; background: Teal;">
 						</h:inputText>
 						 -->
-						 <h:commandButton name = "${driver.id}" value = "free" onclick = "changeUse('#{driver.id}')">
-						 </h:commandButton>
-					</h:column>
-				</h:dataTable>
-			</h:form>
-		</h:column>
-	</h:dataTable>
+				<h:selectBooleanCheckbox value= "#{trip.needToCreate}" />
+			</h:column>
+			</h:dataTable>
+			<h:commandButton action = "#{apps.doSome}"/>
+	</h:form>
+	
 
 
 </h:body>
@@ -66,11 +60,11 @@
 <script type="text/javascript">
 <!--//<![CDATA[
 	function changeUse(name) {
-		
+
+		alert(name);
+
 		var inp = document.getElementByName(name);
-		var alolo = document.getElementByName("free");
-		alert("1111 " + inp.value);
-		alert("1111 " + alolo.value);
+
 		if (inp.value == "free") {
 			alert("free " + inp.value);
 			inp.value = "busy";
