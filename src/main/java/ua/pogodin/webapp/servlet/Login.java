@@ -47,6 +47,8 @@ public class Login extends BaseServlet {
     private void redirectToHomePage(HttpServletResponse resp, User user) throws IOException {
     	if (!user.isDispatcher()){
     		resp.sendRedirect("driver");
+    	}else{
+    		resp.sendRedirect("appView.xhtml");
     	}
        
     }
