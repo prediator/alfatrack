@@ -1,4 +1,5 @@
 package ua.pogodin.webapp.util;
+
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -16,37 +17,32 @@ import ua.pogodin.webapp.domain.User;
 public class MainFilter implements Filter {
 
 	@Override
-	public void destroy() {
-		
+	public void init(FilterConfig filterConfig) throws ServletException {
 	}
 
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse resp,
-			FilterChain arg2) throws IOException, ServletException {
-		
-		HttpSession session = ((HttpServletRequest)req).getSession();
-		HttpServletResponse hresp = (HttpServletResponse)resp;
-		try{
-			if(session.getAttribute("user") == null){
-				hresp.sendRedirect("login");
-			}else{
-				User user = (User)session.getAttribute("user");
-				if(!user.isDispatcher()){
-					hresp.sendRedirect("driver");
-				}
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException,
+			ServletException {
+		if (!isRequestToLoginPage(req)) {
+			HttpSession session = ((HttpServletRequest) req).getSession(false);
+
+			if (session == null || session.getAttribute("user") == null) {
+				((HttpServletResponse) resp).sendRedirect("login");
+				return;
+			} else {
+				req.setAttribute("user", session.getAttribute("user"));
 			}
-			
-		}catch (Exception e) {
-		
 		}
-		
-		
+
+		chain.doFilter(req, resp);
+	}
+
+	private boolean isRequestToLoginPage(ServletRequest req) {
+		return ((HttpServletRequest) req).getServletPath().contains("login");
 	}
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
-		
+	public void destroy() {
 	}
-	
-	
+
 }
