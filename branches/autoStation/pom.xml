@@ -14,7 +14,7 @@
 			<version>4.8.2</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
@@ -82,8 +82,8 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-ear-plugin</artifactId>
+				<version>1.9</version>
 				<configuration>
-					<version>1.9</version>
 					<modules>
 						<webModule>
 							<groupId>${project.groupId}</groupId>
@@ -98,7 +98,7 @@
 						</ejbModule>
 					</modules>
 					<displayName>${project.artifactId}</displayName>
-					
+
 				</configuration>
 			</plugin>
 
@@ -166,6 +166,27 @@
 					<packagingExcludes>WEB-INF/web.xml</packagingExcludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlUrls>
+								<wsdlUrl>
+									http://localhost:8080/autoStation/MainInfoService?wstl
+								</wsdlUrl>
+							</wsdlUrls>
+							<packageName>ua.pogodin.webapp.webservice
+							</packageName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 			<!-- <plugin> <groupId>org.glassfish</groupId> <artifactId>maven-embedded-glassfish-plugin</artifactId> 
 				<version>3.0.1</version> <configuration> <app>${project.build.directory}/${project.build.finalName}.war</app> 
@@ -229,6 +250,7 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
+
 			</plugins>
 		</pluginManagement>
 	</build>
