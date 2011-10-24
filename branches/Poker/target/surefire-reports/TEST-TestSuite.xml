@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="0.54" errors="0" skipped="2" tests="21" name="TestSuite">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="D:\Dev\Prog\Java\jdk1.6.0_26\jre\bin"/>
+    <property name="java.vm.version" value="20.1-b02"/>
+    <property name="java.vm.vendor" value="Sun Microsystems Inc."/>
+    <property name="java.vendor.url" value="http://java.sun.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="RU"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="Service Pack 1"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="d:\Dev\workspace\Poker"/>
+    <property name="java.runtime.version" value="1.6.0_26-b03"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="basedir" value="d:\Dev\workspace\Poker"/>
+    <property name="java.endorsed.dirs" value="D:\Dev\Prog\Java\jdk1.6.0_26\jre\lib\endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="surefire.real.class.path" value="d:\Dev\workspace\Poker\target\surefire\surefirebooter4279400485492262877.jar"/>
+    <property name="java.io.tmpdir" value="C:\Users\sap\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 7"/>
+    <property name="sun.jnu.encoding" value="Cp1251"/>
+    <property name="java.library.path" value="D:\Dev\Prog\Java\jdk1.6.0_26\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\AMD APP\bin\x86_64;C:\Program Files (x86)\AMD APP\bin\x86;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;D:\Dev\Prog\Java\jdk1.6.0_26\bin;D:\Dev\Prog\Maven\3.0.3\bin;D:\Dev\Prog\TortoiseSVN\bin;C:\Program Files (x86)\QuickTime\QTSystem\;."/>
+    <property name="surefire.test.class.path" value="d:\Dev\workspace\Poker\target\test-classes;d:\Dev\workspace\Poker\target\classes;D:\Dev\Prog\Maven\repo\org\testng\testng\6.3\testng-6.3.jar;D:\Dev\Prog\Maven\repo\junit\junit\3.8.1\junit-3.8.1.jar;D:\Dev\Prog\Maven\repo\org\beanshell\bsh\2.0b4\bsh-2.0b4.jar;D:\Dev\Prog\Maven\repo\com\beust\jcommander\1.12\jcommander-1.12.jar;D:\Dev\Prog\Maven\repo\org\yaml\snakeyaml\1.6\snakeyaml-1.6.jar;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="50.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="6.1"/>
+    <property name="user.home" value="C:\Users\sap"/>
+    <property name="user.timezone" value="Europe/Helsinki"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.6"/>
+    <property name="file.encoding" value="Cp1251"/>
+    <property name="user.name" value="sap"/>
+    <property name="java.class.path" value="d:\Dev\workspace\Poker\target\test-classes;d:\Dev\workspace\Poker\target\classes;D:\Dev\Prog\Maven\repo\org\testng\testng\6.3\testng-6.3.jar;D:\Dev\Prog\Maven\repo\junit\junit\3.8.1\junit-3.8.1.jar;D:\Dev\Prog\Maven\repo\org\beanshell\bsh\2.0b4\bsh-2.0b4.jar;D:\Dev\Prog\Maven\repo\com\beust\jcommander\1.12\jcommander-1.12.jar;D:\Dev\Prog\Maven\repo\org\yaml\snakeyaml\1.6\snakeyaml-1.6.jar;"/>
+    <property name="java.vm.specification.version" value="1.0"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="D:\Dev\Prog\Java\jdk1.6.0_26\jre"/>
+    <property name="sun.java.command" value="d:\Dev\workspace\Poker\target\surefire\surefirebooter4279400485492262877.jar d:\Dev\workspace\Poker\target\surefire\surefire1018905840333127401tmp d:\Dev\workspace\Poker\target\surefire\surefire7424018557336310363tmp"/>
+    <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="user.language" value="ru"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.6.0_26"/>
+    <property name="java.ext.dirs" value="D:\Dev\Prog\Java\jdk1.6.0_26\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="D:\Dev\Prog\Java\jdk1.6.0_26\jre\lib\resources.jar;D:\Dev\Prog\Java\jdk1.6.0_26\jre\lib\rt.jar;D:\Dev\Prog\Java\jdk1.6.0_26\jre\lib\sunrsasign.jar;D:\Dev\Prog\Java\jdk1.6.0_26\jre\lib\jsse.jar;D:\Dev\Prog\Java\jdk1.6.0_26\jre\lib\jce.jar;D:\Dev\Prog\Java\jdk1.6.0_26\jre\lib\charsets.jar;D:\Dev\Prog\Java\jdk1.6.0_26\jre\lib\modules\jdk.boot.jar;D:\Dev\Prog\Java\jdk1.6.0_26\jre\classes"/>
+    <property name="java.vendor" value="Sun Microsystems Inc."/>
+    <property name="localRepository" value="D:\Dev\Prog\Maven\repo"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase time="0.008" classname="ua.pogodin.poker.CardTest" name="cardShouldBeParsedCorrectly"/>
+  <testcase time="0" classname="ua.pogodin.poker.CardTest" name="cardShouldBeParsedCorrectly"/>
+  <testcase time="0.001" classname="ua.pogodin.poker.CardTest" name="cardShouldBeParsedCorrectly"/>
+  <testcase time="0.001" classname="ua.pogodin.poker.CardTest" name="cardShouldBeParsedCorrectly"/>
+  <testcase time="0" classname="ua.pogodin.poker.CardTest" name="cardShouldBeParsedCorrectly"/>
+  <testcase time="0.001" classname="ua.pogodin.poker.CardTest" name="cardShouldBeParsedCorrectly"/>
+  <testcase time="0" classname="ua.pogodin.poker.CardTest" name="cardShouldBeParsedCorrectly"/>
+  <testcase time="0.001" classname="ua.pogodin.poker.CardTest" name="cardShouldBeParsedCorrectly"/>
+  <testcase time="0" classname="ua.pogodin.poker.CardTest" name="cardShouldBeParsedCorrectly"/>
+  <testcase time="0.001" classname="ua.pogodin.poker.CardTest" name="cardShouldBeParsedCorrectly"/>
+  <testcase time="0.003" classname="ua.pogodin.poker.CardTest" name="shouldThrowExceptionOnIncorrectIncomeString">
+    <skipped/>
+  </testcase>
+  <testcase time="0.007" classname="ua.pogodin.poker.HandAndDeckTest" name="shouldBeParsedWithoutException"/>
+  <testcase time="0.001" classname="ua.pogodin.poker.HandAndDeckTest" name="shouldBeParsedWithoutException"/>
+  <testcase time="0.001" classname="ua.pogodin.poker.HandAndDeckTest" name="shouldBeParsedWithoutException"/>
+  <testcase time="0" classname="ua.pogodin.poker.HandAndDeckTest" name="shouldBeParsedWithoutException"/>
+  <testcase time="0" classname="ua.pogodin.poker.HandAndDeckTest" name="shouldBeParsedWithoutException"/>
+  <testcase time="0.001" classname="ua.pogodin.poker.HandAndDeckTest" name="shouldBeParsedWithoutException"/>
+  <testcase time="0.001" classname="ua.pogodin.poker.HandAndDeckTest" name="shouldBeParsedWithoutException"/>
+  <testcase time="0" classname="ua.pogodin.poker.HandAndDeckTest" name="shouldBeParsedWithoutException"/>
+  <testcase time="0.001" classname="ua.pogodin.poker.HandAndDeckTest" name="shouldBeParsedWithoutException"/>
+  <testcase time="0.002" classname="ua.pogodin.poker.HandAndDeckTest" name="shouldThrowExceptionOnIncorrectIncomeString">
+    <skipped/>
+  </testcase>
+</testsuite>
