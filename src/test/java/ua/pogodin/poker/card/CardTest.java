@@ -38,7 +38,7 @@ public class CardTest {
         };
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(dataProvider = "invalid", expectedExceptions = IllegalArgumentException.class)
     public void shouldThrowExceptionOnIncorrectIncomeString(String incorrectAbbreviation) throws Exception {
         Card.parse(incorrectAbbreviation);
     }
