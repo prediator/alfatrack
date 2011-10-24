@@ -35,7 +35,7 @@ public class HandAndDeckTest {
         };
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(dataProvider = "invalid", expectedExceptions = IllegalArgumentException.class)
     public void shouldThrowExceptionOnIncorrectIncomeString(String incorrectAbbreviation) throws Exception {
         HandAndDeck.parse(incorrectAbbreviation);
     }
