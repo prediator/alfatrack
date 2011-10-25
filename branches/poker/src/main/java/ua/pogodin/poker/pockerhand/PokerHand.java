@@ -13,7 +13,7 @@ public enum PokerHand {
 
     private String description;
 
-    PokerHand(String description) {
+    private PokerHand(String description) {
         this.description = description;
     }
 
