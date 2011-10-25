@@ -1,10 +1,10 @@
 package ua.pogodin.poker.card;
 
 public enum Suit {
+    Spades("S"),
     Hearts("H"),
     Diamonds("D"),
-    Clubs("C"),
-    Spades("S");
+    Clubs("C");
 
     private String abbreviation;
 
