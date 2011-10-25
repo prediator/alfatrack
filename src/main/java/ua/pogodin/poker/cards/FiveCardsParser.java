@@ -5,9 +5,12 @@ import ua.pogodin.poker.card.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class FiveCardsParser {
+public class FiveCardsParser {
     public static final int FIVE_CARD_ABBREVIATIONS_LENGTH = 14;
     public static final int FIVE = 5;
+
+    private FiveCardsParser() {
+    }
 
     protected static List<Card> parseFiveCards(String abbreviations) {
         if (abbreviations == null || abbreviations.length() != FIVE_CARD_ABBREVIATIONS_LENGTH) {
