@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 public class HandTest {
     private Hand hand;
@@ -41,5 +42,18 @@ public class HandTest {
     @Test
     public void toStringShouldReturnAbbreviations() throws Exception {
         assertEquals(hand.toString(), "AD KC 8S 7C 4H");
+    }
+
+    @Test
+    public void handsWithSameCardsShouldBeEqual() throws Exception {
+        Hand other = new Hand(Arrays.asList(
+                new Card(Rank.Ace, Suit.Diamonds),
+                new Card(Rank.Four, Suit.Hearts),
+                new Card(Rank.Seven, Suit.Clubs),
+                new Card(Rank.King, Suit.Clubs),
+                new Card(Rank.Eight, Suit.Spades)
+        ));
+
+        assertTrue(hand.equals(other));
     }
 }

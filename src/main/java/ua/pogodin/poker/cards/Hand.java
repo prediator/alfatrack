@@ -39,4 +39,14 @@ public class Hand {
     public String toString() {
         return StringUtils.join(cards, " ");
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Hand other = (Hand) o;
+
+        return cards.equals(other.cards);
+    }
 }
