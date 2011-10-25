@@ -1,6 +1,6 @@
 package ua.pogodin.poker.card;
 
-public enum Kind {
+public enum Rank {
     Ace("A"),
     King("K"),
     Queen("Q"),
@@ -17,16 +17,21 @@ public enum Kind {
 
     private String abbreviation;
 
-    Kind(String abbreviation) {
+    Rank(String abbreviation) {
         this.abbreviation = abbreviation;
     }
 
-    public static Kind parse(String abbreviation) {
-        for (Kind kind : Kind.values()) {
-            if (kind.abbreviation.equalsIgnoreCase(abbreviation)) {
-                return kind;
+    public static Rank parse(String abbreviation) {
+        for (Rank rank : Rank.values()) {
+            if (rank.abbreviation.equalsIgnoreCase(abbreviation)) {
+                return rank;
             }
         }
         throw new IllegalArgumentException(String.format("No kind for \"%s\"", abbreviation));
+    }
+
+    @Override
+    public String toString() {
+        return abbreviation;
     }
 }

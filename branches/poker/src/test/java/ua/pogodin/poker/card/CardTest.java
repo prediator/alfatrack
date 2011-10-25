@@ -4,31 +4,28 @@ import static org.testng.Assert.*;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ua.pogodin.poker.card.Card;
-import ua.pogodin.poker.card.Kind;
-import ua.pogodin.poker.card.Suit;
 
 public class CardTest {
 
     @DataProvider
     public Object[][] valid() {
         return new Object[][] {
-                {"5H", Kind.Five, Suit.Hearts},
-                {"QH", Kind.Queen, Suit.Hearts},
-                {"6S", Kind.Six, Suit.Spades},
-                {"TC", Kind.Ten, Suit.Clubs},
-                {"2H", Kind.Two, Suit.Hearts},
-                {"KS", Kind.King, Suit.Spades},
-                {"3D", Kind.Three, Suit.Diamonds},
-                {"AH", Kind.Ace, Suit.Hearts},
-                {"9C", Kind.Nine, Suit.Clubs},
-                {"JD", Kind.Jack, Suit.Diamonds}
+                {"5H", Rank.Five, Suit.Hearts},
+                {"QH", Rank.Queen, Suit.Hearts},
+                {"6S", Rank.Six, Suit.Spades},
+                {"TC", Rank.Ten, Suit.Clubs},
+                {"2H", Rank.Two, Suit.Hearts},
+                {"KS", Rank.King, Suit.Spades},
+                {"3D", Rank.Three, Suit.Diamonds},
+                {"AH", Rank.Ace, Suit.Hearts},
+                {"9C", Rank.Nine, Suit.Clubs},
+                {"JD", Rank.Jack, Suit.Diamonds}
         };
     }
 
     @Test(dataProvider = "valid")
-    public void cardShouldBeParsedCorrectly(String abbreviation, Kind expectedKind, Suit expectedSuit) {
-        assertEquals(Card.parse(abbreviation), new Card(expectedKind, expectedSuit));
+    public void cardShouldBeParsedCorrectly(String abbreviation, Rank expectedRank, Suit expectedSuit) {
+        assertEquals(Card.parse(abbreviation), new Card(expectedRank, expectedSuit));
     }
 
     @DataProvider

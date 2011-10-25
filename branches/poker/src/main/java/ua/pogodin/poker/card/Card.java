@@ -1,11 +1,11 @@
 package ua.pogodin.poker.card;
 
 public class Card implements Comparable<Card> {
-    private Kind kind;
+    private Rank rank;
     private Suit suit;
 
-    public Card(Kind kind, Suit suit) {
-        this.kind = kind;
+    public Card(Rank rank, Suit suit) {
+        this.rank = rank;
         this.suit = suit;
     }
 
@@ -13,7 +13,7 @@ public class Card implements Comparable<Card> {
         if (string == null || string.length() != 2) {
             throw new IllegalArgumentException(String.format("Can't parse card \"%s\"", string));
         }
-        return new Card(Kind.parse(string.substring(0, 1)), Suit.parse(string.substring(1, 2)));
+        return new Card(Rank.parse(string.substring(0, 1)), Suit.parse(string.substring(1, 2)));
     }
 
     @Override
@@ -23,11 +23,16 @@ public class Card implements Comparable<Card> {
 
         Card card = (Card) o;
 
-        return kind == card.kind && suit == card.suit;
+        return rank == card.rank && suit == card.suit;
     }
 
     public int compareTo(Card other) {
-        int comparison = this.kind.compareTo(other.kind);
+        int comparison = this.rank.compareTo(other.rank);
         return comparison != 0 ? comparison : this.suit.compareTo(other.suit);
+    }
+
+    @Override
+    public String toString() {
+        return rank.toString() + suit.toString();
     }
 }
