@@ -17,7 +17,7 @@ public enum Rank {
 
     private String abbreviation;
 
-    Rank(String abbreviation) {
+    private Rank(String abbreviation) {
         this.abbreviation = abbreviation;
     }
 

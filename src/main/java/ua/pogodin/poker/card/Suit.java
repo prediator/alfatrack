@@ -8,7 +8,7 @@ public enum Suit {
 
     private String abbreviation;
 
-    Suit(String abbreviation) {
+    private Suit(String abbreviation) {
         this.abbreviation = abbreviation;
     }
 
