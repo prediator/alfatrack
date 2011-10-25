@@ -20,4 +20,9 @@ public enum Suit {
         }
         throw new IllegalArgumentException(String.format("No suite for \"%s\"", abbreviation));
     }
+
+    @Override
+    public String toString() {
+        return abbreviation;
+    }
 }

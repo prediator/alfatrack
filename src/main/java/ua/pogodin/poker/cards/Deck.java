@@ -1,5 +1,6 @@
 package ua.pogodin.poker.cards;
 
+import org.apache.commons.lang.StringUtils;
 import ua.pogodin.poker.card.Card;
 
 import java.util.Collections;
@@ -11,18 +12,25 @@ import java.util.List;
 public class Deck {
     private List<Card> cardList;
 
+    Deck(List<Card> cardList) {
+        this.cardList = cardList;
+    }
+
     public static Deck parse(String string) {
-        Deck deck = new Deck();
-        deck.cardList = FiveCardsParser.parseFiveCards(string);
-        return deck;
+        return new Deck(FiveCardsParser.parseFiveCards(string));
     }
 
     /**
-     * Return several cards from the top. The deck remains not changed.
+     * Return several cards from the top. The hand remains not changed.
      * @param cardsNumber cards number to pull
-     * @return list of cards from the deck of number specified
+     * @return list of cards from the hand of number specified
      */
     public List<Card> pull(int cardsNumber) {
         return cardList.subList(0, cardsNumber);
+    }
+
+    @Override
+    public String toString() {
+        return StringUtils.join(cardList, " ");
     }
 }
