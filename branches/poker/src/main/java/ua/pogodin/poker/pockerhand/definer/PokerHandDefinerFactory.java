@@ -27,6 +27,6 @@ public class PokerHandDefinerFactory {
             case HighCard:
                 return new HighCardDefiner();
         }
-        throw new IllegalArgumentException("No definer for PokerHand " + pokerHand);
+        throw new IllegalArgumentException(String.format("No definer for PokerHand \"%s\"", pokerHand));
     }
 }
