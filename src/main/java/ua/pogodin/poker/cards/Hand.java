@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static ua.pogodin.poker.cards.FiveCardsParser.FIVE;
+
 /**
  * Hand of 5 cards. Immutable.
  * Cards are stored ordered from strongest to weakest
@@ -18,7 +20,7 @@ public class Hand {
     Hand(List<Card> fiveCards) {
         this.cards = new TreeSet<Card>(fiveCards);
 
-        if (this.cards.size() != FiveCardsParser.FIVE) {
+        if (this.cards.size() != FIVE) {
             throw new IllegalArgumentException("Not 5 unique cards: " + StringUtils.join(fiveCards, " "));
         }
     }
@@ -48,5 +50,10 @@ public class Hand {
         Hand other = (Hand) o;
 
         return cards.equals(other.cards);
+    }
+
+    @Override
+    public int hashCode() {
+        return cards != null ? cards.hashCode() : 0;
     }
 }
