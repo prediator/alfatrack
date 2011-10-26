@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static ua.pogodin.poker.cards.FiveCardsParser.FIVE;
+import static ua.pogodin.poker.cards.CardsParserUtil.FIVE;
 
 /**
  * Hand of 5 cards. Immutable.
@@ -27,7 +27,7 @@ public class Hand {
     }
 
     public static Hand parse(String string) {
-        return new Hand(FiveCardsParser.parseFiveCards(string));
+        return new Hand(CardsParserUtil.parseFiveCards(string));
     }
 
     /**
