@@ -13,6 +13,7 @@ import static ua.pogodin.poker.cards.FiveCardsParser.FIVE;
 /**
  * Hand of 5 cards. Immutable.
  * Cards are stored ordered from strongest to weakest
+ * @author Sergii Pogodin
  */
 public class Hand {
     private Set<Card> cards;

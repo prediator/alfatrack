@@ -5,6 +5,9 @@ import ua.pogodin.poker.card.Card;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Sergii Pogodin
+ */
 public class FiveCardsParser {
     public static final int FIVE_CARD_ABBREVIATIONS_LENGTH = 14;
     public static final int FIVE = 5;

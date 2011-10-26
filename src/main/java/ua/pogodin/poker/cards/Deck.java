@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 /**
  * Deck of five cards.
+ * @author Sergii Pogodin
  */
 public class Deck {
     private LinkedList<Card> cardList;

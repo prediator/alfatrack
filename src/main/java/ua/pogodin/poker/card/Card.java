@@ -1,5 +1,8 @@
 package ua.pogodin.poker.card;
 
+/**
+ * @author Sergii Pogodin
+ */
 public class Card implements Comparable<Card> {
     private Rank rank;
     private Suit suit;

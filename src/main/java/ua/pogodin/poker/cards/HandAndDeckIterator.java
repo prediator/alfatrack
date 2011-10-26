@@ -5,6 +5,9 @@ import ua.pogodin.poker.card.Card;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * @author Sergii Pogodin
+ */
 class HandAndDeckIterator implements Iterator<Hand> {
     private static final int ALL_BITS_0 = 0;  // last 5 bits are 00000
     private static final int ALL_BITS_1 = 31; // last 5 bits are 11111

@@ -2,8 +2,10 @@ package ua.pogodin.poker.cards;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ua.pogodin.poker.cards.HandAndDeck;
 
+/**
+ * @author Sergii Pogodin
+ */
 public class HandAndDeckTest {
     @Test
     public void shouldBeParsedWithoutException() throws Exception {
