@@ -6,7 +6,7 @@ import ua.pogodin.poker.pockerhand.PokerHand;
  * @author Sergii Pogodin
  */
 public class PokerHandDefinerFactory {
-    public PokerHandDefiner createDefiner(PokerHand pokerHand) {
+    public static PokerHandDefiner createDefiner(PokerHand pokerHand) {
         switch (pokerHand) {
             case StraightFlush:
                 return new StraightFlushDefiner();
