@@ -7,10 +7,8 @@ import ua.pogodin.poker.card.Rank;
 import ua.pogodin.poker.card.Suit;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
 
 public class DeckTest {
     private Deck deck;
@@ -28,11 +26,8 @@ public class DeckTest {
 
     @Test
     public void pulledCardsShouldBeFromTop() throws Exception {
-        List<Card> pulled = deck.pull(2);
-        assertNotNull(pulled);
-        assertEquals(pulled.size(), 2);
-        assertEquals(pulled.get(0), new Card(Rank.Ten, Suit.Spades));
-        assertEquals(pulled.get(1), new Card(Rank.Ace, Suit.Diamonds));
+        assertEquals(deck.poll(), new Card(Rank.Ten, Suit.Spades));
+        assertEquals(deck.poll(), new Card(Rank.Ace, Suit.Diamonds));
     }
 
     @Test

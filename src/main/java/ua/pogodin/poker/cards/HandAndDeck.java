@@ -5,8 +5,8 @@ import static ua.pogodin.poker.cards.FiveCardsParser.FIVE_CARD_ABBREVIATIONS_LEN
 public class HandAndDeck {
     public static final int TEN_CARD_ABBREVIATIONS_LENGTH = 29;
 
-    private Hand hand;
-    private Deck deck;
+    Hand hand;
+    Deck deck;
 
     public HandAndDeck(Hand hand, Deck deck) {
         this.hand = hand;
@@ -20,5 +20,10 @@ public class HandAndDeck {
 
         return new HandAndDeck(Hand.parse(string.substring(0, FIVE_CARD_ABBREVIATIONS_LENGTH)),
                 Deck.parse(string.substring(FIVE_CARD_ABBREVIATIONS_LENGTH + 1, TEN_CARD_ABBREVIATIONS_LENGTH)));
+    }
+
+    @Override
+    public String toString() {
+        return hand.toString() + " | " + deck.toString();
     }
 }
