@@ -8,11 +8,11 @@ import java.util.List;
 /**
  * @author Sergii Pogodin
  */
-public class FiveCardsParser {
+class CardsParserUtil {
     public static final int FIVE_CARD_ABBREVIATIONS_LENGTH = 14;
     public static final int FIVE = 5;
 
-    private FiveCardsParser() {
+    private CardsParserUtil() {
     }
 
     protected static List<Card> parseFiveCards(String abbreviations) {
@@ -21,14 +21,14 @@ public class FiveCardsParser {
                     abbreviations));
         }
 
-        String[] splitted = abbreviations.split(" ");
-        if (splitted.length != FIVE) {
+        String[] split = abbreviations.split(" ");
+        if (split.length != FIVE) {
             throw new IllegalArgumentException(String.format("Can't parse five cards \"%s\". Wrong parts number: %d",
-                    abbreviations, splitted.length));
+                    abbreviations, split.length));
         }
 
         List<Card> list = new ArrayList<Card>(FIVE);
-        for (String abbreviation : splitted) {
+        for (String abbreviation : split) {
             list.add(Card.parse(abbreviation));
         }
         return list;

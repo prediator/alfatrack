@@ -22,7 +22,7 @@ public class Deck {
     }
 
     public static Deck parse(String string) {
-        return new Deck(FiveCardsParser.parseFiveCards(string));
+        return new Deck(CardsParserUtil.parseFiveCards(string));
     }
 
     /**

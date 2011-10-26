@@ -1,6 +1,6 @@
 package ua.pogodin.poker.cards;
 
-import static ua.pogodin.poker.cards.FiveCardsParser.FIVE_CARD_ABBREVIATIONS_LENGTH;
+import static ua.pogodin.poker.cards.CardsParserUtil.FIVE_CARD_ABBREVIATIONS_LENGTH;
 
 /**
  * @author Sergii Pogodin
