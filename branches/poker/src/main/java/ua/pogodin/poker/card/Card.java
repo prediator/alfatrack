@@ -26,6 +26,13 @@ public class Card implements Comparable<Card> {
         return rank == card.rank && suit == card.suit;
     }
 
+    @Override
+    public int hashCode() {
+        int result = rank != null ? rank.hashCode() : 0;
+        result = 31 * result + (suit != null ? suit.hashCode() : 0);
+        return result;
+    }
+
     public int compareTo(Card other) {
         int comparison = this.rank.compareTo(other.rank);
         return comparison != 0 ? comparison : this.suit.compareTo(other.suit);
