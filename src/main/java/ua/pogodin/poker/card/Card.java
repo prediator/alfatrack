@@ -12,6 +12,14 @@ public class Card implements Comparable<Card> {
         this.suit = suit;
     }
 
+    public Rank getRank() {
+        return rank;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
     public static Card parse(String string) {
         if (string == null || string.length() != 2) {
             throw new IllegalArgumentException(String.format("Can't parse card \"%s\"", string));
