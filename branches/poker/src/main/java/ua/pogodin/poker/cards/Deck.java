@@ -3,17 +3,21 @@ package ua.pogodin.poker.cards;
 import org.apache.commons.lang.StringUtils;
 import ua.pogodin.poker.card.Card;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
- * Deck of five cards. Immutable.
+ * Deck of five cards.
  */
 public class Deck {
-    private List<Card> cardList;
+    private LinkedList<Card> cardList;
 
-    Deck(List<Card> cardList) {
-        this.cardList = cardList;
+    public Deck(Collection<Card> cardList) {
+        this.cardList = new LinkedList<Card>(cardList);
+    }
+
+    public Deck(Deck deck) {
+        this(deck.cardList);
     }
 
     public static Deck parse(String string) {
@@ -21,12 +25,11 @@ public class Deck {
     }
 
     /**
-     * Return several cards from the top. The hand remains not changed.
-     * @param cardsNumber cards number to pull
-     * @return list of cards from the hand of number specified
+     * get the top card. Remove it from the deck.
+     * @return the top card
      */
-    public List<Card> pull(int cardsNumber) {
-        return cardList.subList(0, cardsNumber);
+    public Card poll() {
+        return cardList.poll();
     }
 
     @Override
