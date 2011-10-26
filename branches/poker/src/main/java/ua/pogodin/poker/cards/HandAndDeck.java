@@ -2,6 +2,9 @@ package ua.pogodin.poker.cards;
 
 import static ua.pogodin.poker.cards.FiveCardsParser.FIVE_CARD_ABBREVIATIONS_LENGTH;
 
+/**
+ * @author Sergii Pogodin
+ */
 public class HandAndDeck {
     public static final int TEN_CARD_ABBREVIATIONS_LENGTH = 29;
 

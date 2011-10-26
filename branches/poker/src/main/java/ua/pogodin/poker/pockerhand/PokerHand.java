@@ -1,5 +1,8 @@
 package ua.pogodin.poker.pockerhand;
 
+/**
+ * @author Sergii Pogodin
+ */
 public enum PokerHand {
     StraightFlush("Straight flush"),
     FourOfKind("Four of a kind"),

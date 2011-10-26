@@ -1,5 +1,8 @@
 package ua.pogodin.poker.card;
 
+/**
+ * @author Sergii Pogodin
+ */
 public enum Suit {
     Spades("S"),
     Hearts("H"),

@@ -1,5 +1,8 @@
 package ua.pogodin.poker.card;
 
+/**
+ * @author Sergii Pogodin
+ */
 public enum Rank {
     Ace("A"),
     King("K"),

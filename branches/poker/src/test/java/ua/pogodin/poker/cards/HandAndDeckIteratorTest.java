@@ -1,5 +1,8 @@
 package ua.pogodin.poker.cards;
 
+/**
+ * @author Sergii Pogodin
+ */
 import org.apache.commons.collections.CollectionUtils;
 import org.testng.annotations.Test;
 import ua.pogodin.poker.card.Card;

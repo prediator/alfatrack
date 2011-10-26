@@ -10,6 +10,9 @@ import java.util.Arrays;
 
 import static org.testng.Assert.assertEquals;
 
+/**
+ * @author Sergii Pogodin
+ */
 public class DeckTest {
     private Deck deck;
 
