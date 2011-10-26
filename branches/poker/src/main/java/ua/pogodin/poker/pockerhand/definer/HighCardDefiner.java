@@ -3,7 +3,7 @@ package ua.pogodin.poker.pockerhand.definer;
 /**
  * @author Sergii Pogodin
  */
-public class HighCardDefiner implements PokerHandDefiner {
+class HighCardDefiner implements PokerHandDefiner {
     public boolean define() {
         return true;
     }
