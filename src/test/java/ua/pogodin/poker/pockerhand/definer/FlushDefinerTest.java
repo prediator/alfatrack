@@ -14,7 +14,7 @@ public class FlushDefinerTest extends AbstractDefinerTest {
     }
 
     @Override
-    protected PokerHandDefiner getDefiner() {
+    protected PokerHandDefiner createDefiner() {
         return new FlushDefiner();
     }
 }

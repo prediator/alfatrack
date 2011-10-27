@@ -18,7 +18,7 @@ public class StraightFlushDefinerTest extends AbstractDefinerTest {
     }
 
     @Override
-    protected PokerHandDefiner getDefiner() {
+    protected PokerHandDefiner createDefiner() {
         return new StraightFlushDefiner();
     }
 }

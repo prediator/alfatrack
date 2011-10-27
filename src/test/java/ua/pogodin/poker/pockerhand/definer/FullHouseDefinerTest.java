@@ -15,7 +15,7 @@ public class FullHouseDefinerTest extends AbstractDefinerTest {
     }
 
     @Override
-    protected PokerHandDefiner getDefiner() {
+    protected PokerHandDefiner createDefiner() {
         return new FullHouseDefiner();
     }
 }
