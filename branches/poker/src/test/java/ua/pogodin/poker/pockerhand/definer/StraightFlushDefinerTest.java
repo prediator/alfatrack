@@ -1,25 +1,12 @@
 package ua.pogodin.poker.pockerhand.definer;
 
-import junit.framework.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import ua.pogodin.poker.cards.Hand;
-
 /**
  * @author Sergii Pogodin
  */
-public class StraightFlushDefinerTest {
+public class StraightFlushDefinerTest extends AbstractDefinerTest {
 
-    private static StraightFlushDefiner straightFlushDefiner;
-
-    @BeforeClass
-    public static void init() {
-        straightFlushDefiner = new StraightFlushDefiner();
-    }
-
-    @DataProvider
-    public Object[][] dataProvider() {
+    @Override
+    protected Object[][] getDataProvider() {
         return new Object[][] {
                 {"AH QH TH JH KH", true},
                 {"AC 5C 4C 3C 2C", true},
@@ -30,8 +17,8 @@ public class StraightFlushDefinerTest {
         };
     }
 
-    @Test(dataProvider = "dataProvider")
-    public void testDefine(String string, boolean isDefined) throws Exception {
-        Assert.assertTrue(straightFlushDefiner.define(Hand.parse(string)) == isDefined);
+    @Override
+    protected PokerHandDefiner getDefiner() {
+        return new StraightFlushDefiner();
     }
 }
