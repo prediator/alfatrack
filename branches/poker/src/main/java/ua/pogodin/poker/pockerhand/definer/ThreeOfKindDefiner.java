@@ -7,6 +7,6 @@ import ua.pogodin.poker.cards.Hand;
  */
 class ThreeOfKindDefiner implements PokerHandDefiner {
     public boolean define(Hand hand) {
-        return false;  //todo pogodin
+        return DefinerUtils.areQuantitiesOfSameKind(hand.getCards(), 3, 1, 1);
     }
 }
