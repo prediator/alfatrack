@@ -2,6 +2,7 @@ package ua.pogodin.poker.pockerhand.definer;
 
 import ua.pogodin.poker.card.Card;
 import ua.pogodin.poker.card.Rank;
+import ua.pogodin.poker.cards.Hand;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -43,5 +44,11 @@ class DefinerUtils {
         Integer[] array = integers.toArray(new Integer[integers.size()]);
         Arrays.sort(array, Collections.reverseOrder());
         return array;
+    }
+
+    //todo review name
+    static boolean areQuantitiesOfSameKind(Hand hand, Integer... expectedQuantities) {
+        Integer[] quantities = calcSameRankCardsQuantities(hand.getCards());
+        return Arrays.equals(quantities, expectedQuantities);
     }
 }
