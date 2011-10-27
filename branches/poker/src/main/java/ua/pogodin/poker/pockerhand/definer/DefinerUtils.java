@@ -2,17 +2,20 @@ package ua.pogodin.poker.pockerhand.definer;
 
 import ua.pogodin.poker.card.Card;
 import ua.pogodin.poker.card.Rank;
+import ua.pogodin.poker.card.Suit;
 import ua.pogodin.poker.cards.Hand;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author Sergii Pogodin
  */
+@SuppressWarnings("JavaDoc")
 class DefinerUtils {
     private DefinerUtils() {
     }
@@ -50,5 +53,37 @@ class DefinerUtils {
     static boolean areQuantitiesOfSameKind(Hand hand, Integer... expectedQuantities) {
         Integer[] quantities = calcSameRankCardsQuantities(hand.getCards());
         return Arrays.equals(quantities, expectedQuantities);
+    }
+
+
+    static boolean isTheSameSuit(List<Card> cards) {
+        Suit suit = cards.get(0).getSuit();
+        for (int i = 1; i < cards.size(); i++) {
+            if (cards.get(i).getSuit() != suit) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * return true if A5432 or AKQJT or similar
+     */
+    static boolean isRankInARow(List<Card> cards) {
+        return isRankTop4HigherThenRankBottom(cards) || isTopAceAndFive(cards);
+    }
+
+    /**
+     * return true if AKQJT or similar
+     */
+    private static boolean isRankTop4HigherThenRankBottom(List<Card> cards) {
+        return cards.get(4).getRank().ordinal() - cards.get(0).getRank().ordinal() == 4;
+    }
+
+    /**
+     * return true if A5432
+     */
+    private static boolean isTopAceAndFive(List<Card> cards) {
+        return cards.get(0).getRank() == Rank.Ace && cards.get(1).getRank() == Rank.Five;
     }
 }
