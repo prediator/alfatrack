@@ -7,6 +7,6 @@ import ua.pogodin.poker.cards.Hand;
  */
 class FlushDefiner implements PokerHandDefiner {
     public boolean define(Hand hand) {
-        return false;  //todo pogodin
+        return DefinerUtils.isTheSameSuit(hand.getCards());
     }
 }
