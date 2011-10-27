@@ -1,5 +1,7 @@
 package ua.pogodin.poker.cards;
 
+import java.util.Iterator;
+
 import static ua.pogodin.poker.cards.CardsParserUtil.FIVE_CARD_ABBREVIATIONS_LENGTH;
 
 /**
@@ -28,5 +30,13 @@ public class HandAndDeck {
     @Override
     public String toString() {
         return hand.toString() + " | " + deck.toString();
+    }
+
+    public Iterable<Hand> getAllPossibleHands() {
+        return new Iterable<Hand>() {
+            public Iterator<Hand> iterator() {
+                return new HandAndDeckIterator(HandAndDeck.this);
+            }
+        };
     }
 }
