@@ -7,6 +7,6 @@ import ua.pogodin.poker.cards.Hand;
  */
 class StraightDefiner implements PokerHandDefiner {
     public boolean define(Hand hand) {
-        return false;  //todo pogodin
+        return DefinerUtils.isRankInARow(hand.getCards());
     }
 }
