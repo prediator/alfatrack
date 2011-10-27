@@ -9,6 +9,6 @@ import static ua.pogodin.poker.pockerhand.definer.DefinerUtils.areQuantitiesOfSa
  */
 class FullHouseDefiner implements PokerHandDefiner {
     public boolean define(Hand hand) {
-        return areQuantitiesOfSameKind(hand, 3, 2);
+        return areQuantitiesOfSameKind(hand.getCards(), 3, 2);
     }
 }
