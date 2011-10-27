@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import ua.pogodin.poker.card.Card;
 
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 import static ua.pogodin.poker.card.Rank.Ace;
@@ -49,7 +49,7 @@ public class DefinerUtilsTest {
     }
 
     @Test(dataProvider = "dataProvider")
-    public void cardsWithSameRankShouldBeCalculatedProperly(Collection<Card> cards, Integer[] expectedCountsArray) {
+    public void cardsWithSameRankShouldBeCalculatedProperly(List<Card> cards, Integer[] expectedCountsArray) {
         assertEquals(DefinerUtils.calcSameRankCardsQuantities(cards), expectedCountsArray);
     }
 }

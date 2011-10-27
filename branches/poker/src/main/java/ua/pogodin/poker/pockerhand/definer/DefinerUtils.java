@@ -3,7 +3,6 @@ package ua.pogodin.poker.pockerhand.definer;
 import ua.pogodin.poker.card.Card;
 import ua.pogodin.poker.card.Rank;
 import ua.pogodin.poker.card.Suit;
-import ua.pogodin.poker.cards.Hand;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,7 +28,7 @@ class DefinerUtils {
      * @return array of quantities
      */
     //todo review name and javadoc
-    static Integer[] calcSameRankCardsQuantities(Collection<Card> cards) {
+    static Integer[] calcSameRankCardsQuantities(List<Card> cards) {
         Map<Rank, Integer> rankCountMap = new HashMap<Rank, Integer>(Rank.values().length);
 
         for (Card card : cards) {
@@ -50,12 +49,15 @@ class DefinerUtils {
     }
 
     //todo review name
-    static boolean areQuantitiesOfSameKind(Hand hand, Integer... expectedQuantities) {
-        Integer[] quantities = calcSameRankCardsQuantities(hand.getCards());
+    static boolean areQuantitiesOfSameKind(List<Card> cards, Integer... expectedQuantities) {
+        Integer[] quantities = calcSameRankCardsQuantities(cards);
         return Arrays.equals(quantities, expectedQuantities);
     }
 
 
+    /**
+     * return true if HHHHH or SSSSS or similar
+     */
     static boolean isTheSameSuit(List<Card> cards) {
         Suit suit = cards.get(0).getSuit();
         for (int i = 1; i < cards.size(); i++) {

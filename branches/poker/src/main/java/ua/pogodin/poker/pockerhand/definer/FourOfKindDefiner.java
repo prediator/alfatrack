@@ -9,7 +9,7 @@ import static ua.pogodin.poker.pockerhand.definer.DefinerUtils.areQuantitiesOfSa
  */
 class FourOfKindDefiner implements PokerHandDefiner {
     public boolean define(Hand hand) {
-        return areQuantitiesOfSameKind(hand, 4, 1);
+        return areQuantitiesOfSameKind(hand.getCards(), 4, 1);
     }
 
 }
