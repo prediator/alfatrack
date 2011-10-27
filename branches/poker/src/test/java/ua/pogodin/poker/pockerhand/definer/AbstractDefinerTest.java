@@ -14,7 +14,7 @@ public abstract class AbstractDefinerTest {
 
     @BeforeClass
     public void init() {
-        definer = getDefiner();
+        definer = createDefiner();
     }
 
     @DataProvider
@@ -29,5 +29,5 @@ public abstract class AbstractDefinerTest {
     
     protected abstract Object[][] getDataProvider();
 
-    protected abstract PokerHandDefiner getDefiner();
+    protected abstract PokerHandDefiner createDefiner();
 }
