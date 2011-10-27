@@ -29,7 +29,7 @@ public class HandAndDeck {
 
     @Override
     public String toString() {
-        return hand.toString() + " | " + deck.toString();
+        return "Hand: " + hand + " Deck: " + deck;
     }
 
     public Iterable<Hand> getAllPossibleHands() {
