@@ -10,6 +10,7 @@ public class StraightDefinerTest extends AbstractDefinerTest {
                 {"AH QH TH JH KH", true},
                 {"JC 7D 9S 8D TH", true},
                 {"3H 4S AS 5C 2C", true},
+                {"JC 7D 9S 9D TH", false},
                 {"7C 6C 5S QC TC", false}
         };
     }
