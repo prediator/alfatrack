@@ -72,7 +72,8 @@ class DefinerUtils {
      * return true if A5432 or AKQJT or similar
      */
     static boolean isRankInARow(List<Card> cards) {
-        return isRankTop4HigherThenRankBottom(cards) || isTopAceAndFive(cards);
+        return areQuantitiesOfSameKind(cards, 1, 1, 1, 1, 1)
+                && isRankTop4HigherThenRankBottom(cards) || isTopAceAndFive(cards);
     }
 
     /**
