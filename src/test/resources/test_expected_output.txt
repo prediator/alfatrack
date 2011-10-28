@@ -1,0 +1,9 @@
+Hand: QS QD QC JH TH Deck: QH KH AH 2S 6S Best hand: straight-flush
+Hand: 3S 3H 3C 2S 2H Deck: 2D 3D 6C 9C TH Best hand: four-of-a-kind
+Hand: 3S 3H 3C 2S 2H Deck: 2D 9C 3D 6C TH Best hand: full-house
+Hand: AD AC 7H 5H 2H Deck: AH 6H 9H 4H 3C Best hand: flush
+Hand: AC KD 9C 3S 2D Deck: 5S 4D KS AS 4C Best hand: straight
+Hand: AH KS 4H 3C 2H Deck: KC 2C TC 2D AS Best hand: three-of-a-kind
+Hand: AH AD 9S 3C 2C Deck: QH KS JS JD KD Best hand: two-pairs
+Hand: 9C 8C 7C 6C 2D Deck: 2H TC 4C 9S AH Best hand: one-pair
+Hand: QD TD 5S 3D 2H Deck: 6S KH 9H AD QH Best hand: highest-card
