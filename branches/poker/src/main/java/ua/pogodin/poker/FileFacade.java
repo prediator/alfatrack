@@ -53,7 +53,7 @@ public class FileFacade {
         if (!inputFile.exists()) {
             System.out.println(String.format("File \"%s\" is not exist", inputFile.getAbsoluteFile()));
         }
-        System.out.println("Reading file " + inputFilePath);
+        System.out.println("Reading file " + inputFile.getAbsolutePath());
         return new FileReader(inputFile);
     }
 
@@ -80,7 +80,7 @@ public class FileFacade {
         if (!created) {
             throw new IOException(String.format("Can't create result file %s", resultFilePath));
         }
-        System.out.println("Writing to file " + resultFilePath);
+        System.out.println("Writing to file " + resultFile.getAbsolutePath());
         return resultFile;
     }
 }
