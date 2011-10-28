@@ -4,15 +4,15 @@ package ua.pogodin.poker.pockerhand;
  * @author Sergii Pogodin
  */
 public enum PokerHand {
-    StraightFlush("Straight flush"),
-    FourOfKind("Four of a kind"),
-    FullHouse("Full house"),
-    Flush("Flush"),
-    Straight("Straight"),
-    ThreeOfKind("Three of a kind"),
-    TwoPair("Two pair"),
-    OnePair("One pair"),
-    HighCard("High card");
+    StraightFlush("straight-flush"),
+    FourOfKind("four-of-a-kind"),
+    FullHouse("full-house"),
+    Flush("flush"),
+    Straight("straight"),
+    ThreeOfKind("three-of-a-kind"),
+    TwoPair("two-pairs"),
+    OnePair("one-pair"),
+    HighCard("highest-card");
 
     private String description;
 
