@@ -28,6 +28,7 @@ public class FileFacade {
 
     void processTheFile(String inputFilePath) throws IOException {
         Reader reader = createReader(inputFilePath);
+
         BufferedWriter writer = createWriter(inputFilePath);
 
         HandDefinerFacade handDefinerFacade = new HandDefinerFacade();
@@ -43,8 +44,8 @@ public class FileFacade {
         }
 
         IOUtils.closeQuietly(reader);
-        writer.flush();
-        writer.close();
+        IOUtils.closeQuietly(writer);
+        System.out.println("Done");
     }
 
     private Reader createReader(String inputFilePath) throws FileNotFoundException {
@@ -52,8 +53,8 @@ public class FileFacade {
         if (!inputFile.exists()) {
             System.out.println(String.format("File \"%s\" is not exist", inputFile.getAbsoluteFile()));
         }
+        System.out.println("Reading file " + inputFilePath);
         return new FileReader(inputFile);
-//        return new InputStreamReader(getClass().getResourceAsStream(inputFilePath));
     }
 
     private BufferedWriter createWriter(String inputFilePath) throws IOException {
@@ -79,6 +80,7 @@ public class FileFacade {
         if (!created) {
             throw new IOException(String.format("Can't create result file %s", resultFilePath));
         }
+        System.out.println("Writing to file " + resultFilePath);
         return resultFile;
     }
 }
