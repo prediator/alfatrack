@@ -22,6 +22,6 @@
 	            </c:choose>
             </td></tr>  
             
-	    <table/>
+	    </table>
 	</body>
 </html>

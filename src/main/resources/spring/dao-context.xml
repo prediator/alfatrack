@@ -11,9 +11,9 @@
           p:driverClassName="${database.driverClassName}"
           p:url="${database.url}"
           p:username="${database.username}"
-          p:password="${database.password}"/>
-    <!--p:initialSize="5" -->
-    <!--p:maxActive="10" -->
+          p:password="${database.password}"
+          p:initialSize="5"
+          p:maxActive="10"/>
     <!--p:poolPreparedStatements="true" -->
     <!--p:maxOpenPreparedStatements="10" -->
 
