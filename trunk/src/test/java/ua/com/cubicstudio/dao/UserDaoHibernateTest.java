@@ -21,10 +21,7 @@ import static org.junit.Assert.assertSame;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/spring/application-context.xml")
-@TransactionConfiguration(transactionManager = "txManager"/*
-														 * , defaultRollback =
-														 * false
-														 */)
+@TransactionConfiguration(transactionManager = "txManager"/*, defaultRollback = false*/)
 @Transactional
 public class UserDaoHibernateTest {
 	@Autowired

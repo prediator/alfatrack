@@ -1,5 +1,8 @@
 package ua.com.cubicstudio.domain;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Driver extends User {
 
 	private String bus;
