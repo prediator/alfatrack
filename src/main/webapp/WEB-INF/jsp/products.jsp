@@ -5,7 +5,7 @@
     <title>Product Groups</title>
     <style type="text/css">
         table {
-            margin: 3em;
+            margin: 2em;
         }
 
         td, th {
@@ -18,6 +18,7 @@
     </style>
 </head>
 <body>
+<c:url var="products" value="/products"/>
 <table>
     <tr>
         <th width="140px">Groups</th>
@@ -25,10 +26,10 @@
             <th>Products</th>
         </c:if>
     </tr>
-    <tr>
+    <tr height="480px;">
         <td rowspan="2" align="center">
             <c:forEach var="group" items="${groups}">
-                <a href="products/${group.groupId}">${group.name}</a> (${group.productCount})<br/>
+                <a href="${products}/${group.groupId}">${group.name}</a> (${group.productCount})<br/>
             </c:forEach>
         </td>
         <c:if test="${productList != null}">
