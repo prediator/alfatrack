@@ -84,7 +84,7 @@ public class MockDaoService implements DaoService {
         if (groupId == 1) {
             list.addProducts(PRODUCTS_1);
         }
-        if (groupId == 7) {
+        if (groupId == 3) {
             list.addProducts(PRODUCTS_3.subList(from, to));
         }
 

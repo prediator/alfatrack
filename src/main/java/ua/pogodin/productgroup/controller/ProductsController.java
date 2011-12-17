@@ -27,14 +27,14 @@ public class ProductsController {
     }
 
     @RequestMapping("products/{groupId}")
-    public ModelAndView showProducts(long groupId) {
+    public ModelAndView showProducts(@PathVariable("groupId") long groupId) {
         return showProducts(groupId, 1);
     }
 
     @RequestMapping("products/{groupId}/{currentPage}")
     public ModelAndView showProducts(@PathVariable("groupId") long groupId,
                                      @PathVariable("currentPage") int currentPage) {
-        return showProducts(groupId, currentPage, null, false);
+        return showProducts(groupId, currentPage, null);
 
     }
 
@@ -62,8 +62,8 @@ public class ProductsController {
     }
 
     private ProductList getProductList(long groupId, int currentPage, String sortColumn, boolean asc) {
-        int from = PRODUCTS_PER_PAGE * currentPage;
-        int to = PRODUCTS_PER_PAGE * (currentPage + 1);
+        int from = PRODUCTS_PER_PAGE * (currentPage - 1);
+        int to = PRODUCTS_PER_PAGE * currentPage;
         return (sortColumn != null)
                 ? daoService.findProductsByGroupId(groupId, from, to, sortColumn, asc)
                 : daoService.findProductsByGroupId(groupId, from, to);
