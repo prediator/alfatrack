@@ -6,12 +6,12 @@ package ua.pogodin.productgroup.dto;
 public class Group {
     private long groupId;
     private String name;
-    private int productsCount;
+    private int productCount;
 
-    public Group(long groupId, String name, int productsCount) {
+    public Group(long groupId, String name, int productCount) {
         this.groupId = groupId;
         this.name = name;
-        this.productsCount = productsCount;
+        this.productCount = productCount;
     }
 
     public long getGroupId() {
@@ -30,11 +30,11 @@ public class Group {
         this.name = name;
     }
 
-    public int getProductsCount() {
-        return productsCount;
+    public int getProductCount() {
+        return productCount;
     }
 
-    public void setProductsCount(int productsCount) {
-        this.productsCount = productsCount;
+    public void setProductCount(int productCount) {
+        this.productCount = productCount;
     }
 }

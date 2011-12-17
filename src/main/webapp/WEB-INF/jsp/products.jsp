@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Product Groups</title>
@@ -19,32 +19,39 @@
 <body>
 <table>
     <tr>
-        <th>Groups</th>
+        <th width="140px">Groups</th>
         <th>Products</th>
     </tr>
     <tr>
-        <td rowspan="2" align="right">
+        <td rowspan="2" align="center">
             <c:forEach var="group" items="${groups}">
                 <a href="products/${group.groupId}">${group.name}</a> (${group.productsCount})<br/>
             </c:forEach>
         </td>
         <td>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                </tr>
-                <c:forEach var="product" items="${products}">
+            <c:if test="productList">
+                <table>
                     <tr>
-                        <td>${product.name}</td>
-                        <td><fmt:formatNumber value="${product.price}" type="number" minFractionDigits="2" maxFractionDigits="2"/></td>
+                        <th width="130px">Name</th>
+                        <th width="100px">Price</th>
                     </tr>
-                </c:forEach>
-            </table>
+                    <c:forEach var="product" items="${productList}">
+                        <tr>
+                            <td>${product.name}</td>
+                            <td align="right">
+                                <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="2"
+                                                  maxFractionDigits="2"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
 
-            <div align="center" style="margin-top: 30px;">
-                pager
-            </div>
+                <c:if test="productList.pageCount > 1">
+                    <div align="center" style="margin-top: 30px;">
+                        pager
+                    </div>
+                </c:if>
+            </c:if>
         </td>
     </tr>
 </table>
