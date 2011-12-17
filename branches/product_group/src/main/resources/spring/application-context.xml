@@ -10,10 +10,13 @@
 
     <context:property-placeholder location="classpath:spring/spring.properties"/>
 
-    <context:component-scan base-package="ua.pogodin.productgroup"/>
-
+    <!-- MVC -->
+    <context:component-scan base-package="ua.pogodin.productgroup.controller"/>
     <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"
           p:viewClass="org.springframework.web.servlet.view.JstlView"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp"/>
+
+    <!-- DAO -->
+    <bean name="daoService" class="ua.pogodin.productgroup.dao.MockDaoService"/>
 </beans>
