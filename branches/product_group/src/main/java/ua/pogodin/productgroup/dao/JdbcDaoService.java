@@ -20,7 +20,7 @@ public class JdbcDaoService implements DaoService {
     }
 
     @Override
-    public ProductList findProductsByGroupId(long groupId, String sortColumn, boolean asc) {
+    public ProductList findProductsByGroupId(long groupId, int from, int to) {
         return null;  //todo pogodin
     }
 

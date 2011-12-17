@@ -74,8 +74,8 @@ public class MockDaoService implements DaoService {
     }
 
     @Override
-    public ProductList findProductsByGroupId(long groupId, String sortColumn, boolean asc) {
-        return findProductsByGroupId(groupId, 0, 10, sortColumn, asc);
+    public ProductList findProductsByGroupId(long groupId, int from, int to) {
+        return findProductsByGroupId(groupId, from, to, null, false);
     }
 
     @Override

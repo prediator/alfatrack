@@ -7,18 +7,18 @@ import java.util.List;
  * @author Sergii Pogodin
  */
 public class ProductList {
-    private int pages = 1;
+    private int pageCount = 1;
     private int currentPage = 1;
-    private String sorting;
+    private String sortColumn;
     private boolean asc = true;
     private List<Product> list = new ArrayList<Product>();
 
-    public int getPages() {
-        return pages;
+    public int getPageCount() {
+        return pageCount;
     }
 
-    public void setPages(int pages) {
-        this.pages = pages;
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
     }
 
     public int getCurrentPage() {
@@ -29,12 +29,12 @@ public class ProductList {
         this.currentPage = currentPage;
     }
 
-    public String getSorting() {
-        return sorting;
+    public String getSortColumn() {
+        return sortColumn;
     }
 
-    public void setSorting(String sorting) {
-        this.sorting = sorting;
+    public void setSortColumn(String sortColumn) {
+        this.sortColumn = sortColumn;
     }
 
     public boolean isAsc() {

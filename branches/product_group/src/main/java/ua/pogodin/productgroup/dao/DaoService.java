@@ -14,7 +14,7 @@ public interface DaoService {
 
     ProductList findProductsByGroupId(long groupId);
 
-    ProductList findProductsByGroupId(long groupId, String sortColumn, boolean asc);
+    ProductList findProductsByGroupId(long groupId, int from, int to);
 
     ProductList findProductsByGroupId(long groupId, int from, int to, String sortColumn, boolean asc);
 }
