@@ -31,7 +31,15 @@
         <%-- Left side - Groups --%>
         <td align="center">
             <c:forEach var="group" items="${groups}">
-                <a href="${products_page}/${group.groupId}">${group.name}</a> (${group.productCount})<br/>
+                <c:choose>
+                    <c:when test="${group.groupId == productList.groupId}">
+                        <strong>${group.name}</strong>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${products_page}/${group.groupId}">${group.name}</a>
+                    </c:otherwise>
+                </c:choose>
+                &nbsp;&nbsp;(${group.productCount})<br/>
             </c:forEach>
         </td>
 
