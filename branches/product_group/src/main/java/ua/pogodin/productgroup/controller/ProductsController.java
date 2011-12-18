@@ -20,6 +20,7 @@ import java.util.List;
 @Controller
 public class ProductsController {
     public static final int PRODUCTS_PER_PAGE = 10;
+
     @Autowired
     private DaoService daoService;
 
