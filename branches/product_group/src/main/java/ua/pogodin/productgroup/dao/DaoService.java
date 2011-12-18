@@ -11,8 +11,6 @@ import java.util.List;
 public interface DaoService {
     List<Group> findAllGroups();
 
-    List<Product> findProductsByGroupId(long groupId);
-
     List<Product> findProductsByGroupId(long groupId, int from, int to);
 
     List<Product> findProductsByGroupId(long groupId, int from, int to, String sortColumn, boolean asc);
