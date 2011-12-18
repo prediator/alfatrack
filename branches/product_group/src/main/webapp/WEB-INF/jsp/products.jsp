@@ -50,7 +50,7 @@
                     <table>
                             <%-- Product table header --%>
                         <tr>
-                            <th width="130px">
+                            <th width="300px">
                                 <a href="${products_page}/${productList.groupId}/1/${sort.nameUrlSuffix}">Name</a>
                                 <span style="font-family: arial">&nbsp;${sort.nameSign}</span>
                             </th>

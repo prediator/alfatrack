@@ -12,7 +12,7 @@ values
 
 insert into T_PRODUCT (PRODUCT_ID, PRODUCT_NAME, GROUP_ID, PRODUCT_PRICE)
 values
-(10, '7-Function Classic Chic - Mini G Vibrattor', 1, 18.95),
+(10, '7-Function Classic Chic - Mini G', 1, 18.95),
 (11, 'Ultra 6.5" Waterproof Vibrator', 1, 25.95),
 (12, 'Heart of Hearts Micro Vibe', 1, 17.95),
 (13, 'Monica Mayhem''s Temptation Kit', 1, 39.95),
