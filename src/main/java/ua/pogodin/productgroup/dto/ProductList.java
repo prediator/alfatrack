@@ -7,11 +7,20 @@ import java.util.List;
  * @author Sergii Pogodin
  */
 public class ProductList {
+    private long groupId;
     private int pageCount = 1;
     private int currentPage = 1;
     private String sortColumn;
     private boolean asc = true;
     private List<Product> list = new ArrayList<Product>();
+
+    public long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
+    }
 
     public int getPageCount() {
         return pageCount;
@@ -49,11 +58,7 @@ public class ProductList {
         return list;
     }
 
-    public void addProduct(Product product) {
-        list.add(product);
-    }
-
-    public void addProducts(List<Product> products) {
-        list.addAll(products);
+    public void setList(List<Product> list) {
+        this.list = list;
     }
 }
