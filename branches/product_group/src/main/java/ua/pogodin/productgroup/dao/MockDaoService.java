@@ -2,7 +2,6 @@ package ua.pogodin.productgroup.dao;
 
 import ua.pogodin.productgroup.dto.Group;
 import ua.pogodin.productgroup.dto.Product;
-import ua.pogodin.productgroup.dto.ProductList;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -69,34 +68,34 @@ public class MockDaoService implements DaoService {
     }
 
     @Override
-    public ProductList findProductsByGroupId(long groupId) {
+    public List<Product> findProductsByGroupId(long groupId) {
         return findProductsByGroupId(groupId, 0, 10, null, false);
     }
 
     @Override
-    public ProductList findProductsByGroupId(long groupId, int from, int to) {
+    public List<Product> findProductsByGroupId(long groupId, int from, int to) {
         return findProductsByGroupId(groupId, from, to, null, false);
     }
 
     @Override
-    public ProductList findProductsByGroupId(long groupId, int from, int to, String sortColumn, boolean asc) {
-        ProductList list = new ProductList();
+    public List<Product> findProductsByGroupId(long groupId, int from, int to, String sortColumn, boolean asc) {
+        List<Product> list = new ArrayList<Product>();
         if (groupId == 1) {
-            list.addProducts(PRODUCTS_1);
+            list.addAll(PRODUCTS_1);
         }
         if (groupId == 3) {
-            list.addProducts(PRODUCTS_3.subList(from, to));
+            list.addAll(PRODUCTS_3.subList(from, Math.min(to, PRODUCTS_3.size())));
         }
 
         sortIfNeeded(list, sortColumn, asc);
         return list;
     }
 
-    private void sortIfNeeded(ProductList list, String sortColumn, boolean asc) {
+    private void sortIfNeeded(List<Product> list, String sortColumn, boolean asc) {
         Comparator<Product> comparator = getComparator(sortColumn, asc);
 
         if (comparator != null) {
-            Collections.sort(list.getList(), comparator);
+            Collections.sort(list, comparator);
         }
     }
 

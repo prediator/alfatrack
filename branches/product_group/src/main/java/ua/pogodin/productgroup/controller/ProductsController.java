@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ua.pogodin.productgroup.dao.DaoService;
 import ua.pogodin.productgroup.dto.Group;
+import ua.pogodin.productgroup.dto.Product;
 import ua.pogodin.productgroup.dto.ProductList;
 
 import java.util.HashMap;
@@ -52,8 +53,11 @@ public class ProductsController {
                                      @PathVariable("asc") boolean asc) {
         List<Group> groups = daoService.findAllGroups();
 
-        ProductList productList = getProductList(groupId, currentPage, sortColumn, asc);
-        fillPagerParams(groupId, groups, productList, currentPage);
+        ProductList productList = new ProductList();
+        productList.setList(getProductList(groupId, currentPage, sortColumn, asc));
+
+        fillParams(productList, groupId, sortColumn, asc);
+        fillPagerParams(productList, groupId, groups, currentPage);
 
         HashMap<String, Object> model = new HashMap<String, Object>();
         model.put("groups", groups);
@@ -61,15 +65,22 @@ public class ProductsController {
         return new ModelAndView("products", model);
     }
 
-    private ProductList getProductList(long groupId, int currentPage, String sortColumn, boolean asc) {
+    private List<Product> getProductList(long groupId, int currentPage, String sortColumn, boolean asc) {
         int from = PRODUCTS_PER_PAGE * (currentPage - 1);
         int to = PRODUCTS_PER_PAGE * currentPage;
+
         return (sortColumn != null)
                 ? daoService.findProductsByGroupId(groupId, from, to, sortColumn, asc)
                 : daoService.findProductsByGroupId(groupId, from, to);
     }
 
-    private void fillPagerParams(long groupId, List<Group> groups, ProductList productList, int currentPage) {
+    private void fillParams(ProductList productList, long groupId, String sortColumn, boolean asc) {
+        productList.setGroupId(groupId);
+        productList.setSortColumn(sortColumn);
+        productList.setAsc(asc);
+    }
+
+    private void fillPagerParams(ProductList productList, long groupId, List<Group> groups, int currentPage) {
         for (Group group : groups) {
             if (group.getGroupId() == groupId) {
                 if (group.getProductCount() > PRODUCTS_PER_PAGE) {

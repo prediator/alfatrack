@@ -1,7 +1,7 @@
 package ua.pogodin.productgroup.dao;
 
 import ua.pogodin.productgroup.dto.Group;
-import ua.pogodin.productgroup.dto.ProductList;
+import ua.pogodin.productgroup.dto.Product;
 
 import java.util.List;
 
@@ -15,17 +15,17 @@ public class JdbcDaoService implements DaoService {
     }
 
     @Override
-    public ProductList findProductsByGroupId(long groupId) {
+    public List<Product> findProductsByGroupId(long groupId) {
         return null;  //todo pogodin
     }
 
     @Override
-    public ProductList findProductsByGroupId(long groupId, int from, int to) {
+    public List<Product> findProductsByGroupId(long groupId, int from, int to) {
         return null;  //todo pogodin
     }
 
     @Override
-    public ProductList findProductsByGroupId(long groupId, int from, int to, String sortColumn, boolean asc) {
+    public List<Product> findProductsByGroupId(long groupId, int from, int to, String sortColumn, boolean asc) {
         return null;  //todo pogodin
     }
 }
