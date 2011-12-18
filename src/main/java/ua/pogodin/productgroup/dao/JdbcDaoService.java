@@ -15,11 +15,6 @@ public class JdbcDaoService implements DaoService {
     }
 
     @Override
-    public List<Product> findProductsByGroupId(long groupId) {
-        return null;  //todo pogodin
-    }
-
-    @Override
     public List<Product> findProductsByGroupId(long groupId, int from, int to) {
         return null;  //todo pogodin
     }

@@ -68,11 +68,6 @@ public class MockDaoService implements DaoService {
     }
 
     @Override
-    public List<Product> findProductsByGroupId(long groupId) {
-        return findProductsByGroupId(groupId, 0, 10, null, false);
-    }
-
-    @Override
     public List<Product> findProductsByGroupId(long groupId, int from, int to) {
         return findProductsByGroupId(groupId, from, to, null, false);
     }
