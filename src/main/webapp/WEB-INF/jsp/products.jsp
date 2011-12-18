@@ -73,6 +73,7 @@
                         </c:forEach>
                     </table>
                 </div>
+
                     <%-- Pager --%>
                 <c:if test="${productList.pageCount > 1}">
                     <div align="center" style="margin-top: 30px;">
