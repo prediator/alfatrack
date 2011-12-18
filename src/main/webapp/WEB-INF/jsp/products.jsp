@@ -27,29 +27,45 @@
         </c:if>
     </tr>
     <tr height="480px;">
+
+        <%-- Left side - Groups --%>
         <td align="center">
             <c:forEach var="group" items="${groups}">
                 <a href="${products_page}/${group.groupId}">${group.name}</a> (${group.productCount})<br/>
             </c:forEach>
         </td>
+
+        <%-- Right side - Products --%>
         <c:if test="${productList != null}">
             <td valign="top">
-                <table>
-                    <tr>
-                        <th width="130px">Name</th>
-                        <th width="100px">Price</th>
-                    </tr>
-                    <c:forEach var="product" items="${productList.list}">
+                <div style="height: 355px;">
+                    <table>
+                            <%-- Product table header --%>
                         <tr>
-                            <td>${product.name}</td>
-                            <td align="right">
-                                <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="2"
-                                                  maxFractionDigits="2"/>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
+                            <th width="130px">
+                                <a href="${products_page}/${productList.groupId}/1/${sort.nameUrlSuffix}">Name</a>
+                                <span style="font-family: arial">&nbsp;${sort.nameSign}</span>
+                            </th>
 
+                            <th width="100px">
+                                <a href="${products_page}/${productList.groupId}/1/${sort.priceUrlSuffix}">Price</a>
+                                <span style="font-family: arial">&nbsp;${sort.priceSign}</span>
+                            </th>
+                        </tr>
+
+                            <%-- Product table content --%>
+                        <c:forEach var="product" items="${productList.list}">
+                            <tr>
+                                <td>${product.name}</td>
+                                <td align="right">
+                                    <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="2"
+                                                      maxFractionDigits="2"/>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+                    <%-- Pager --%>
                 <c:if test="${productList.pageCount > 1}">
                     <div align="center" style="margin-top: 30px;">
                         <c:forEach var="i" begin="1" end="${productList.pageCount}">
@@ -58,7 +74,8 @@
                                     <strong>&nbsp;${i}&nbsp;</strong>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="${products_page}/${productList.groupId}/${i}">&nbsp;${i}&nbsp;</a>
+                                    <a href="${products_page}/${productList.groupId}/${i}${productList.pagerSortUrlSuffix}">
+                                        &nbsp;${i}&nbsp;</a>
                                 </c:otherwise>
                             </c:choose>
                             &nbsp;&nbsp;

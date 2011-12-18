@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * @author Sergii Pogodin
  */
+@SuppressWarnings("UnusedDeclaration")
 public class ProductList {
     private long groupId;
     private int pageCount = 1;
@@ -60,5 +61,11 @@ public class ProductList {
 
     public void setList(List<Product> list) {
         this.list = list;
+    }
+
+    public String getPagerSortUrlSuffix() {
+        return (sortColumn == null)
+                ? ""
+                : "/" + sortColumn + ((asc) ? "" : "/false");
     }
 }
