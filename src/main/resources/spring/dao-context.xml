@@ -9,6 +9,7 @@
                            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     <context:property-placeholder location="classpath:spring/spring.properties"/>
 
+    <!-- DAO -->
     <bean name="daoService" class="ua.pogodin.productgroup.dao.JdbcDaoService"/>
     <!--<bean name="daoService" class="ua.pogodin.productgroup.dao.MockDaoService"/>-->
 
