@@ -9,6 +9,7 @@ import ua.pogodin.productgroup.dao.DaoService;
 import ua.pogodin.productgroup.dto.Group;
 import ua.pogodin.productgroup.dto.Product;
 import ua.pogodin.productgroup.dto.ProductList;
+import ua.pogodin.productgroup.dto.Sort;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,20 +53,26 @@ public class ProductsController {
                                      @PathVariable("sortColumn") String sortColumn,
                                      @PathVariable("asc") boolean asc) {
         List<Group> groups = daoService.findAllGroups();
-
-        ProductList productList = new ProductList();
-        productList.setList(getProductList(groupId, currentPage, sortColumn, asc));
-
-        fillParams(productList, groupId, sortColumn, asc);
-        fillPagerParams(productList, groupId, groups, currentPage);
+        ProductList productList = getProductList(groups, groupId, currentPage, sortColumn, asc);
+        Sort sort = getSort(sortColumn, asc);
 
         HashMap<String, Object> model = new HashMap<String, Object>();
         model.put("groups", groups);
         model.put("productList", productList);
+        model.put("sort", sort);
         return new ModelAndView("products", model);
     }
 
-    private List<Product> getProductList(long groupId, int currentPage, String sortColumn, boolean asc) {
+    private ProductList getProductList(List<Group> groups, long groupId, int currentPage, String sortColumn, boolean asc) {
+        ProductList productList = new ProductList();
+        productList.setList(getProductListFromDaoService(groupId, currentPage, sortColumn, asc));
+
+        fillParams(productList, groupId, sortColumn, asc);
+        fillPagerParams(productList, groupId, groups, currentPage);
+        return productList;
+    }
+
+    private List<Product> getProductListFromDaoService(long groupId, int currentPage, String sortColumn, boolean asc) {
         int from = PRODUCTS_PER_PAGE * (currentPage - 1);
         int to = PRODUCTS_PER_PAGE * currentPage;
 
@@ -90,5 +97,17 @@ public class ProductsController {
                 return;
             }
         }
+    }
+
+    private Sort getSort(String sortColumn, boolean asc) {
+        Sort sort = new Sort();
+        if ("name".equals(sortColumn)) {
+            sort.setNameUrlSuffix(asc ? Sort.NAME_DESC_URL_SUFFIX : Sort.NAME_ASC_URL_SUFFIX);
+            sort.setNameSign(asc ? Sort.SIGN_ASC : Sort.SIGN_DESC);
+        } else if ("price".equals(sortColumn)) {
+            sort.setPriceUrlSuffix(asc ? Sort.PRICE_DESC_URL_SUFFIX : Sort.PRICE_ASC_URL_SUFFIX);
+            sort.setPriceSign(asc ? Sort.SIGN_ASC : Sort.SIGN_DESC);
+        }
+        return sort;
     }
 }

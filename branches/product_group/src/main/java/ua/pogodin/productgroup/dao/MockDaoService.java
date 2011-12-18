@@ -19,13 +19,13 @@ public class MockDaoService implements DaoService {
     private static final Comparator<Product> NAME_COMPARATOR = new Comparator<Product>() {
         @Override
         public int compare(Product p1, Product p2) {
-            return p2.getName().compareTo(p1.getName());
+            return p1.getName().compareTo(p2.getName());
         }
     };
     public static final Comparator<Product> PRICE_COMPARATOR = new Comparator<Product>() {
         @Override
         public int compare(Product p1, Product p2) {
-            return p2.getPrice().compareTo(p1.getPrice());
+            return p1.getPrice().compareTo(p2.getPrice());
         }
     };
 
@@ -79,10 +79,14 @@ public class MockDaoService implements DaoService {
             list.addAll(PRODUCTS_1);
         }
         if (groupId == 3) {
-            list.addAll(PRODUCTS_3.subList(from, Math.min(to, PRODUCTS_3.size())));
+            list.addAll(PRODUCTS_3);
         }
 
         sortIfNeeded(list, sortColumn, asc);
+
+        if (groupId == 3) {
+            list = list.subList(from, Math.min(to, PRODUCTS_3.size()));
+        }
         return list;
     }
 
