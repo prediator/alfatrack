@@ -39,7 +39,7 @@
                         <a href="${products_page}/${group.groupId}">${group.name}</a>
                     </c:otherwise>
                 </c:choose>
-                &nbsp;&nbsp;(${group.productCount})<br/>
+                &nbsp;(${group.productCount})<br/>
             </c:forEach>
         </td>
 
