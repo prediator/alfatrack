@@ -26,6 +26,10 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/spring/dao-context.xml")
 public class JdbcDaoServiceTest {
+    public static final Product PRODUCT_7_18 = new Product("7-Function Classic Chic - Mini G", new BigDecimal("18.95"));
+    public static final Product PRODUCT_U_25 = new Product("Ultra 6.5\" Waterproof Vibrator", new BigDecimal("25.95"));
+    public static final Product PRODUCT_H_17 = new Product("Heart of Hearts Micro Vibe", new BigDecimal("17.95"));
+    public static final Product PRODUCT_M_39 = new Product("Monica Mayhem's Temptation Kit", new BigDecimal("39.95"));
     @Autowired
     private DaoService daoService;
 
@@ -57,10 +61,10 @@ public class JdbcDaoServiceTest {
         assertEquals(4, products.size());
 
         Set<Product> expectedProducts = new HashSet<Product>();
-        expectedProducts.add(new Product("7-Function Classic Chic - Mini G", new BigDecimal("18.95")));
-        expectedProducts.add(new Product("Ultra 6.5\" Waterproof Vibrator", new BigDecimal("25.95")));
-        expectedProducts.add(new Product("Heart of Hearts Micro Vibe", new BigDecimal("17.95")));
-        expectedProducts.add(new Product("Monica Mayhem's Temptation Kit", new BigDecimal("39.95")));
+        expectedProducts.add(PRODUCT_7_18);
+        expectedProducts.add(PRODUCT_U_25);
+        expectedProducts.add(PRODUCT_H_17);
+        expectedProducts.add(PRODUCT_M_39);
 
         expectedProducts.removeAll(products);
         assertTrue(expectedProducts.isEmpty());
@@ -80,10 +84,10 @@ public class JdbcDaoServiceTest {
         assertNotNull(products);
         assertEquals(4, products.size());
 
-        assertEquals(new Product("7-Function Classic Chic - Mini G", new BigDecimal("18.95")), products.get(0));
-        assertEquals(new Product("Heart of Hearts Micro Vibe", new BigDecimal("17.95")), products.get(1));
-        assertEquals(new Product("Monica Mayhem's Temptation Kit", new BigDecimal("39.95")), products.get(2));
-        assertEquals(new Product("Ultra 6.5\" Waterproof Vibrator", new BigDecimal("25.95")), products.get(3));
+        assertEquals(PRODUCT_7_18, products.get(0));
+        assertEquals(PRODUCT_H_17, products.get(1));
+        assertEquals(PRODUCT_M_39, products.get(2));
+        assertEquals(PRODUCT_U_25, products.get(3));
     }
 
     @Test
@@ -92,10 +96,10 @@ public class JdbcDaoServiceTest {
         assertNotNull(products);
         assertEquals(4, products.size());
 
-        assertEquals(new Product("Ultra 6.5\" Waterproof Vibrator", new BigDecimal("25.95")), products.get(0));
-        assertEquals(new Product("Monica Mayhem's Temptation Kit", new BigDecimal("39.95")), products.get(1));
-        assertEquals(new Product("Heart of Hearts Micro Vibe", new BigDecimal("17.95")), products.get(2));
-        assertEquals(new Product("7-Function Classic Chic - Mini G", new BigDecimal("18.95")), products.get(3));
+        assertEquals(PRODUCT_U_25, products.get(0));
+        assertEquals(PRODUCT_M_39, products.get(1));
+        assertEquals(PRODUCT_H_17, products.get(2));
+        assertEquals(PRODUCT_7_18, products.get(3));
     }
 
     @Test
@@ -104,10 +108,10 @@ public class JdbcDaoServiceTest {
         assertNotNull(products);
         assertEquals(4, products.size());
 
-        assertEquals(new Product("Heart of Hearts Micro Vibe", new BigDecimal("17.95")), products.get(0));
-        assertEquals(new Product("7-Function Classic Chic - Mini G", new BigDecimal("18.95")), products.get(1));
-        assertEquals(new Product("Ultra 6.5\" Waterproof Vibrator", new BigDecimal("25.95")), products.get(2));
-        assertEquals(new Product("Monica Mayhem's Temptation Kit", new BigDecimal("39.95")), products.get(3));
+        assertEquals(PRODUCT_H_17, products.get(0));
+        assertEquals(PRODUCT_7_18, products.get(1));
+        assertEquals(PRODUCT_U_25, products.get(2));
+        assertEquals(PRODUCT_M_39, products.get(3));
     }
 
     @Test
@@ -116,19 +120,20 @@ public class JdbcDaoServiceTest {
         assertNotNull(products);
         assertEquals(4, products.size());
 
-        assertEquals(new Product("Monica Mayhem's Temptation Kit", new BigDecimal("39.95")), products.get(0));
-        assertEquals(new Product("Ultra 6.5\" Waterproof Vibrator", new BigDecimal("25.95")), products.get(1));
-        assertEquals(new Product("7-Function Classic Chic - Mini G", new BigDecimal("18.95")), products.get(2));
-        assertEquals(new Product("Heart of Hearts Micro Vibe", new BigDecimal("17.95")), products.get(3));
+        assertEquals(PRODUCT_M_39, products.get(0));
+        assertEquals(PRODUCT_U_25, products.get(1));
+        assertEquals(PRODUCT_7_18, products.get(2));
+        assertEquals(PRODUCT_H_17, products.get(3));
     }
 
     @Test
     public void sortedProductsFrom2to4ShouldBeFound() throws Exception {
-        List<Product> products = daoService.findProductsByGroupId(1L, 2, 4, "name", true);
+        List<Product> products = daoService.findProductsByGroupId(1L, 1, 4, "name", true);
         assertNotNull(products);
-        assertEquals(2, products.size());
+        assertEquals(3, products.size());
 
-        assertEquals(new Product("Monica Mayhem's Temptation Kit", new BigDecimal("39.95")), products.get(0));
-        assertEquals(new Product("Ultra 6.5\" Waterproof Vibrator", new BigDecimal("25.95")), products.get(1));
+        assertEquals(PRODUCT_H_17, products.get(0));
+        assertEquals(PRODUCT_M_39, products.get(1));
+        assertEquals(PRODUCT_U_25, products.get(2));
     }
 }
