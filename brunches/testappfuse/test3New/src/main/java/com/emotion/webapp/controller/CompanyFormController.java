@@ -50,7 +50,7 @@ public class CompanyFormController extends BaseFormController {
 
 	public CompanyFormController() {
 		setCancelView("redirect:/mainMenu");
-		setSuccessView("redirect:/mainMenu");
+		setSuccessView("redirect:/companies");
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -59,16 +59,13 @@ public class CompanyFormController extends BaseFormController {
 			throws Exception {
 
 		if (request.getParameter("cancel") != null) {
-			if (!StringUtils.equals(request.getParameter("from"), "list")) {
-				return getCancelView();
-			} else {
-				return getSuccessView();
-			}
+			return getSuccessView();
+
 		}
 		if (validator != null) { // validator is null during testing
 			validator.validate(company, errors);
-			if (errors.hasErrors() && request.getParameter("delete") == null) { // don't
-				return "companyform";
+			if (errors.hasErrors()) { // don't
+				return getSuccessView();
 			}
 		}
 		log.debug("entering 'onSubmit' method...");
@@ -84,14 +81,14 @@ public class CompanyFormController extends BaseFormController {
 			return null;
 		}
 
-		return "companyform";
+		return getSuccessView();
 	}
 
 	@ModelAttribute
-	@RequestMapping(method = {RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
 	protected Company showForm(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+
 		if (isAdd(request)) {
 			return new Company();
 		}
