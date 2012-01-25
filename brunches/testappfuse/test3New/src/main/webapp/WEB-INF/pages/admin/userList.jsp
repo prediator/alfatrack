@@ -28,7 +28,6 @@
         url="/userform?from=list" paramId="id" paramProperty="id"/>
     <display:column property="fullName" escapeXml="true" sortable="true" titleKey="activeUsers.fullName" style="width: 34%"/>
     <display:column property="email" sortable="true" titleKey="user.email" style="width: 25%" autolink="true" media="html"/>
-    <display:column property="email" titleKey="user.email" media="csv xml excel pdf"/>
     <display:column sortProperty="enabled" sortable="true" titleKey="user.enabled" style="width: 16%; padding-left: 15px" media="html">
         <input type="checkbox" disabled="disabled" <c:if test="${users.enabled}">checked="checked"</c:if>/>
     </display:column>

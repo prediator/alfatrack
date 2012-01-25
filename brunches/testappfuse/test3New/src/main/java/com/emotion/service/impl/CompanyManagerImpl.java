@@ -3,6 +3,7 @@ package com.emotion.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,15 @@ public class CompanyManagerImpl extends GenericManagerImpl<Company, Long> implem
 	}
 
 	public Company getCompany(String companyId) {
-		return companyDao.get(new Long(companyId));
+		Company comp = null;
+		try{
+			comp = companyDao.get(new Long(companyId));
+		}catch (NumberFormatException e) {
+			log.warn("it's not id" + companyId);
+		}catch (ObjectRetrievalFailureException oex){
+			log.warn("there is no company with such id" + companyId);
+		}
+		return comp;
 	}
 
 	public Company getCompanyByName(String name)

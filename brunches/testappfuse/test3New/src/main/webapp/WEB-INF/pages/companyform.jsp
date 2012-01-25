@@ -1,8 +1,8 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <head>
-<title><fmt:message key="userProfile.title" /></title>
-<meta name="heading" content="<fmt:message key='userProfile.heading'/>" />
+<title><fmt:message key="class_company.title" /></title>
+<meta name="heading" content="<fmt:message key='class_company.heading'/>" />
 <meta name="menu" content="UserMenu" />
 <script type="text/javascript"
 	src="<c:url value='/scripts/selectbox.js'/>"></script>
@@ -40,10 +40,10 @@
 		<li class="info">
 		<c:choose>
 			<c:when test="${param.from == 'list'}">
-				<p><fmt:message key="userProfile.admin.message" /></p>
+				<p><fmt:message key="class_company.admin.message" /></p>
 			</c:when>
 			<c:otherwise>
-				<p><fmt:message key="userProfile.message" /></p>
+				<p><fmt:message key="class_company.message" /></p>
 			</c:otherwise>
 		</c:choose></li>
 		<li><appfuse:label styleClass="desc" key="class_company.name" />
@@ -61,7 +61,7 @@
 			value="<fmt:message key="button.save"/>" /> <c:if
 			test="${param.from == 'list' and param.method != 'Add'}">
 			<input type="submit" class="button" name="delete"
-				onclick="bCancel=true;return confirmDelete('user')"
+				onclick="bCancel=true;return confirmDelete('company')"
 				value="<fmt:message key="button.delete"/>" />
 		</c:if> <input type="submit" class="button" name="cancel"
 			onclick="bCancel=true" value="<fmt:message key="button.cancel"/>" />
@@ -70,21 +70,9 @@
 </form:form>
 
 <script type="text/javascript">
-    Form.focusFirstElement($('userForm'));
+    Form.focusFirstElement($('companyForm'));
     highlightFormElements();
 
-    function passwordChanged(passwordField) {
-        if (passwordField.id == "password") {
-            var origPassword = "${user.password}";
-        } else if (passwordField.id == "confirmPassword") {
-            var origPassword = "${user.confirmPassword}";
-        }
-
-        if (passwordField.value != origPassword) {
-            createFormElement("input", "hidden",  "encryptPass", "encryptPass",
-                              "true", passwordField.form);
-        }
-    }
 
 <!-- This is here so we can exclude the selectAll call when roles is hidden -->
 function onFormSubmit(theForm) {
