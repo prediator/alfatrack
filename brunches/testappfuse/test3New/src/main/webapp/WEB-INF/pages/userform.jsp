@@ -136,20 +136,15 @@
 		<p><appfuse:label key="user.address.country" /></p>
 		</div>
 		</div>
-		
 		</li>
-		<li><label class="desc"><fmt:message key="class_company.name" />
+		<li>
+		<label class="desc"><fmt:message key="class_company.name" />
 			</label>
-		<div class="group">
-		<div>
-	 
-		</div>
-		</div>
-		
+			<form:select path="company.id">
+          		<form:options items="${companyList}" itemLabel="name" itemValue="id"/>
+        	</form:select>	
 		</li>
-		<form:select path="company.id">
-          <form:options items="${companyList}" itemLabel="name" itemValue="id"/>
-        </form:select>	
+		
 		<c:choose>
 			<c:when test="${param.from == 'list' or param.method == 'Add'}">
 				<li>

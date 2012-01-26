@@ -5,6 +5,8 @@ import com.emotion.model.User;
 import com.emotion.service.ModelExistsException;
 import com.emotion.service.UserManager;
 import com.emotion.service.UserService;
+
+import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.jpa.JpaSystemException;
@@ -126,5 +128,9 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     public List<User> search(String searchTerm) {
         return super.search(searchTerm, User.class);
+    }
+    
+    public List<User> search(String searchTerm, String fieldName){
+    	return userDao.search(searchTerm, fieldName);
     }
 }

@@ -1,7 +1,13 @@
 package com.emotion.dao.hibernate;
 
 import com.emotion.dao.UserDao;
+import com.emotion.model.Company;
 import com.emotion.model.User;
+
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
@@ -10,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
+import javax.mail.Session;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -89,6 +96,30 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         return jdbcTemplate.queryForObject(
                 "select password from " + table.name() + " where username=?", String.class, username);
 
+    }
+    
+    public List<User> search(String text, String fieldName){
+    	
+    	Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(User.class);
+    	String toFind =  "%" + text + "%";
+    	
+    	 if(StringUtils.isNotEmpty(text) && StringUtils.isNotEmpty(fieldName)){
+    		
+    		 if(fieldName.equals("id")){
+    			 criteria.add(Restrictions.eq(fieldName, new Long(text)));
+    		 }else{
+    			 if(fieldName.equals("company")){
+    				 criteria.createCriteria(fieldName)
+    				 	.add(Restrictions.like("name", toFind));
+    				 
+    			 }else{
+    				 criteria.add(Restrictions.like(fieldName,toFind));
+    			 }
+    		 }
+    	 }
+    	
+    	return criteria.list();
+    	
     }
     
 }

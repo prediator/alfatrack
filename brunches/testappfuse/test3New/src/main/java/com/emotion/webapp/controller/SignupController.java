@@ -30,6 +30,7 @@ import java.util.Locale;
 @RequestMapping("/signup*")
 public class SignupController extends BaseFormController {
     private RoleManager roleManager;
+    
 
     @Autowired
     public void setRoleManager(RoleManager roleManager) {
@@ -53,7 +54,9 @@ public class SignupController extends BaseFormController {
         if (request.getParameter("cancel") != null) {
             return getCancelView();
         }
-
+        
+        request.setAttribute(Constants.COMPANY_LIST, getCompanyManager().getAll());
+        
         if (log.isDebugEnabled()) {
             log.debug("entering 'onSubmit' method...");
         }

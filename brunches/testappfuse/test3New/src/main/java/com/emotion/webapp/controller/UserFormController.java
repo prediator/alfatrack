@@ -66,7 +66,7 @@ public class UserFormController extends BaseFormController {
                            HttpServletResponse response)
             throws Exception {
     	
-    	request.setAttribute(Constants.COMPANY_LIST, setCompanies());
+    	request.setAttribute(Constants.COMPANY_LIST, comMan.getCompanies());
     	
         if (request.getParameter("cancel") != null) {
             if (!StringUtils.equals(request.getParameter("from"), "list")) {
@@ -162,7 +162,8 @@ public class UserFormController extends BaseFormController {
     protected User showForm(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
     	
-    	setCompanies();
+    	request.setAttribute(Constants.COMPANY_LIST, comMan.getCompanies());
+    	
         // If not an administrator, make sure user is not trying to add or edit another user
         if (!request.isUserInRole(Constants.ADMIN_ROLE) && !isFormSubmission(request)) {
             if (isAdd(request) || request.getParameter("id") != null) {
@@ -211,17 +212,6 @@ public class UserFormController extends BaseFormController {
             // populate user object from database, so all fields don't need to be hidden fields in form
             return getUserManager().getUser(request.getParameter("id"));
         }
-    }
-    
-    @ModelAttribute("companyList")
-    protected List<Company> setCompanies(){
-    	List<Company> comps = comMan.getCompanies();
-    	Company c = new Company();
-    	c.setName("hello");
-    	c.setId(2222L);
-    	c.setDate(new GregorianCalendar().getTime());
-    	comps.add(c);
-    	return comps;
     }
     
     private ModelAndView userform(){

@@ -1,5 +1,8 @@
 package com.emotion;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Constant values used throughout the application.
  * 
@@ -29,6 +32,11 @@ public final class Constants {
 	 */
 	public static final String USER_HOME = System.getProperty("user.home")
 			+ FILE_SEP;
+	
+	/**
+	 * User attribures to search
+	 */
+	public static final String USER_ATTRIBUTES = "userAttr";
 
 	/**
 	 * The name of the configuration hashmap stored in application scope.
@@ -87,4 +95,14 @@ public final class Constants {
 	 * The name of the CSS Theme setting.
 	 */
 	public static final String CSS_THEME = "csstheme";
+	
+	/**
+	 * The list of User entity to search
+	 */
+	public static final List<String> USER_FIELDS = Arrays.asList("username","firstName","lastName","company","email");
+	
+	/**
+	 * 
+	 */
+	public static final List<String> USER_FIELDS_MAPPING = Arrays.asList("Username","First name","Lastname","Company","Email");
 }

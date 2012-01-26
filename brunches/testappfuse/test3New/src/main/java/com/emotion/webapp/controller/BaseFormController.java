@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import com.emotion.Constants;
 import com.emotion.model.User;
+import com.emotion.service.CompanyManager;
 import com.emotion.service.MailEngine;
 import com.emotion.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class BaseFormController implements ServletContextAware {
     protected final transient Log log = LogFactory.getLog(getClass());
     public static final String MESSAGES_KEY = "successMessages";
     private UserManager userManager = null;
+    private CompanyManager companyManager = null;
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
     protected String templateName = "accountCreated.vm";
@@ -65,9 +67,19 @@ public class BaseFormController implements ServletContextAware {
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
     }
+    
+    @Autowired
+    public void setCompanyManager(CompanyManager companyManager) {
+        this.companyManager = companyManager;
+    }
+
 
     public UserManager getUserManager() {
         return this.userManager;
+    }
+    
+    public CompanyManager getCompanyManager() {
+        return this.companyManager;
     }
 
     @SuppressWarnings("unchecked")

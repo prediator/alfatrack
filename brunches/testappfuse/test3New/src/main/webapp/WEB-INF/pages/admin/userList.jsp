@@ -8,6 +8,18 @@
 
 <div id="search">
 <form method="get" action="${ctx}/admin/users" id="searchForm">
+    
+    <select name = "f">
+    	<option selected value = "${currentField}">
+    		<c:out value="${currentField}"/>
+    	</option>
+    <c:forEach items = "${userAttr}" var = "attr">
+    	<option value="${attr}">
+    		<c:out value="${attr}"/>	
+    	</option>
+    </c:forEach>
+    </select>
+
     <input type="text" size="20" name="q" id="query" value="${param.q}"
            placeholder="Enter search terms"/>
     <input type="submit" value="<fmt:message key="button.search"/>"/>
@@ -27,6 +39,7 @@
     <display:column property="username" escapeXml="true" sortable="true" titleKey="user.username" style="width: 25%"
         url="/userform?from=list" paramId="id" paramProperty="id"/>
     <display:column property="fullName" escapeXml="true" sortable="true" titleKey="activeUsers.fullName" style="width: 34%"/>
+    <display:column property="company" escapeXml="true" sortable="true" titleKey="class_company.name" style="width: 22%"/>
     <display:column property="email" sortable="true" titleKey="user.email" style="width: 25%" autolink="true" media="html"/>
     <display:column sortProperty="enabled" sortable="true" titleKey="user.enabled" style="width: 16%; padding-left: 15px" media="html">
         <input type="checkbox" disabled="disabled" <c:if test="${users.enabled}">checked="checked"</c:if>/>

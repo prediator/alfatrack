@@ -66,4 +66,12 @@ public interface UserManager extends GenericManager<User, Long> {
      * @return a list of matches, or all if no searchTerm.
      */
     List<User> search(String searchTerm);
+    
+    /**
+     * Search by UserDao class: find all users in which attributes like fieldName 
+     * @param searchTerm text what if fined	
+     * @param fieldName name of User.class field
+     * @return
+     */
+    List<User> search(String searchTerm, String fieldName);
 }
