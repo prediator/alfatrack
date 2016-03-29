@@ -1,0 +1,2 @@
+The system is aimed to track all the activity of client-applied tasks and issues for alfa group users. Ordinar task-tracking system is not appropriate for this purpose since tasks are quite specific and require complicate representation while creation and maintenance.
+The requirements for this projects are still not so clear, so the description will be changed in the nearest future.
